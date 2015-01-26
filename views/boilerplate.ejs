@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <% if (blocks.title) { %>
+            <title><%= blocks.title %></title>
+        <% } else { %>
+            <title>Orderly</title>
+        <% } %>
+
+        <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+        <%-scripts%>
+        <%-stylesheets%>
+    </head>
+    <body>
+        <header>
+            <h2>Header</h2>
+        </header>
+        <section class="main">
+            <%-body -%>
+        </section>
+        <footer>
+            <h2>Footer</h2>
+        </footer>
+    </body>
+</html>
