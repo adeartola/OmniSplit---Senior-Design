@@ -1,6 +1,7 @@
 orderly-comms
 =============
-*Created by JORDAN BUSCHMAN, ANDRES DE ARTOLA, and ASHLEY SEHATTI (SCU Class of 2015)*
+*Created by JORDAN BUSCHMAN, ANDRES DE ARTOLA, and ASHLEY SEHATTI (SCU Class of 2015).*
+
 *PLEASE READ OUR LICENCE FOR REUSE*
 
 Communication server for the Orderly mobile ordering app.
