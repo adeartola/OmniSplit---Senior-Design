@@ -1,7 +1,9 @@
 orderly-comms
 =============
+*Created by JORDAN BUSCHMAN, ANDRES DE ARTOLA, and ASHLEY SEHATTI (SCU Class of 2015)*
+*PLEASE READ OUR LICENCE FOR REUSE*
 
-Communication server for the Orderly mobile ordering app
+Communication server for the Orderly mobile ordering app.
 
 ## Database
 Orderly uses MongoDB for login, receipts, and analytics. To develop locally, install MongoDB and create the following user:
