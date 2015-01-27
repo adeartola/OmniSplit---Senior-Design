@@ -2,8 +2,6 @@ orderly-comms
 =============
 *Created by JORDAN BUSCHMAN, ANDRES DE ARTOLA, and ASHLEY SEHATTI (SCU Class of 2015).*
 
-*PLEASE READ OUR LICENCE FOR REUSE*
-
 Communication server for the Orderly mobile ordering app.
 
 ## Database
@@ -13,7 +11,7 @@ user: "orderly_test",
 pwd: "test",
 roles: [{
     role: "readWrite",
-    db: "Orderly"
+    db: "orderly_db"
 }]
 ```
 Now, install the test database by (FIGURE THAT OUT LATER).
