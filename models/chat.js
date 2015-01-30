@@ -7,27 +7,55 @@ var Chat = function(io) {
     io.on('connection', function(socket) {
         debug('Client ' + socket.id + ' connected.');
 
-        socket.on('check', function(roomName, callback) {
-            //Check if room exists
-            return callback(rooms.roomExists(roomName));
-        });
-
-        socket.on('createRoom', function(roomName, callback) {
-            rooms.addRoom(roomName, function(didAdd) {
-                return callback(didAdd);
-            });
-        });
-
-        socket.on('joinRoom', function(roomName, callback) {
+        socket.on('createOrJoin', function(roomName, callback) {
             var personID = socket.id;
-            rooms.addPerson(personID, roomName, function(didAdd) {
-                return callback(didAdd, rooms.getRoom(roomName));
-            });
+            if (rooms.roomExists(roomName)) { //Just join existing room
+                rooms.addPerson(personID, roomName, function(err) {
+                    if (err) {
+                        debug(err);
+                        return callback(err);
+                    }
+                    else {
+                        socket.join(roomName);
+                        debug('Person ' + personID + ' joined room ' + roomName + '.');
+                        return callback(null, rooms.getRoom(roomName));
+                    }
+                });
+            }
+            else { //Room does not exist, create then join room
+                rooms.addRoom(roomName, function(err) {
+                    if (err) {
+                        debug(err);
+                        return callback(err);
+                    }
+                    else {
+                        debug('Room ' + roomName + ' added.');
+                        rooms.addPerson(personID, roomName, function(err) {
+                            if (err) {
+                                debug(err);
+                                return callback(err);
+                            }
+                            else {
+                                socket.join(roomName);
+                                debug('Person ' + personID + ' joined room ' + roomName + '.');
+                                return callback(null, rooms.getRoom(roomName));
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+        socket.on('leaveRoom', function() {
+            var personID = socket.id;
+            rooms.removePerson(personID);
+            debug('Person ' + personID + ' left.');
         });
 
         socket.on('disconnect', function() {
-            rooms.removePerson(socket.id);
-            debug('Client ' + socket.id + ' disconnected.');
+            var personID = socket.id;
+            rooms.removePerson(personID);
+            debug('Person ' + personID + ' disconnected.');
         });
     })
 };

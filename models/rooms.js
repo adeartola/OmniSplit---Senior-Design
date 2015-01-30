@@ -25,19 +25,22 @@ Rooms.prototype.addRoom = function(room, callback) {
     if (!this.roomExists(room)) {
         this.rooms[room] = new Array();
         debug('Added room \"' + room + '\"');
-        return callback(true);
+        return callback();
     }
-    return callback(false);
+    return callback(new Error('Room ' + room + ' already exists.'));
 }
 
 Rooms.prototype.addPerson = function(personID, room, callback) {
-    if (!this.personExists(personID) && this.roomExists(room) && !this.inRoom(personID, room)) {
+    if (this.personExists(personID))
+        return callback(new Error('Person ' + personID + ' already exists.'));
+    else if (!this.roomExists(room))
+        return callback(new Error('Room ' + room + ' does not exist.'));
+    else {
         this.people[personID] = room;
         this.rooms[room].push(personID);
         debug('Added ' + personID + ' to room \"' + room + '\"');
-        return callback(true);
+        return callback();
     }
-    return callback(false);
 }
 
 Rooms.prototype.removePerson = function(personID) {
@@ -46,6 +49,7 @@ Rooms.prototype.removePerson = function(personID) {
         var index = this.rooms[room].indexOf(personID);
         this.rooms[room].splice(index, 1); //Remove personID from room listing
         delete this.people[personID]; //Remove personID from people
+        debug('Removed person ' + personID);
     }
 }
 

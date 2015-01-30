@@ -22,5 +22,5 @@ secureServer.listen(443, function() {
 });
 
 unsecureServer.listen(80, function() {
-  debug('Secure express server listening on port ' + secureServer.address().port);
+  debug('Unsecure express server listening on port ' + secureServer.address().port);
 });
