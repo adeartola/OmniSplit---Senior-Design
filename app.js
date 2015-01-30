@@ -18,17 +18,21 @@ var mongoose = require('mongoose');
 var databaseUrl;
 if (process.env.DB_USER && process.env.DB_PASSWORD) {
     databaseUrl = 'mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASSWORD + '@ds041157.mongolab.com:41157/orderly_db';
-    debug('Connected to main database.');
 }
 else { // Local dev
     databaseUrl = 'mongodb://orderly_test:test@127.0.0.1:27017/orderly_db';
-    debug('Connected to local database.');
 }
 
 var db = mongoose.connection;
 db.on('error', console.error);
 
-mongoose.connect(databaseUrl);
+mongoose.connect(databaseUrl, null, function(err) {
+    if (err)
+        debug(err);
+    else
+        debug('Connected to database.');
+});
+
 /***** CONFIGURATION *****/
 require('./config/passport')(passport); // passport configuration
 
