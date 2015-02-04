@@ -1,15 +1,16 @@
-var debug        = require('debug')('orderly-comms');
-var express      = require('express');
-var session      = require('express-session');
-var path         = require('path');
-var favicon      = require('serve-favicon');
-var logger       = require('morgan');
-var bodyParser   = require('body-parser');
-var cookieParser = require('cookie-parser');
-var flash        = require('connect-flash');
-var engine       = require('ejs-locals');
-var busboy       = require('connect-busboy');
-var passport     = require('passport');
+var debug         = require('debug')('orderly-comms');
+var express       = require('express');
+var session       = require('express-session');
+var path          = require('path');
+var favicon       = require('serve-favicon');
+var logger        = require('morgan');
+var bodyParser    = require('body-parser');
+var cookieParser  = require('cookie-parser');
+var flash         = require('connect-flash');
+var engine        = require('ejs-locals');
+var busboy        = require('connect-busboy');
+var passport      = require('passport');
+var LocalStrategy = require('passport-local');
 
 var app = express();
 var router = express.Router();
@@ -56,15 +57,24 @@ app.use(session({
     saveUninitialized: false,
 }));
 
-app.use(flash());
-app.use(busboy());
 
+// Passport setup
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Configure passport-local to use account model for authentication
+var User = require('./models/user.js');
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use(flash());
+app.use(busboy());
 
 /***** ROUTES *****/
 var index = require('./routes/index');
 var chat  = require('./routes/chat');
+var api   = require('./routes/api');
 
 app.use(function(req, res, next) {
     if (req.secure) {
@@ -78,6 +88,7 @@ app.use(function(req, res, next) {
 
 app.use('/', index);
 app.use('/chat', chat);
+app.use('/api', api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,4 +1,4 @@
-var socket = io.connect('https://172.16.85.47');
+var socket = io.connect('https://localhost');
 
 $(document).ready(function() {
     $('#meow').click(function() {
@@ -11,7 +11,7 @@ $(document).ready(function() {
     });
     
     $('#potato').click(function() {
-        socket.emit('createOrJoin', 'meow', function(err, room) {
+        socket.emit('createOrJoin', 'potato', function(err, room) {
             if (err)
                 console.log(err);
             else
