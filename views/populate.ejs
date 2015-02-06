@@ -1,0 +1,7 @@
+<% layout('boilerplate') -%>
+<% block('title', title) %>
+
+<form action="/api/populate" method="POST">
+    <p>To reset the database back to the test case, press the button below.</p>
+    <input type="submit" value="Reset">
+</form>

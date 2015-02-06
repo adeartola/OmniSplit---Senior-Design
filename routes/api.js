@@ -9,7 +9,7 @@ router.get('/', function(req, res) {
 });
 
 router.get('/populate', function(req, res) {
-    res.render('index', { title: 'Orderly' });
+    res.render('populate', { title: 'Orderly - Populate Database' });
 }).post('/populate', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
 
@@ -21,27 +21,28 @@ router.get('/populate', function(req, res) {
     User.remove({}, function(err) {
         if (err) {
             res.status(400);
-            res.end(JSON.stringify({ error: err }));
+            res.end(JSON.stringify({ error: err }) );
         }
         else {
             debug('Removed all users');
 
-            var usersAdded = [];
             var completedUsers = 0;
 
             users.forEach(function(user, key) {
                 User.register(new User({ email: user.email }), user.password, function(err, tu) {
                     if (err) {
                         res.status(400);
-                        res.end(JSON.stringify({ error: err }));
+                        res.end(JSON.stringify({ error: err }) );
                     }
                     else {
                         debug('Added ' + tu.email + ' to users');
-                        usersAdded.push(tu);
                         completedUsers++;
 
                         if (completedUsers == users.length) {
-                            res.end(JSON.stringify({ users: usersAdded }));
+                            res.end(JSON.stringify({
+                                message: 'Database reset successfully.',
+                                users: users
+                            }) );
                         }
                     }
                 });
