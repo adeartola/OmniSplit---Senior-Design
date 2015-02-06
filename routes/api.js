@@ -5,13 +5,28 @@ var st
 var router   = express.Router();
 var User     = require('../models/user');
 
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated() && req.user[1] == req.params.user)
+        return next();
+
+    return res.status('403').end(JSON.stringify({ status: '403', message: 'Forbidden' }) );
+}
 
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Orderly' });
+    res.render('index', { title: 'Orderly' });
+});
+
+router.use('/loggedin', function(req, res) {
+    res.send(req.isAuthenticated() ? req.user : '0');
 });
 
 router.post('/login', passport.authenticate('login'), function(req, res) {
     res.render('index', { title: 'LOGGED IN' });
+});
+
+router.post('/logout', function(req, res) {
+    req.logOut();
+    res.status(200).send();
 });
 
 router.post('/register', function(req, res) {
