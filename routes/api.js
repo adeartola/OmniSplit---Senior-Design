@@ -1,11 +1,17 @@
-var debug   = require('debug')('orderly-comms:api');
-var express = require('express');
-var router  = express.Router();
-var User    = require('../models/user');
+var debug    = require('debug')('orderly-comms:api');
+var express  = require('express');
+var passport = require('passport');
+var st
+var router   = express.Router();
+var User     = require('../models/user');
 
 
 router.get('/', function(req, res) {
   res.render('index', { title: 'Orderly' });
+});
+
+router.post('/login', passport.authenticate('login'), function(req, res) {
+    res.render('index', { title: 'LOGGED IN' });
 });
 
 router.post('/register', function(req, res) {
@@ -32,7 +38,12 @@ router.post('/register', function(req, res) {
     }
     else {
         res.status(400);
-        res.end(JSON.stringify({ error: { name: 'InvalidPasswordError', message: 'Password must have at least 8 characters, including 1 lowercase letter, 1 uppercase letter, and one digit.' } }) ); 
+        res.end(JSON.stringify({
+            error: {
+                name: 'InvalidPasswordError',
+                message: 'Password must have at least 8 characters, including 1 lowercase letter, 1 uppercase letter, and one digit.'
+            }
+        }) ); 
     }
 });
 

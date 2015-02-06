@@ -1,33 +1,23 @@
 var LocalStrategy = require('passport-local').Strategy;
+var User          = require('../models/user');
 
 module.exports = function(passport) {
-    passport.serializeUser(function(user, callback) {
-        return callback(null, user);
-    });
-    passport.deserializeUser(function(id, callback) {
-        return callback(null, id);
-    });
-
-    passport.use('login', new LocalStrategy(
-        function(username, password, callback) {
-            global.db.Users.findOne({
-                where: {'username' : username },
-                attributes: ['id', 'username', 'password'],
-            }).then(function(user) {
-                if (!user) {
-                    return callback(null, false);
-                }
-                user.validatePassword(password, function(err, res) {
-                    if (err)
-                        return callback(err);
-                    else if (res) {
-                        return callback(null, [user.id, user.username, password]);
-                    }
-                    else {
-                        return callback(null, false);
-                    }
-                });
+    passport.use('login', new LocalStrategy({
+        usernameField: 'email',
+        passwordField: 'password'
+    }, function(email, password, done) {
+        User.findOne({ email: email }, function(err, user) {
+            if (err)
+                return done(err);
+            if (!user)
+                return done(null, false, { message: 'Incorrect username or password.' });
+            user.authenticate(password, function(err, validUser) {
+                if (err)
+                    return done(err);
+                if (!validUser)
+                    return done(null, false, { message: 'Incorrect username or password.' });
+                return done(null, validUser);
             });
-        }
-    ));
+        });
+    }) );
 };
