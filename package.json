@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "sudo DEBUG=orderly-comms* node ./bin/www"
+    "start": "DEBUG=orderly-comms* node ./bin/www"
   },
   "dependencies": {
     "express": "~4.9.0",

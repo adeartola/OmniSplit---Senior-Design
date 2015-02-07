@@ -10,17 +10,19 @@ var options = {
     cert: fs.readFileSync(__dirname + '/../certs/orderly.crt')
 };
 
-var secureServer = https.createServer(options, app);
+//var secureServer = https.createServer(options, app);
 var unsecureServer = http.createServer(app);
 
-var io = require('socket.io')(secureServer);
+var io = require('socket.io')(unsecureServer).listen(4000);
 
 var chat = require('../models/chat')(io);
 
-secureServer.listen(443, function() {
+/*
+secureServer.listen(3000, function() {
   debug('Secure express server listening on port ' + secureServer.address().port);
 });
+*/
 
-unsecureServer.listen(80, function() {
+unsecureServer.listen(3000, function() {
   debug('Unsecure express server listening on port ' + unsecureServer.address().port);
 });

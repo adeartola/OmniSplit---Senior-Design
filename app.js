@@ -75,16 +75,6 @@ var index = require('./routes/index');
 var chat  = require('./routes/chat');
 var api   = require('./routes/api');
 
-app.use(function(req, res, next) {
-    if (req.secure) {
-        // request was via https, so do no special handling
-        next();
-    } else {
-        // request was via http, so redirect to https
-        res.redirect('https://' + req.headers.host + req.url);
-    }
-});
-
 app.use('/', index);
 app.use('/chat', chat);
 app.use('/api', api);

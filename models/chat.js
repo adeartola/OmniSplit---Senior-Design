@@ -55,7 +55,7 @@ var Chat = function(io) {
         socket.on('disconnect', function() {
             var personID = socket.id;
             rooms.removePerson(personID);
-            debug('Person ' + personID + ' disconnected.');
+            debug('Client ' + personID + ' disconnected.');
         });
     })
 };
