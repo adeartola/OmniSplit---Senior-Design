@@ -14,7 +14,7 @@ roles: [{
     db: "orderly_db"
 }]
 ```
-Now, install the test database by (FIGURE THAT OUT LATER).
+The test database can be installed by going to <URL>/api/populate and pressing the "Reset" button.
 
 ## Nginx Setup
 Orderly uses HTTPS site wide and redirects all requests from HTTP to HTTPS. This is handled with Nginx. The Nginx configuration we used is as follows:
