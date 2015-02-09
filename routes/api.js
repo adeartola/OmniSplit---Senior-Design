@@ -62,8 +62,27 @@ router.post('/register', function(req, res) {
     }
 });
 
+router.get('/menu/:id', function(req, res) {
+    res.setHeader('Content-Type', 'application/json');
+
+    var id = req.params.id;
+    Menu.findById(id, function(err, menu) {
+        if (err) {
+            res.status(400);
+            res.end(JSON.stringify({ error: err }) );
+        }
+        else if (!menu) {
+            res.status(404);
+            res.end(JSON.stringify({ status: '404', message: 'Not found' }) );
+        }
+        else {
+            res.end(JSON.stringify(menu));
+        }
+    });
+});
+
 router.get('/populatemenus', function(req, res) {
-    res.render('populate', { title: 'Orderly - Populate Database', link: 'populatemenus' });
+    res.render('populate', { title: 'Orderly - Reset menus', link: 'populatemenus' });
 }).post('/populatemenus', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
     var menus = [
@@ -176,7 +195,7 @@ router.get('/populatemenus', function(req, res) {
 });
     
 router.get('/populateusers', function(req, res) {
-    res.render('populate', { title: 'Orderly - Populate Database', link: 'populateusers' });
+    res.render('populate', { title: 'Orderly - Reset users', link: 'populateusers' });
 }).post('/populateusers', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
 
