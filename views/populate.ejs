@@ -1,7 +1,8 @@
 <% layout('boilerplate') -%>
 <% block('title', title) %>
 
-<form action="/api/populate" method="POST">
+<form action="/api/<%= link %>" method="POST">
+    <h2><%= link %></h2>
     <p>To reset the database back to the test case, press the button below.</p>
     <input type="submit" value="Reset">
 </form>

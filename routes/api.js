@@ -1,9 +1,9 @@
 var debug    = require('debug')('orderly-comms:api');
 var express  = require('express');
 var passport = require('passport');
-var st
 var router   = express.Router();
 var User     = require('../models/user');
+var Menu     = require('../models/menu');
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated() && req.user[1] == req.params.user)
@@ -62,17 +62,128 @@ router.post('/register', function(req, res) {
     }
 });
 
-router.get('/populate', function(req, res) {
-    res.render('populate', { title: 'Orderly - Populate Database' });
-}).post('/populate', function(req, res) {
-    //Reset database to default (called from GET /api/populate)
+router.get('/populatemenus', function(req, res) {
+    res.render('populate', { title: 'Orderly - Populate Database', link: 'populatemenus' });
+}).post('/populatemenus', function(req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    var menus = [
+        new Menu({
+            name: 'White Elephant',
+            owner: 'jordan.buschman@me.com',
+            address: {
+                addressLine1: '930 El Camino Real',
+                city: 'Santa Clara',
+                state: 'CA',
+                zip: '95050',
+            },
+            group: [
+                {
+                    name: 'Curries',
+                    description: 'Served with your choice of protein.',
+                    item: [
+                        {
+                            name: 'Yellow Curry',
+                            description: 'Yellow curry paste with coconut milk, potatoes, carrot, and yellow onion.',
+                            price: 8.95,
+                            step: [
+                                {
+                                    text: 'Spicy',
+                                    required: true,
+                                    maxOptions: 1,
+                                    option: [
+                                        { text: 'Not spicy' },
+                                        { text: 'Mild' },
+                                        { text: 'Medium' },
+                                        { text: 'Spicy' },
+                                        { text: 'Very spicy' }
+                                    ]
+                                }, {
+                                    text: 'Make it with',
+                                    required: true,
+                                    maxOptions: 1,
+                                    option: [
+                                        { text: 'Chicken' },
+                                        { text: 'Vegetable'},
+                                        { text: 'Beef', priceModifier: 1.00 }
+                                    ]
+                                }
+                            ]
+                        }, {
+                            name: 'Panang Curry',
+                            description: 'Panang curry paste with coconut milk, zucchini, bell pepper, kaffir.',
+                            price: 8.95,
+                            step: [
+                                {
+                                    text: 'Spicy',
+                                    required: true,
+                                    maxOptions: 1,
+                                    option: [
+                                        { text: 'Not spicy' },
+                                        { text: 'Mild' },
+                                        { text: 'Medium' },
+                                        { text: 'Spicy' },
+                                        { text: 'Very spicy' }
+                                    ]
+                                }, {
+                                    text: 'Make it with',
+                                    required: true,
+                                    maxOptions: 1,
+                                    option: [
+                                        { text: 'Chicken' },
+                                        { text: 'Vegetable'},
+                                        { text: 'Beef', priceModifier: 1.00 }
+                                    ]
+                                } //Step[1]
+                            ] //Step
+                        } //Item[1]
+                    ] //Item
+                } //Group[0]
+            ] //Group
+        }) //Menu[0]
+    ]; //menus
+
+    Menu.remove({}, function(err) {
+        if (err) {
+            res.status(400);
+            res.end(JSON.stringify({ error: err }) );
+        }
+        else {
+            debug('Removed all menus');
+
+            var completedMenus = 0;
+
+            menus.forEach(function(menu, key) {
+                menu.save(function(err, newMenu) {
+                    if (err) {
+                        res.status(400);
+                        res.end(JSON.stringify({ error: err }) );
+                    }
+                    else {
+                        debug('Added ' + newMenu.name + ' to menus');
+                        completedMenus++;
+
+                        if (completedMenus == menus.length) {
+                            res.end(JSON.stringify({
+                                message: 'Database reset successfully.',
+                                menus: menus
+                            }) );
+                        }
+                    }
+                });
+            });
+        }
+    });
+});
+    
+router.get('/populateusers', function(req, res) {
+    res.render('populate', { title: 'Orderly - Populate Database', link: 'populateusers' });
+}).post('/populateusers', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
 
     var users = [
         { email: 'jordan.buschman@me.com', password: 'test' },
         { email: 'jbuschman@scu.edu', password: 'potato' },
     ];
-    
     User.remove({}, function(err) {
         if (err) {
             res.status(400);
