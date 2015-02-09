@@ -1,6 +1,6 @@
-var socket = io.connect('https://localhost');
-
 $(document).ready(function() {
+    var socket = io.connect('https://localhost');
+
     $('#meow').click(function() {
         socket.emit('createOrJoin', 'meow', function(err, room) {
             if (err)
