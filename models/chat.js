@@ -18,7 +18,7 @@ var Chat = function(io) {
                     else {
                         socket.join(roomName);
                         debug('Person ' + personID + ' joined room ' + roomName + '.');
-                        return callback(null, rooms.getRoom(roomName));
+                        return callback(null, rooms._rooms[roomName]);
                     }
                 });
             }
@@ -38,7 +38,7 @@ var Chat = function(io) {
                             else {
                                 socket.join(roomName);
                                 debug('Person ' + personID + ' joined room ' + roomName + '.');
-                                return callback(null, rooms.getRoom(roomName));
+                                return callback(null, rooms._rooms[roomName]);
                             }
                         });
                     }
