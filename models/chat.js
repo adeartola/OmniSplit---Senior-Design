@@ -5,6 +5,8 @@ var Chat = function(io) {
     var rooms = new Rooms();
 
     io.on('connection', function(socket) {
+        socket.room = '';
+
         debug('Client ' + socket.id + ' connected.');
 
         socket.on('createOrJoin', function(roomName, callback) {
@@ -17,6 +19,8 @@ var Chat = function(io) {
                     }
                     else {
                         socket.join(roomName);
+                        socket.room = roomName;
+                        socket.broadcast.to(socket.room).emit('update', rooms._rooms[roomName]);
                         debug('Person ' + personID + ' joined room ' + roomName + '.');
                         return callback(null, rooms._rooms[roomName]);
                     }
@@ -37,6 +41,7 @@ var Chat = function(io) {
                             }
                             else {
                                 socket.join(roomName);
+                                socket.room = roomName;
                                 debug('Person ' + personID + ' joined room ' + roomName + '.');
                                 return callback(null, rooms._rooms[roomName]);
                             }
@@ -46,15 +51,22 @@ var Chat = function(io) {
             }
         });
 
-        socket.on('leaveRoom', function() {
+        socket.on('leaveRoom', function(callback) {
             var personID = socket.id;
             rooms.removePerson(personID);
+            socket.broadcast.to(socket.room).emit('update', rooms._rooms[socket.room]);
+            socket.leave(socket.room);
+            socket.room = '';
             debug('Person ' + personID + ' left.');
+            return callback(null);
         });
 
         socket.on('disconnect', function() {
             var personID = socket.id;
             rooms.removePerson(personID);
+            socket.broadcast.to(socket.room).emit('update', rooms._rooms[socket.room]);
+            socket.leave(socket.room);
+            socket.room = '';
             debug('Client ' + personID + ' disconnected.');
         });
     })
