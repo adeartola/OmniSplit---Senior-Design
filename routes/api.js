@@ -13,7 +13,7 @@ function isLoggedIn(req, res, next) {
 }
 
 router.get('/', function(req, res) {
-    res.render('index', { title: 'Orderly' });
+    res.render('index', { title: 'Orderly' })
 });
 
 router.use('/loggedin', function(req, res) {
@@ -42,18 +42,18 @@ router.post('/register', function(req, res) {
         User.register(new User({ email: email }), password, function(err, newUser) {
             if (err) {
                 res.status(400);
-                res.end(JSON.stringify({ error: err }) );
+                return res.end(JSON.stringify({ error: err }) );
             }
             else {
                 debug('Added user ' + newUser.email + ' to users');
                 res.status(201);
-                res.end(JSON.stringify({ status: '201', message: 'Created' }) );
+                return res.end(JSON.stringify({ status: '201', message: 'Created' }) );
             }
         });
     }
     else {
         res.status(400);
-        res.end(JSON.stringify({
+        return res.end(JSON.stringify({
             error: {
                 name: 'InvalidPasswordError',
                 message: 'Password must have at least 8 characters, including 1 lowercase letter, 1 uppercase letter, and one digit.'
@@ -64,20 +64,30 @@ router.post('/register', function(req, res) {
 
 router.get('/menu/:id', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
-
     var id = req.params.id;
-    Menu.findById(id, function(err, menu) {
+
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) { //Not valid id, so respond with 404
+        res.status(404);
+        return res.end(JSON.stringify({ status: '404', message: 'Not found' }) );
+    }
+
+    var stream = Menu.find({ _id: id }, function(err, menu) {
         if (err) {
             res.status(400);
-            res.end(JSON.stringify({ error: err }) );
+            return res.end(JSON.stringify({ error: err }) );
         }
-        else if (!menu) {
+        if (!menu || menu == '') {
             res.status(404);
-            res.end(JSON.stringify({ status: '404', message: 'Not found' }) );
+            return res.end(JSON.stringify({ status: '404', message: 'Not found' }) );
         }
-        else {
-            res.end(JSON.stringify(menu));
-        }
+    })
+    .setOptions({ lean: true })
+    .stream({ transform: JSON.stringify })
+    .pipe(res);
+
+    stream.on('error', function(err) {
+        res.status(400);
+        return res.end(JSON.stringify({ error: err }) );
     });
 });
 
@@ -164,7 +174,7 @@ router.get('/populatemenus', function(req, res) {
     Menu.remove({}, function(err) {
         if (err) {
             res.status(400);
-            res.end(JSON.stringify({ error: err }) );
+            return res.end(JSON.stringify({ error: err }) );
         }
         else {
             debug('Removed all menus');
@@ -175,14 +185,14 @@ router.get('/populatemenus', function(req, res) {
                 menu.save(function(err, newMenu) {
                     if (err) {
                         res.status(400);
-                        res.end(JSON.stringify({ error: err }) );
+                        return res.end(JSON.stringify({ error: err }) );
                     }
                     else {
                         debug('Added ' + newMenu.name + ' to menus');
                         completedMenus++;
 
                         if (completedMenus == menus.length) {
-                            res.end(JSON.stringify({
+                            return res.end(JSON.stringify({
                                 message: 'Database reset successfully.',
                                 menus: menus
                             }) );
@@ -206,7 +216,7 @@ router.get('/populateusers', function(req, res) {
     User.remove({}, function(err) {
         if (err) {
             res.status(400);
-            res.end(JSON.stringify({ error: err }) );
+            return res.end(JSON.stringify({ error: err }) );
         }
         else {
             debug('Removed all users');
@@ -217,7 +227,7 @@ router.get('/populateusers', function(req, res) {
                 User.register(new User({ email: user.email }), user.password, function(err, newUser) {
                     if (err) {
                         res.status(400);
-                        res.end(JSON.stringify({ error: err }) );
+                        return res.end(JSON.stringify({ error: err }) );
                     }
                     else {
                         debug('Added ' + newUser.email + ' to users');
@@ -225,7 +235,7 @@ router.get('/populateusers', function(req, res) {
                         completedUsers++;
 
                         if (completedUsers == users.length) {
-                            res.end(JSON.stringify({
+                            return res.end(JSON.stringify({
                                 message: 'Database reset successfully.',
                                 users: users
                             }) );
