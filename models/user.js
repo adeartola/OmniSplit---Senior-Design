@@ -5,6 +5,8 @@ var passportLocalMongoose = require('passport-local-mongoose');
 var User = new Schema({
 });
 
+User.set('redisCache', true);
+
 User.plugin(passportLocalMongoose, {
     usernameField: 'email'
 });

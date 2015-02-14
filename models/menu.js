@@ -45,4 +45,6 @@ var Menu = new Schema({
     }]
 });
 
+Menu.set('redisCache', true);
+
 module.exports = mongoose.model('Menu', Menu);

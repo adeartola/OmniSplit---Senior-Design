@@ -221,6 +221,7 @@ router.get('/populateusers', function(req, res) {
                     }
                     else {
                         debug('Added ' + newUser.email + ' to users');
+                        users[key]._id = newUser.id;
                         completedUsers++;
 
                         if (completedUsers == users.length) {
