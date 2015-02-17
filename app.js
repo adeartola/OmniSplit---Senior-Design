@@ -24,7 +24,7 @@ if (process.env.DB_USER && process.env.DB_PASSWORD && procss.env.REDIS_HOST && p
     mongooseRedisCache(mongoose, {
         host: process.env.REDIS_HOST,
         port: 'redisPort',
-        pass: process.env.REDIS_PASS,
+        pass: process.env.REDIS_PASSWORD,
         options: 'redisOptions'
     });
 }
