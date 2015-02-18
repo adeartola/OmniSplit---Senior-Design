@@ -2,13 +2,7 @@
 var debug = require('debug')('orderly-comms');
 var fs    = require('fs');
 var app   = require('../app');
-var https = require('https');
 var http  = require('http');
-
-var options = {
-    key: fs.readFileSync(__dirname + '/../certs/orderly.key'),
-    cert: fs.readFileSync(__dirname + '/../certs/orderly.crt')
-};
 
 var server = http.createServer(app);
 

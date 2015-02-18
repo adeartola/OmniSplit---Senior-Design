@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "DEBUG=orderly-comms* node ./bin/www"
+    "start": "DEBUG=orderly-comms* nodejs ./bin/www"
   },
   "dependencies": {
     "express": "~4.9.0",
@@ -17,11 +17,12 @@
     "connect-flash": "~0.1.1",
     "connect-busboy": "0.0.2",
     "passport-local": "~1.0.0",
-    "socket.io": "~1.3.2",
+    "socket.io": "~1.3.4",
     "bcrypt": "~0.8.1",
     "mongoose": "~3.8.22",
     "fs": "0.0.2",
     "passport-local-mongoose": "~1.0.0",
-    "passport": "~0.2.1"
+    "passport": "~0.2.1",
+    "mongoose-redis-cache": "0.0.3"
   }
 }
