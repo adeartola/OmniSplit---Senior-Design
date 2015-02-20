@@ -56,9 +56,15 @@ server {
 
 ## API Functions
 **/api/restaurants** (GET): Get all restaurants listed
+
 **/api/restaurant/:id** (GET): Get restaurant with a certain ID
+
 **/api/menu/:id** (GET): Get a specific restaurant location 
+
 **/api/loggedin** (GET, POST): Returns 1 if a user is logged in, 0 if not
+
 **/api/login** (POST *email, password*): Check and authenticate a user NOT DONE YET
+
 **/api/logout** (POST): If logged in, log a user out
+
 **/api/register** (POST *email, password*): Add person to users
