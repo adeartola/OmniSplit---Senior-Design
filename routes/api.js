@@ -101,12 +101,12 @@ router.get('/restaurant/:id', function(req,res) {
         return res.end(JSON.stringify({ status: '404', message: 'Not found' }) );
     }
 
-    var stream = Restaurant.find({ _id: id }, function(err, menu) {
+    var stream = Restaurant.find({ _id: id }, function(err, restaurant) {
         if (err) {
             res.status(400);
             return res.end(JSON.stringify({ error: err }) );
         }
-        if (!menu || menu == '') {
+        if (!restaurant || restaurant == '') {
             res.status(404);
             return res.end(JSON.stringify({ status: '404', message: 'Not found' }) );
         }
@@ -118,7 +118,20 @@ router.get('/restaurant/:id', function(req,res) {
 
 router.get('/restaurants', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
-    var stream = Restaurant.find({})
+
+    var stream = Restaurant.find({}, function(err, restaurants) {
+        if (err) {
+            res.status(400);
+            return res.end(JSON.stringify({ error: err }) );
+        }
+        if (!restaurants || restaurants.length == 0) {
+            res.status(404);
+            return res.end(JSON.stringify({ status: '404', message: 'Not found' }) );
+        }
+    })
+    .setOptions({ lean: true })
+    .stream({ transform: JSON.stringify })
+    .pipe(res);
 });
 
 router.get('/populatemenus', function(req, res) {
@@ -206,6 +219,22 @@ router.get('/populatemenus', function(req, res) {
                         city: 'Santa Clara',
                         state: 'CA',
                         zip: '95050',
+                    },
+                    menu: '54e6794d62fdbd0612cbd5a1',
+                }
+            ]
+        }),
+        new Restaurant({
+            name: 'Chipotle',
+            owner: 'jordan.buschman@me.com',
+            description: 'Mexican food',
+            locations: [
+                {
+                    address: {
+                        addressLine1: '540 Newhall Dr #10',
+                        city: 'San Jose',
+                        state: 'CA',
+                        zip: '95110',
                     },
                     menu: '54e6794d62fdbd0612cbd5a1',
                 }
