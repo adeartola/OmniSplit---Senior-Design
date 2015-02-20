@@ -1,9 +1,11 @@
-var debug    = require('debug')('orderly-comms:api');
-var express  = require('express');
-var passport = require('passport');
-var router   = express.Router();
-var User     = require('../models/user');
-var Menu     = require('../models/menu');
+var debug      = require('debug')('orderly-comms:api');
+var express    = require('express');
+var passport   = require('passport');
+var router     = express.Router();
+var Restaurant = require('../models/restaurant');
+var Location   = require('../models/location');
+var User       = require('../models/user');
+var Menu       = require('../models/menu');
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated() && req.user[1] == req.params.user)
@@ -91,20 +93,18 @@ router.get('/menu/:id', function(req, res) {
     });
 });
 
+router.get('/restaurants', function(req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    var stream = Menu.findAll({})
+});
+
 router.get('/populatemenus', function(req, res) {
     res.render('populate', { title: 'Orderly - Reset menus', link: 'populatemenus' });
 }).post('/populatemenus', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
     var menus = [
         new Menu({
-            name: 'White Elephant',
-            owner: 'jordan.buschman@me.com',
-            address: {
-                addressLine1: '930 El Camino Real',
-                city: 'Santa Clara',
-                state: 'CA',
-                zip: '95050',
-            },
+            _id: '54e6794d62fdbd0612cbd5a1',
             group: [
                 {
                     name: 'Curries',
@@ -170,6 +170,31 @@ router.get('/populatemenus', function(req, res) {
             ] //Group
         }) //Menu[0]
     ]; //menus
+    var locations = [
+        new Location({
+            _id: '54e6794d62fdbd0612cbd5a2',
+            address: {
+                addressLine1: '930 El Camino Real',
+                city: 'Santa Clara',
+                state: 'CA',
+                zip: '95050',
+            },
+            menu: '54e6794d62fdbd0612cbd5a1',
+        })
+    ];
+    var restaurants = [
+        new Restaurant({
+            name: 'White Elephant',
+            owner: 'jordan.buschman@me.com',
+            description: 'Best Thai food in the area!',
+            restaurants: ['54e6794d62fdbd0612cbd5a2']
+        })
+    ];
+
+
+    var completedMenus = 0;
+    var completedRestaurants = 0;
+    var completedLocations = 0;
 
     Menu.remove({}, function(err) {
         if (err) {
@@ -179,8 +204,6 @@ router.get('/populatemenus', function(req, res) {
         else {
             debug('Removed all menus');
 
-            var completedMenus = 0;
-
             menus.forEach(function(menu, key) {
                 menu.save(function(err, newMenu) {
                     if (err) {
@@ -188,13 +211,79 @@ router.get('/populatemenus', function(req, res) {
                         return res.end(JSON.stringify({ error: err }) );
                     }
                     else {
-                        debug('Added ' + newMenu.name + ' to menus');
+                        debug('Added ' + newMenu.id + ' to menus');
                         completedMenus++;
 
-                        if (completedMenus == menus.length) {
+                        if (completedMenus == menus.length && completedRestaurants == restaurants.length && completedLocations == locations.length) {
                             return res.end(JSON.stringify({
                                 message: 'Database reset successfully.',
-                                menus: menus
+                                menus: menus,
+                                locations: locations,
+                                restaurants: restaurants
+                            }) );
+                        }
+                    }
+                });
+            });
+        }
+    });
+
+    Location.remove({}, function(err) {
+        if (err) {
+            res.status(400);
+            return res.end(JSON.stringify({ error: err }) );
+        }
+        else {
+            debug('Removed all locations');
+
+            locations.forEach(function(loc, key) {
+                loc.save(function(err, newLocation) {
+                    if (err) {
+                        res.status(400);
+                        return res.end(JSON.stringify({ error: err }) );
+                    }
+                    else {
+                        debug('Added ' + newLocation.id + ' to locations');
+                        completedLocations++;
+
+                        if (completedMenus == menus.length && completedRestaurants == restaurants.length && completedLocations == locations.length) {
+                            return res.end(JSON.stringify({
+                                message: 'Database reset successfully.',
+                                menus: menus,
+                                locations: locations,
+                                restaurants: restaurants
+                            }) );
+                        }
+                    }
+                });
+            });
+        }
+    });
+
+    Restaurant.remove({}, function(err) {
+        if (err) {
+            res.status(400);
+            return res.end(JSON.stringify({ error: err }) );
+        }
+        else {
+            debug('Removed all restaurants');
+
+            restaurants.forEach(function(restaurant, key) {
+                restaurant.save(function(err, newRestaurant) {
+                    if (err) {
+                        res.status(400);
+                        return res.end(JSON.stringify({ error: err }) );
+                    }
+                    else {
+                        debug('Added ' + newRestaurant.id + ' to restaurants');
+                        completedRestaurants++;
+
+                        if (completedMenus == menus.length && completedRestaurants == restaurants.length && completedLocations == locations.length) {
+                            return res.end(JSON.stringify({
+                                message: 'Database reset successfully.',
+                                menus: menus,
+                                locations: locations,
+                                restaurants: restaurants
                             }) );
                         }
                     }
