@@ -3,7 +3,6 @@ var express    = require('express');
 var passport   = require('passport');
 var router     = express.Router();
 var Restaurant = require('../models/restaurant');
-var Location   = require('../models/location');
 var User       = require('../models/user');
 var Menu       = require('../models/menu');
 
@@ -93,9 +92,33 @@ router.get('/menu/:id', function(req, res) {
     });
 });
 
+router.get('/restaurant/:id', function(req,res) {
+    res.setHeader('Content-Type', 'application/json');
+    var id = req.params.id;
+
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) { //Not valid id, so respond with 404
+        res.status(404);
+        return res.end(JSON.stringify({ status: '404', message: 'Not found' }) );
+    }
+
+    var stream = Restaurant.find({ _id: id }, function(err, menu) {
+        if (err) {
+            res.status(400);
+            return res.end(JSON.stringify({ error: err }) );
+        }
+        if (!menu || menu == '') {
+            res.status(404);
+            return res.end(JSON.stringify({ status: '404', message: 'Not found' }) );
+        }
+    })
+    .setOptions({ lean: true })
+    .stream({ transform: JSON.stringify })
+    .pipe(res);
+});
+
 router.get('/restaurants', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
-    var stream = Menu.findAll({})
+    var stream = Restaurant.find({})
 });
 
 router.get('/populatemenus', function(req, res) {
@@ -170,24 +193,23 @@ router.get('/populatemenus', function(req, res) {
             ] //Group
         }) //Menu[0]
     ]; //menus
-    var locations = [
-        new Location({
-            _id: '54e6794d62fdbd0612cbd5a2',
-            address: {
-                addressLine1: '930 El Camino Real',
-                city: 'Santa Clara',
-                state: 'CA',
-                zip: '95050',
-            },
-            menu: '54e6794d62fdbd0612cbd5a1',
-        })
-    ];
+
     var restaurants = [
         new Restaurant({
             name: 'White Elephant',
             owner: 'jordan.buschman@me.com',
             description: 'Best Thai food in the area!',
-            restaurants: ['54e6794d62fdbd0612cbd5a2']
+            locations: [
+                {
+                    address: {
+                        addressLine1: '930 El Camino Real',
+                        city: 'Santa Clara',
+                        state: 'CA',
+                        zip: '95050',
+                    },
+                    menu: '54e6794d62fdbd0612cbd5a1',
+                }
+            ]
         })
     ];
 
@@ -214,43 +236,10 @@ router.get('/populatemenus', function(req, res) {
                         debug('Added ' + newMenu.id + ' to menus');
                         completedMenus++;
 
-                        if (completedMenus == menus.length && completedRestaurants == restaurants.length && completedLocations == locations.length) {
+                        if (completedMenus == menus.length && completedRestaurants == restaurants.length) {
                             return res.end(JSON.stringify({
                                 message: 'Database reset successfully.',
                                 menus: menus,
-                                locations: locations,
-                                restaurants: restaurants
-                            }) );
-                        }
-                    }
-                });
-            });
-        }
-    });
-
-    Location.remove({}, function(err) {
-        if (err) {
-            res.status(400);
-            return res.end(JSON.stringify({ error: err }) );
-        }
-        else {
-            debug('Removed all locations');
-
-            locations.forEach(function(loc, key) {
-                loc.save(function(err, newLocation) {
-                    if (err) {
-                        res.status(400);
-                        return res.end(JSON.stringify({ error: err }) );
-                    }
-                    else {
-                        debug('Added ' + newLocation.id + ' to locations');
-                        completedLocations++;
-
-                        if (completedMenus == menus.length && completedRestaurants == restaurants.length && completedLocations == locations.length) {
-                            return res.end(JSON.stringify({
-                                message: 'Database reset successfully.',
-                                menus: menus,
-                                locations: locations,
                                 restaurants: restaurants
                             }) );
                         }
@@ -278,11 +267,10 @@ router.get('/populatemenus', function(req, res) {
                         debug('Added ' + newRestaurant.id + ' to restaurants');
                         completedRestaurants++;
 
-                        if (completedMenus == menus.length && completedRestaurants == restaurants.length && completedLocations == locations.length) {
+                        if (completedMenus == menus.length && completedRestaurants == restaurants.length) {
                             return res.end(JSON.stringify({
                                 message: 'Database reset successfully.',
                                 menus: menus,
-                                locations: locations,
                                 restaurants: restaurants
                             }) );
                         }
