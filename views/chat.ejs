@@ -1,7 +1,11 @@
 <% layout('boilerplate') -%>
 <% script('https://cdn.socket.io/socket.io-1.3.2.js') %>
-<% script('/javascripts/chat.js') %>
 <% block('title', title) %>
+
+<script>
+    var socket = io.connect('<%= p %>');
+</script>
+<script src="/javascripts/chat.js"></script>
 
 <p>Chat</p>
 <input type="button" id="meow" name="meow" value="Join meow">

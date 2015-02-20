@@ -26,7 +26,6 @@ function isEquivalent(a, b) {
 
 $(document).ready(function() {
     var room = {};
-    var socket = io.connect('https://localhost');
 
     socket.on('update', function(newRoom) {
         console.log('UPDATE: ' + JSON.stringify(newRoom));

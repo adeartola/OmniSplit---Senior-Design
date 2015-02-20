@@ -19,14 +19,18 @@ var mongoose           = require('mongoose');
 var mongooseRedisCache = require('mongoose-redis-cache');
 
 var databaseUrl;
-if (process.env.DB_USER && process.env.DB_PASSWORD && procss.env.REDIS_HOST && process.env.REDIS_PASSWORD) {
+
+if (process.env.DB_USER && process.env.DB_PASSWORD) {// && procss.env.REDIS_HOST && process.env.REDIS_PASSWORD) {
     databaseUrl = 'mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASSWORD + '@ds041157.mongolab.com:41157/orderly_db';
+    /*
     mongooseRedisCache(mongoose, {
         host: process.env.REDIS_HOST,
         port: 'redisPort',
         pass: process.env.REDIS_PASSWORD,
         options: 'redisOptions'
     });
+    */
+    mongooseRedisCache(mongoose);
 }
 else { // Local dev
     databaseUrl = 'mongodb://orderly_test:test@127.0.0.1:27017/orderly_db';
