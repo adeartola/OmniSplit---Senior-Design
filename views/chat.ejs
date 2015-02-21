@@ -3,7 +3,7 @@
 <% block('title', title) %>
 
 <script>
-    var socket = io.connect('<%= p %>');
+    var socket = io.connect('<%= ip %>:4000');
 </script>
 <script src="/javascripts/chat.js"></script>
 
