@@ -3,11 +3,13 @@
 <% block('title', title) %>
 
 <script>
-    var socket = io.connect('<%= ip %>');
+    var socket = io.connect('<%= ip %>', {secure: true});
 </script>
 <script src="/javascripts/chat.js"></script>
 
 <p>Chat</p>
 <input type="button" id="meow" name="meow" value="Join meow">
 <input type="button" id="potato" name="potato" value="Join potato">
+<input id="add-item-val">
+<input type="button" id="add-item" name="add-item" value="Add item">
 <input type="button" id="leave" name="leave" value="Leave">

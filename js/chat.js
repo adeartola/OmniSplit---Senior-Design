@@ -1,5 +1,6 @@
 var debug = require('debug')('orderly-server:socket.io');
 var Rooms = require('./rooms');
+var Menu  = require('../models/menu');
 
 var Chat = function(io) {
     var rooms = new Rooms();
@@ -15,36 +16,36 @@ var Chat = function(io) {
             if (rooms.roomExists(roomName)) { //Just join existing room
                 rooms.addPerson(personID, roomName, function(err) {
                     if (err) {
-                        debug(err);
+                        debug(err.stack);
                         return callback(err);
                     }
                     else {
                         socket.join(roomName);
                         socket.room = roomName;
-                        socket.broadcast.to(socket.room).emit('update', rooms._rooms[roomName]);
+                        socket.broadcast.to(socket.room).emit('update people', rooms.room(roomName));
                         debug('Person ' + personID + ' joined room ' + roomName + '.');
-                        return callback(null, rooms._rooms[roomName]);
+                        return callback(null, rooms.room(roomName));
                     }
                 });
             }
             else { //Room does not exist, create then join room
                 rooms.addRoom(roomName, function(err) {
                     if (err) {
-                        debug(err);
+                        debug(err.stack);
                         return callback(err);
                     }
                     else {
                         debug('Room ' + roomName + ' added.');
                         rooms.addPerson(personID, roomName, function(err) {
                             if (err) {
-                                debug(err);
+                                debug(err.stack);
                                 return callback(err);
                             }
                             else {
                                 socket.join(roomName);
                                 socket.room = roomName;
                                 debug('Person ' + personID + ' joined room ' + roomName + '.');
-                                return callback(null, rooms._rooms[roomName]);
+                                return callback(null, rooms.room(roomName));
                             }
                         });
                     }
@@ -52,11 +53,26 @@ var Chat = function(io) {
             }
         });
 
+        socket.on('add item', function(item, callback) {
+            //Add item to cart
+            rooms.addItem(socket.room, item, function(err) {
+                if (err) {
+                    debug(err.stack);
+                    return callback(err);
+                }
+                else {
+                    socket.broadcast.to(socket.room).emit('update order', rooms.getOrder(socket.room));
+                    debug('Added new item to order');
+                    return callback(null, rooms.getOrder(socket.room));
+                }
+            });
+        });
+
         socket.on('leaveRoom', function(callback) {
             //Leave room and update others in room
             var personID = socket.id;
             rooms.removePerson(personID);
-            socket.broadcast.to(socket.room).emit('update', rooms._rooms[socket.room]);
+            socket.broadcast.to(socket.room).emit('update people', rooms.getPeople(socket.room));
             socket.leave(socket.room);
             socket.room = '';
             debug('Person ' + personID + ' left.');
@@ -67,7 +83,7 @@ var Chat = function(io) {
             //Leave room and update others in room
             var personID = socket.id;
             rooms.removePerson(personID);
-            socket.broadcast.to(socket.room).emit('update', rooms._rooms[socket.room]);
+            socket.broadcast.to(socket.room).emit('update people', rooms.getPeople(socket.room))
             socket.leave(socket.room);
             socket.room = '';
             debug('Client ' + personID + ' disconnected.');

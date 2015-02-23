@@ -27,9 +27,14 @@ function isEquivalent(a, b) {
 $(document).ready(function() {
     var room = {};
 
-    socket.on('update', function(newRoom) {
-        console.log('UPDATE: ' + JSON.stringify(newRoom));
-        room = newRoom;
+    socket.on('update people', function(newPeople) {
+        console.log('UPDATE PEOPLE: ' + JSON.stringify(newPeople));
+        room.people = newPeople;
+    });
+
+    socket.on('update order', function(newOrder) {
+        console.log('UPDATE ORDER: ' + JSON.stringify(newOrder));
+        room.order = newOrder;
     });
 
     $('#meow').click(function() {
@@ -54,6 +59,16 @@ $(document).ready(function() {
                     room = newRoom;
                     console.log('ROOM: ' + JSON.stringify(newRoom));
                 }
+            });
+        }
+    });
+
+    $('#add-item').click(function() {
+        var itemToAdd = $('#add-item-val').val();
+        if (itemToAdd) {
+            $('#add-item-val').val('');
+            socket.emit('add item', eval('(' + itemToAdd + ')'), function(err, order) {
+                room.order = order;
             });
         }
     });

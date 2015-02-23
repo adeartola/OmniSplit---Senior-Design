@@ -31,6 +31,8 @@ if (process.env.NODE_ENV == 'production') {
         pass: process.env.REDIS_PASSWORD,
         options: 'redisOptions'
     });
+    redisOptions = ({
+    });
     */
     mongooseRedisCache(mongoose);
 }

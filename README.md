@@ -2,7 +2,7 @@ orderly-server
 ==============
 *Created by JORDAN BUSCHMAN, ANDRES DE ARTOLA, and ASHLEY SEHATTI (SCU Class of 2015).*
 
-Server for the Orderly mobile ordering app.
+Server for the Orderly mobile ordering app and web app.
 
 ## Database
 Orderly uses MongoDB for login, receipts, and analytics. To develop locally, install MongoDB and create the following user:

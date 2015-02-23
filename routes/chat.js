@@ -7,7 +7,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-    res.render('chat', { title: 'Orderly - Chat', ip: getIp() });
+    res.render('chat', { title: 'Orderly - Chat', ip: 'https://' + getIp() });
 });
 
 module.exports = router;
