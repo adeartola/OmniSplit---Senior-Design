@@ -1,6 +1,6 @@
 /* Group of rooms containing people */
 
-var debug = require('debug')('orderly-comms:Rooms');
+var debug = require('debug')('orderly-server:rooms');
 
 function Rooms() {
     var _people = {}; //_people[personID] = roomName

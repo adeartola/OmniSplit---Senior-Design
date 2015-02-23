@@ -1,4 +1,4 @@
-var debug              = require('debug')('orderly-comms');
+var debug              = require('debug')('orderly-server');
 var express            = require('express');
 var session            = require('express-session');
 var path               = require('path');

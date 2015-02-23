@@ -1,4 +1,4 @@
-var debug = require('debug')('orderly-comms:socket.io');
+var debug = require('debug')('orderly-server:socket.io');
 var Rooms = require('./rooms');
 
 var Chat = function(io) {
