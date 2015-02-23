@@ -87,13 +87,15 @@ app.use(flash());
 app.use(busboy());
 
 /***** ROUTES *****/
-var index = require('./routes/index');
-var chat  = require('./routes/chat');
-var api   = require('./routes/api');
+var index     = require('./routes/index');
+var chat      = require('./routes/chat');
+var api       = require('./routes/api');
+var analysis  = require('./routes/analysis');
 
 app.use('/', index);
 app.use('/chat', chat);
 app.use('/api', api);
+app.use('/analysis', analysis;
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
