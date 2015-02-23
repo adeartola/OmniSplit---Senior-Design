@@ -1,26 +1,27 @@
-var debug         = require('debug')('orderly-comms');
-var express       = require('express');
-var session       = require('express-session');
-var path          = require('path');
-var favicon       = require('serve-favicon');
-var logger        = require('morgan');
-var bodyParser    = require('body-parser');
-var cookieParser  = require('cookie-parser');
-var flash         = require('connect-flash');
-var engine        = require('ejs-locals');
-var busboy        = require('connect-busboy');
-var passport      = require('passport');
-var LocalStrategy = require('passport-local');
+var debug              = require('debug')('orderly-comms');
+var express            = require('express');
+var session            = require('express-session');
+var path               = require('path');
+var favicon            = require('serve-favicon');
+var logger             = require('morgan');
+var bodyParser         = require('body-parser');
+var cookieParser       = require('cookie-parser');
+var flash              = require('connect-flash');
+var engine             = require('ejs-locals');
+var busboy             = require('connect-busboy');
+var passport           = require('passport');
+var LocalStrategy      = require('passport-local');
+var mongoose           = require('mongoose');
+var mongooseRedisCache = require('mongoose-redis-cache');
+
+var RedisStore = require('connect-redis')(session);
 
 var app = express();
 var router = express.Router();
 
-var mongoose           = require('mongoose');
-var mongooseRedisCache = require('mongoose-redis-cache');
+var databaseUrl, redisOptions;
 
-var databaseUrl;
-
-if (process.env.DB_USER && process.env.DB_PASSWORD) {// && procss.env.REDIS_HOST && process.env.REDIS_PASSWORD) {
+if (process.env.NODE_ENV == 'production') {// && procss.env.REDIS_HOST && process.env.REDIS_PASSWORD) {
     databaseUrl = 'mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASSWORD + '@ds041157.mongolab.com:41157/orderly_db';
     /*
     mongooseRedisCache(mongoose, {
@@ -68,6 +69,7 @@ app.use(session({
     secret: 'super secret message',
     resave: false,
     saveUninitialized: false,
+    store: new RedisStore(redisOptions)
 }));
 
 // Passport setup

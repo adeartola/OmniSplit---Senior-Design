@@ -11,5 +11,5 @@ var io = require('socket.io')(server).listen(4000);
 var chat = require('../js/chat')(io);
 
 server.listen(3000, function() {
-  debug('Express server listening on port ' + server.address().port);
+  debug('Express server listening on port ' + server.address().port + ' in ' + app.settings.env + ' mode');
 });
