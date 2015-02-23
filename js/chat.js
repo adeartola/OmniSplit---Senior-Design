@@ -10,7 +10,7 @@ var Chat = function(io) {
 
         debug('Client ' + socket.id + ' connected.');
 
-        socket.on('createOrJoin', function(roomName, callback) {
+        socket.on('create or join', function(roomName, callback) {
             //Either (1) create a new room and join it, or (2) join an existing room and update others in the room
             var personID = socket.id;
             if (rooms.roomExists(roomName)) { //Just join existing room
@@ -68,7 +68,7 @@ var Chat = function(io) {
             });
         });
 
-        socket.on('leaveRoom', function(callback) {
+        socket.on('leave room', function(callback) {
             //Leave room and update others in room
             var personID = socket.id;
             rooms.removePerson(personID);

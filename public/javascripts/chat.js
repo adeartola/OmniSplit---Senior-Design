@@ -39,7 +39,7 @@ $(document).ready(function() {
 
     $('#meow').click(function() {
         if (isEquivalent(room, {})) {
-            socket.emit('createOrJoin', 'meow', function(err, newRoom) {
+            socket.emit('create or join', 'meow', function(err, newRoom) {
                 if (err)
                     console.error('Could not create or join room "meow"');
                 else {
@@ -52,7 +52,7 @@ $(document).ready(function() {
     
     $('#potato').click(function() {
         if (isEquivalent(room, {})) {
-            socket.emit('createOrJoin', 'potato', function(err, newRoom) {
+            socket.emit('create or join', 'potato', function(err, newRoom) {
                 if (err)
                     console.error('Could not create or join room "potato"');
                 else {
@@ -75,7 +75,7 @@ $(document).ready(function() {
     
     $('#leave').click(function() {
         if (!isEquivalent(room, {})) {
-            socket.emit('leaveRoom', function(err) {
+            socket.emit('leave room', function(err) {
                 if (err)
                     console.error('Failed to leave room');
                 else {
