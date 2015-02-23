@@ -59,7 +59,7 @@ Orderly uses socket.io to handle events and synchronization between different iO
 
 **'create or join'** (SEND *roomName, callback(err, newroom)*): Client sends a string roomName to the server. On receiving the event, the server will either (1) create a new ordering group with the name roomName and add the client to it, or (2) add the client to the existing ordering group with name roomName. On completion, the new room is passed in the callback.
 
-**'leave room'** (RECEIVE *callback(err)*): Client sends this message if they want to voluntarily leave the ordering group.
+**'leave room'** (SEND *callback(err)*): Client sends this message if they want to voluntarily leave the ordering group.
 
 **'update people'** (RECEIVE *newPeople*): Received by the client when the list of people in their ordering group is updated. The new list of people is newPeople.
 
