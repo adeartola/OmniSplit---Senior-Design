@@ -95,7 +95,7 @@ var analysis  = require('./routes/analysis');
 app.use('/', index);
 app.use('/chat', chat);
 app.use('/api', api);
-app.use('/analysis', analysis;
+app.use('/analysis', analysis);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
