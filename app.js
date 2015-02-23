@@ -21,7 +21,8 @@ var router = express.Router();
 
 var databaseUrl, redisOptions;
 
-if (process.env.NODE_ENV == 'production') {// && procss.env.REDIS_HOST && process.env.REDIS_PASSWORD) {
+if (process.env.NODE_ENV == 'production') {
+    //TODO: redis could be on another server
     databaseUrl = 'mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASSWORD + '@ds041157.mongolab.com:41157/orderly_db';
     /*
     mongooseRedisCache(mongoose, {
