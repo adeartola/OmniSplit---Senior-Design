@@ -1,4 +1,4 @@
-var debug      = require('debug')('orderly-server:api');
+var debug      = require('debug')('omnisplit:api');
 var express    = require('express');
 var passport   = require('passport');
 var router     = express.Router();

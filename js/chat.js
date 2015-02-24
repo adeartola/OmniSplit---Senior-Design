@@ -1,4 +1,4 @@
-var debug = require('debug')('orderly-server:socket.io');
+var debug = require('debug')('omnisplit:socket.io');
 var Rooms = require('./rooms');
 var Menu  = require('../models/menu');
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var debug = require('debug')('orderly-server');
+var debug = require('debug')('omnisplit');
 var app   = require('../app');
 var http  = require('http');
 

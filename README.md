@@ -1,11 +1,11 @@
-orderly-server
-==============
+OmniSplit
+=========
 *Created by JORDAN BUSCHMAN, ANDRES DE ARTOLA, and ASHLEY SEHATTI (SCU Class of 2015).*
 
-Server for the Orderly mobile ordering app and web app.
+Server for the OmniSplit mobile ordering app and web app.
 
 ## Database
-Orderly uses MongoDB for login, receipts, and analytics. To develop locally, install MongoDB and create the following user:
+OmniSplit uses MongoDB for login, receipts, and analytics. To develop locally, install MongoDB and create the following user:
 ```
 user: "orderly_test",
 pwd: "test",
@@ -17,7 +17,7 @@ roles: [{
 The test database can be installed by going to <URL>/api/populate and pressing the "Reset" button.
 
 ## Nginx Setup
-Orderly uses HTTPS site wide and redirects all requests from HTTP to HTTPS. This is handled with Nginx. The Nginx configuration we used is as follows:
+OmniSplit uses HTTPS site wide and redirects all requests from HTTP to HTTPS. This is handled with Nginx. The Nginx configuration we used is as follows:
 ```
 server {
     listen 80;
@@ -55,7 +55,7 @@ server {
 ```
 
 ## Socket.io events
-Orderly uses socket.io to handle events and synchronization between different iOS clients. The events that are emitted by / used by the client are as follows:
+OmniSplit uses socket.io to handle events and synchronization between different iOS clients. The events that are emitted by / used by the client are as follows:
 
 **'create or join'** (SEND *roomName, callback(err, newroom)*): Client sends a string roomName to the server. On receiving the event, the server will either (1) create a new ordering group with the name roomName and add the client to it, or (2) add the client to the existing ordering group with name roomName. On completion, the new room is passed in the callback.
 

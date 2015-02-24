@@ -1,6 +1,6 @@
 /* Group of rooms containing people */
 
-var debug = require('debug')('orderly-server:rooms');
+var debug = require('debug')('omnisplit:rooms');
 
 function Rooms() {
     var _people = {}; //_people[personID] = roomName
