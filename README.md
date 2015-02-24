@@ -29,8 +29,11 @@ server {
     server_name  <SERVER_URL>;
 
     ssl on;
-    ssl_certificate /path/to/orderly.crt;
-    ssl_certificate_key /path/to/orderly.key;
+
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+
+    ssl_certificate /path/to/omnisplit.ca-bundle;
+    ssl_certificate_key /path/to/omnisplit.key;
 
     location / {
         proxy_pass http://<SERVER_URL>:3000;
