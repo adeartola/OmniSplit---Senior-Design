@@ -7,7 +7,15 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-    res.render('chat', { title: 'Orderly - Chat', ip: 'https://' + getIp() });
+    var ip = getIp();
+    var host;
+
+    if (req.hostname != ip)
+        host = req.hostname;
+    else
+        host = ip;
+
+    res.render('chat', { title: 'Orderly - Chat', host: 'https://' + host });
 });
 
 module.exports = router;

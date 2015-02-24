@@ -68,6 +68,23 @@ var Chat = function(io) {
             });
         });
 
+        socket.on('remove item', function(item, callback) {
+            var oldRoom = JSON.parse(JSON.stringify(rooms.room(socket.room)));
+            rooms.removeItem(socket.room, item, function(err) {
+                if (err) {
+                    debug(err.stack);
+                    return callback(err);
+                }
+                else if (oldRoom.order.length != rooms.getOrder(socket.room).length) {
+                    socket.broadcast.to(socket.room).emit('update order', rooms.getOrder(socket.room));
+                    debug('Removed item from order');
+                    return callback(null, rooms.getOrder(socket.room));
+                }
+                else
+                    return callback(null);
+            });
+        });
+
         socket.on('leave room', function(callback) {
             //Leave room and update others in room
             var personID = socket.id;

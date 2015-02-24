@@ -35,6 +35,7 @@ $(document).ready(function() {
     socket.on('update order', function(newOrder) {
         console.log('UPDATE ORDER: ' + JSON.stringify(newOrder));
         room.order = newOrder;
+        $('#group-order').text(JSON.stringify(newOrder));
     });
 
     $('#meow').click(function() {
@@ -45,6 +46,8 @@ $(document).ready(function() {
                 else {
                     room = newRoom;
                     console.log('ROOM: ' + JSON.stringify(newRoom));
+                    $('#group-order').text(JSON.stringify(newRoom.order));
+                    
                 }
             });
         }
@@ -58,6 +61,7 @@ $(document).ready(function() {
                 else {
                     room = newRoom;
                     console.log('ROOM: ' + JSON.stringify(newRoom));
+                    $('#group-order').text(JSON.stringify(newRoom.order));
                 }
             });
         }
@@ -69,6 +73,18 @@ $(document).ready(function() {
             $('#add-item-val').val('');
             socket.emit('add item', eval('(' + itemToAdd + ')'), function(err, order) {
                 room.order = order;
+                $('#group-order').text(JSON.stringify(room.order));
+            });
+        }
+    });
+
+    $('#remove-item').click(function() {
+        var itemToRemove = $('#remove-item-val').val();
+        if (itemToRemove) {
+            $('#remove-item-val').val('');
+            socket.emit('remove item', eval('(' + itemToRemove + ')'), function(err, order) {
+                room.order = order;
+                $('#group-order').text(JSON.stringify(room.order));
             });
         }
     });
@@ -80,6 +96,7 @@ $(document).ready(function() {
                     console.error('Failed to leave room');
                 else {
                     room = {};
+                    $('#group-order').text('');
                 }
             });
         }
