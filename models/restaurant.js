@@ -2,7 +2,7 @@ var mongoose              = require('mongoose');
 var Schema                = mongoose.Schema;
 
 var Restaurant = new Schema({
-    name: { type: String, ref: 'Restaurant' },
+    name: { type: String, required: true },
     owner: { type: String, required: true },
     description: String,
     locations: [{
