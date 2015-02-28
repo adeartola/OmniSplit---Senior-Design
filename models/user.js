@@ -3,6 +3,8 @@ var Schema                = mongoose.Schema;
 var passportLocalMongoose = require('passport-local-mongoose');
 
 var User = new Schema({
+    createdAt: { type: Date, default: new Date() },
+    restaurants: [{ type: Schema.Types.ObjectId, ref: 'Restaurant' }]
 });
 
 User.set('redisCache', true);

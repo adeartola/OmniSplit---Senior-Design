@@ -4,6 +4,8 @@ var Schema                = mongoose.Schema;
 var Restaurant = new Schema({
     name: { type: String, required: true },
     owner: { type: String, required: true },
+    backgroundImage: String,
+    theme: String,
     description: String,
     locations: [{
         _id: false,

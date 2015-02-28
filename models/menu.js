@@ -9,6 +9,7 @@ var Menu = new Schema({
         item: [{
             name: { type: String, required: true },
             description: String,
+            image: String,
             price: { type: Number, required: true }, 
             _id: false,
             step: [{

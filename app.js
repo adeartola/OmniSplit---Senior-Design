@@ -48,7 +48,10 @@ mongoose.connect(databaseUrl, null, function(err) {
     if (err)
         debug(err);
     else
-        debug('Connected to database.');
+        if (process.env.NODE_ENV == 'PRODUCTION')
+            debug('Connected to database.');
+        else
+            debug('Connected to local database.');
 });
 
 /***** CONFIGURATION *****/
