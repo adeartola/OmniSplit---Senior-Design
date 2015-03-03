@@ -1,0 +1,154 @@
+[
+    {
+        '_id': {
+            '$oid': '54e6794d62fdbd0612cbd5a1'
+        },
+        'group': [
+            {
+                'name': 'Appetizers',
+                'item': [
+                    {
+                        'name': 'Gyoza',
+                        'description': 'Pan fried chicken gyoza and served with lime sauce.',
+                        'price': 5.95
+                    }, {
+                        'name': 'Satay Chicken',
+                        'description': '5 pcs. marinated chicken on skewers. Served with peanut sauce and cucumber salad.',
+                        'price': 7.95
+                    }, {
+                        'name': 'Cream Cheese and Crab Meat Wonton',
+                        'description': '6 pcs. deep-fried wontons served with cream cheese and crab meat. Served with plum sauce.',
+                        'price': 5.95
+                    }
+                ] 
+            }, {
+                'name': 'Soups',
+                'item': [
+                    {
+                        'name': 'Mixed Seafood Soup',
+                        'step': [
+                            {
+                                'text': 'Size',
+                                'required': 'true',
+                                'maxOptions': 1,
+                                'option': [
+                                    {
+                                        'text': 'Bowl'
+                                    }, {
+                                        'text': 'Small',
+                                        'priceModifier': 4.00
+                                    }, {
+                                        'text': 'Large',
+                                        'priceModifier': 7.00
+                                    }
+                                ]
+                            }, {
+                                'text': 'Make it with',
+                                'required': 'true',
+                                'maxOptions': 1,
+                                'option': [
+                                    { 'text': 'Chicken' },
+                                    { 'text': 'Vegetable' },
+                                    { 'text': 'Tofu' },
+                                    { 'text': 'Fish', 'priceModifier': 1.00 },
+                                    { 'text': 'Calamari', 'priceModifier': 1.00 },
+                                    { 'text': 'Prawn', 'priceModifier': 1.00 }
+                                ]
+                            }, {
+                                'text': 'Spicy',
+                                'required': 'true',
+                                'maxOptions': 1,
+                                'option': [
+                                    { 'text': 'Not spicy' },
+                                    { 'text': 'Mild' },
+                                    { 'text': 'Medium' },
+                                    { 'text': 'Spicy' },
+                                    { 'text': 'Very spicy' }
+                                ]
+                            }
+                        ] 
+                    } 
+                ] 
+            }, {
+                'name': 'Curry',
+                'description': 'Served with your choice of protein.',
+                'item': [
+                    {
+                        'name': 'Yellow Curry',
+                        'description': 'Yellow curry paste with coconut milk, potatoes, carrot, and yellow onion.',
+                        'price': 8.95,
+                        'step': [
+                            {
+                                'text': 'Spicy',
+                                'required': 'true',
+                                'maxOptions': 1,
+                                'option': [
+                                    { 'text': 'Not spicy' },
+                                    { 'text': 'Mild' },
+                                    { 'text': 'Medium' },
+                                    { 'text': 'Spicy' },
+                                    { 'text': 'Very spicy' }
+                                ]
+                            }, {
+                                'text': 'Make it with',
+                                'required': 'true',
+                                'maxOptions': 1,
+                                'option': [
+                                    { 'text': 'Chicken' },
+                                    { 'text': 'Vegetable' },
+                                    { 'text': 'Beef', 'priceModifier': 1.00 }
+                                ]
+                            }
+                        ] 
+                    }, {
+                        'name': 'Panang Curry',
+                        'description': 'Panang curry paste with coconut milk, zucchini, bell pepper, kaffir.',
+                        'price': 8.95,
+                        'step': [
+                            {
+                                'text': 'Spicy',
+                                'required': 'true',
+                                'maxOptions': 1,
+                                'option': [
+                                    { 'text': 'Not spicy' },
+                                    { 'text': 'Mild' },
+                                    { 'text': 'Medium' },
+                                    { 'text': 'Spicy' },
+                                    { 'text': 'Very spicy' }
+                                ]
+                            }, {
+                                'text': 'Make it with',
+                                'required': 'true',
+                                'maxOptions': 1,
+                                'option': [
+                                    { 'text': 'Chicken' },
+                                    { 'text': 'Vegetable'},
+                                    { 'text': 'Beef', 'priceModifier': 1.00 }
+                                ]
+                            }
+                        ] 
+                    }, {
+                        'name': 'Duck Curry',
+                        'description': 'Red curry paste with coconut milk, roasted duck, tomatoes, pineapples, bell peppers, and basil.',
+                        'price': 12.95,
+                        'step': [
+                            {
+                                'text': 'Spicy',
+                                'required': 'true',
+                                'maxOptions': 1,
+                                'option': [
+                                    { 'text': 'Not spicy' },
+                                    { 'text': 'Mild' },
+                                    { 'text': 'Medium' },
+                                    { 'text': 'Spicy' },
+                                    { 'text': 'Very spicy' }
+                                ]
+                            }
+                        ] 
+                    }
+                ] 
+            } 
+        ], 
+        '__v': 0
+    }
+]
