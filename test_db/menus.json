@@ -29,7 +29,7 @@
                         'step': [
                             {
                                 'text': 'Size',
-                                'required': 'true',
+                                'required': true,
                                 'maxOptions': 1,
                                 'option': [
                                     {
@@ -44,7 +44,7 @@
                                 ]
                             }, {
                                 'text': 'Make it with',
-                                'required': 'true',
+                                'required': true,
                                 'maxOptions': 1,
                                 'option': [
                                     { 'text': 'Chicken' },
@@ -56,7 +56,7 @@
                                 ]
                             }, {
                                 'text': 'Spicy',
-                                'required': 'true',
+                                'required': true,
                                 'maxOptions': 1,
                                 'option': [
                                     { 'text': 'Not spicy' },
@@ -80,7 +80,7 @@
                         'step': [
                             {
                                 'text': 'Spicy',
-                                'required': 'true',
+                                'required': true,
                                 'maxOptions': 1,
                                 'option': [
                                     { 'text': 'Not spicy' },
@@ -91,7 +91,7 @@
                                 ]
                             }, {
                                 'text': 'Make it with',
-                                'required': 'true',
+                                'required': true,
                                 'maxOptions': 1,
                                 'option': [
                                     { 'text': 'Chicken' },
@@ -107,7 +107,7 @@
                         'step': [
                             {
                                 'text': 'Spicy',
-                                'required': 'true',
+                                'required': true,
                                 'maxOptions': 1,
                                 'option': [
                                     { 'text': 'Not spicy' },
@@ -118,7 +118,7 @@
                                 ]
                             }, {
                                 'text': 'Make it with',
-                                'required': 'true',
+                                'required': true,
                                 'maxOptions': 1,
                                 'option': [
                                     { 'text': 'Chicken' },
@@ -134,7 +134,7 @@
                         'step': [
                             {
                                 'text': 'Spicy',
-                                'required': 'true',
+                                'required': true,
                                 'maxOptions': 1,
                                 'option': [
                                     { 'text': 'Not spicy' },
