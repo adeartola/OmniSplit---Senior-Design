@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang='en'>
+	<head>
+	<title> Welcome to Orderly! </title>
+	<link href='../css/bootstrap.min.css' rel='stylesheet'>
+	<link href='../css/main.css' rel='stylesheet'>
+	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+	<script src='../js/bootstrap.min.js'></script>
+	</head>
+	<body class="dash">
+<nav id="navigation_bar" class="navigation_bar" mb="false">
+            <ul class="ui" id="navigation_bar_ui">
+                <li class="logo">
+                    <img src="http://static.parastorage.com/services/html-landing/hp/brazil/images/1920/stage_1/wix_logo.png" alt="Wix logo" />
+                </li>
+                 <!-- My Account -->
+                <li class="menu_item" mb="false" down="false" >
+                    <a id="my_sites_link" class="item_title" href="http://www.wix.com/my-account" >My Sites</a>
+                </li>
+                <!-- Create -->
+                <li class="menu_item frog" mb="false" down="false" >
+                    <a href="http://www.wix.com/website/templates" class="item_title frog" frog="src=19&evid=311&row=first&url=http://www.wix.com/website/templates" >Templates</a>
+                </li>
+                <!-- Explore -->
+                <li class="menu_item frog" mb="false" down="false" >
+                    <a href="http://www.wix.com/sample/website" class="item_title frog" frog="src=19&evid=311&row=first&url=http://www.wix.com/sample/website" >Explore</a>
+                    <nav>
+                        <ul class="sub_menu" >
+                            <li>
+                                <a class="frog" href="http://www.wix.com/sample/website" frog="src=19&evid=311&row=second&url=http://www.wix.com/sample/website" >
+                                    <span class="sub_caption" >Get Inspired</span>
+                                    <span class="sub_text" >See real users' examples</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="frog" href="http://www.wix.com/about/features" frog="src=19&evid=311&row=second&url=http://www.wix.com/about/features" >
+                                    <span class="sub_caption" >Features</span>
+                                    <span class="sub_text" >Why choose Wix?</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="frog" href="http://www.wix.com/app-market/main" frog="src=19&evid=311&row=second&url=http://www.wix.com/app-market/main" >
+                                    <span class="sub_caption" >App Market</span>
+                                    <span class="sub_text" >Add popular web services</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </li>
+                <!-- Subscriptions -->
+                <li id="subscriptions" class="menu_item" mb="false" down="false" >
+                    <a href="http://www.wix.com/upgrade/website" class="item_title frog" frog="src=19&evid=311&row=first&url=http://www.wix.com/upgrade/website" >Subscriptions</a>
+                    <nav>
+                        <ul class="sub_menu" >
+                            <li>
+                                <a class="frog" href="http://www.wix.com/upgrade/website" frog="src=19&evid=311&row=second&url=http://www.wix.com/upgrade/website" >
+                                    <span class="sub_caption" >Premium Plans</span>
+                                    <span class="sub_text" >Pick the best for you</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="frog" href="http://www.wix.com/domain/names" frog="src=19&evid=311&row=second&url=http://www.wix.com/domain/names" >
+                                    <span class="sub_caption" >Domains</span>
+                                    <span class="sub_text" >Get your own web address</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="frog" href="http://www.wix.com/about/mailboxes" frog="src=19&evid=311&row=second&url=http://www.wix.com/about/mailboxes" >
+                                    <span class="sub_caption" >Mailboxes</span>
+                                    <span class="sub_text" >Add personalized emails</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </li>
+                 <!-- Support -->
+                <li class="menu_item" mb="false" down="false" >
+                    <a class="item_title frog" href="http://www.wix.com/support/html5/" frog="src=19&evid=311&row=first&url=http://www.wix.com/support/html5/" >Support</a>
+                </li>
+                 <!-- Sign In -->
+                <li>
+                    <div id="login_menu_button" onclick="new Image().src='http://frog.wix.com/hp?src=19&evid=314'; openLogin();" class="menu_not_logged" >Sign In</div>
+                     <!-- Logged In -->
+                     <script type="text/javascript" >
+                         my_sites_link.addEventListener('click',function (e) { new Image().src = 'http://frog.wix.com/hp?src=19&evid=311&row=first&url=http://www.wix.com/my-account'; },true);
+                         my_sites_link.addEventListener('click',onMySitesClicked,true);
+                    </script>
+                </li>
+                <!-- Langs Menu item -->
+                <li>
+                    <div class="menu_flags" id="menu_flags" mb="false" down="false" onclick="mobileLangClick(this)" onmouseenter="showFlagsIe();"  onmouseleave="hideFlagsIe();" >
+                        <div class="flags">
+                            <nav class="flag_container" id="flag_container" >
+                                <div class="f" inx="_0" ><a onclick="new Image().src='http://frog.wix.com/hp?src=19&evid=313&destination_lng=de'; switchLng('de',event)" href="http://de.wix.com" class="flag" flag="de">Deutsch</a></div>
+                                <div class="f" inx="_1" ><a onclick="new Image().src='http://frog.wix.com/hp?src=19&evid=313&destination_lng=es'; switchLng('es',event)" href="http://es.wix.com" class="flag" flag="es">Español</a></div>
+                                <div class="f" inx="_2" ><a onclick="new Image().src='http://frog.wix.com/hp?src=19&evid=313&destination_lng=fr'; switchLng('fr',event)" href="http://fr.wix.com" class="flag" flag="fr">Français</a></div>
+                                <div class="f" inx="_3" ><a onclick="new Image().src='http://frog.wix.com/hp?src=19&evid=313&destination_lng=it'; switchLng('it',event)" href="http://it.wix.com" class="flag" flag="it">Italiano</a></div>
+                                <div class="f" inx="_4" ><a onclick="new Image().src='http://frog.wix.com/hp?src=19&evid=313&destination_lng=nl'; switchLng('nl',event)" href="http://nl.wix.com" class="flag" flag="nl">Nederlands</a></div>
+                                <div class="f" inx="_5" ><a onclick="new Image().src='http://frog.wix.com/hp?src=19&evid=313&destination_lng=pl'; switchLng('pl',event)" href="http://pl.wix.com" class="flag" flag="pl">Polski</a></div>
+                                <div class="f" inx="_6" ><a onclick="new Image().src='http://frog.wix.com/hp?src=19&evid=313&destination_lng=pt'; switchLng('pt',event)" href="http://pt.wix.com" class="flag" flag="pt">Português</a></div>
+                                <div class="f" inx="_7" ><a onclick="new Image().src='http://frog.wix.com/hp?src=19&evid=313&destination_lng=ru'; switchLng('ru',event)" href="http://ru.wix.com" class="flag" flag="ru">Русский</a></div>
+                                <div class="f" inx="_8" ><a onclick="new Image().src='http://frog.wix.com/hp?src=19&evid=313&destination_lng=ja'; switchLng('ja',event)" href="http://ja.wix.com" class="flag" flag="ja">日本語</a></div>
+                                <div class="f" inx="_9" ><a onclick="new Image().src='http://frog.wix.com/hp?src=19&evid=313&destination_lng=ko'; switchLng('ko',event)" href="http://ko.wix.com" class="flag" flag="ko">한국어</a></div>
+                                <div class="f" inx="_10" last="true"><a onclick="new Image().src='http://frog.wix.com/hp?src=19&evid=313&destination_lng=tr'; switchLng('tr',event)" href="http://tr.wix.com" class="flag" flag="tr">Türkçe</a></div>
+                            </nav>
+                        </div>
+                        <span class="item_flag flag" flag="en" >English</span>
+                    </div>
+                </li>
+            </ul>
+            <div id="ybar" class="ybar" trans="enter" ></div>
+            <div id="sub_menu_bg" class="sub_menu_bg" trans="true" down="false"><div></div></div>
+            <script type="text/javascript" >
+                items_with_sub_menu = document.getElementsByClassName("sub_menu");
+                if (isMobile)
+                {
+                    navigation_bar.setAttribute('mb','true');
+                    for (var i = 0; i < items_with_sub_menu.length; i++)
+                    {
+                        var item = items_with_sub_menu[i].parentNode.parentNode;
+                        item.setAttribute('mb','true');
+                        item.children[0].addEventListener('click',mobileMenuClick,false);
+                    }
+                } else
+                {
+                    submenu = new Submenu(document.getElementsByClassName("menu_item"));
+                }
+                var arrow = document.createElement('div'); arrow.className = 'arrow'; arrow.appendChild(document.createElement('div'));
+                for (var i = 0; i < items_with_sub_menu.length; i++)
+                {
+                    var item = items_with_sub_menu[i].parentNode.parentNode;
+                    item.insertBefore(arrow.cloneNode(true),item.children[0]);
+                }
+                arrow = null;
+            </script>
+        </nav>

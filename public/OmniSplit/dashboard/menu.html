@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang='en'>
+	<head>
+	<title> Welcome to OmniSplit! </title>
+	<link href='../css/bootstrap.min.css' rel='stylesheet'>
+	<link href='../css/main.css' rel='stylesheet'>
+	<link href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/css/base/jquery.ui.all.css" rel="stylesheet">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.2/css/lightness/jquery-ui-1.10.2.custom.min.css" rel="stylesheet">
+	<link rel="shortcut icon" href="/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="/ico/apple-touch-icon-57-precomposed.png">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.2/jquery.ui.touch-punch.min.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+	body {
+        padding-top: 70px;
+        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    }
+	#sortable, #sort2 { list-style-type: none; margin: 0; padding: 0; width: 60%; }
+  #sortable, #sort2 li { margin: 0 5px 5px 5px; padding: 5px; font-size: 1.2em; height: 1.5em; }
+  html>body #sortable li, html>body #sort2 { height: 1.5em; line-height: 1.2em; }
+  .ui-state-highlight { height: 1.5em; line-height: 1.2em; }
+	</style>
+	<script>
+	
+ $(document).ready(function(){ $(function() {
+    $( "#sortable" ).sortable({
+      placeholder: "ui-state-highlight"
+    });
+    $( "#sortable" ).disableSelection();
+  });
+  });
+  $(document).ready(function(){
+  $(function() {
+    $( "#sort2" ).sortable({
+      placeholder: "ui-state-highlight"
+    });
+    $( "#sort2" ).disableSelection();
+  });
+  });
+  var sortedIDS = "meow";
+  
+  $(document).ready(function(){
+    $("#save").click(function(){
+		var sortedIDs = $( "#sortable" ).sortable( "toArray" );
+        $("#test").html(sortedIDs);
+    });
+});
+	$(document).ready(function(){
+    $("#save2").click(function(){
+		var sortedIDs = $( "#sort2" ).sortable( "toArray" );
+        $("#test").html(sortedIDs);
+    });
+});
+
+$(document).ready(function(){
+    $("#test").click(function(){
+		var sortedIDs = $( "#sort" ).sortable( "toArray" );
+        $("#test").html(sortedIDs);
+    });
+});
+  </script>
+	</head>
+	<body class="dash">
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: #a64ca6">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#"> OmniSplit</a>
+			</div>
+			<div style="margin: auto;">
+				<ul class="nav navbar-nav">
+					<li><a href="#">Tables</a></li>
+					<li><a href="#">Orders</a></li>
+					<li><a href="index.html">Dashboard</a></li>
+					<li class="active"><a href="menu.html">Menu</a></li>
+					<li><a href="#">Settings</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+<div class="container" style="width: 95%;">
+    <div class="row" >
+		<div class="col-sm-3"><div class="well" style="height: 700px;">
+			<div class="row" id="menuHeader">
+						<div class="col-md-10">Type</div>
+						<div class="col-md-1"><a href="#"><img src="add.png" alt="add" height="20" width="20"></a></div>
+			</div>
+			<ul id="sort2" class="ui-sortable" style="color: black; text-align: left; width: 100%;">
+				<li class="ui-state-default" id="1"><div class="menuItem">
+					<div class="row">
+						<div class="col-md-12">Appetizer</div>
+					</div>
+				</div></li>
+				<li class="ui-state-default" id="2"><div class="menuItem">
+					<div class="row">
+						<div class="col-md-12">Rice Noodle Soup</div>
+					</div>
+				</div></li>
+				<li class="ui-state-default" id="3"><div class="menuItem">
+					<div class="row">
+						<div class="col-md-12">Beverages</div>
+					</div>
+				</div></li>
+				<li class="ui-state-default" id="4"><div class="menuItem">
+					<div class="row">
+						<div class="col-md-12">Other Dishes</div>
+					</div>
+				</div></li>
+			</ul>
+			<div id="savebutton" style="width: 100px; position: absolute; bottom: 40px; right: 40px;"><button style="margin-top: 4px;" class="btn btn-lg btn-primary btn-block" id="save2" style="background-color: white; color: black; " type="submit">save</button></div>
+		</div></div>
+        <div class="col-sm-9 col-sm-9" ><div class="well" style="height: 700px;">
+			<div class="row" id="menuHeader">
+						<div class="col-md-4">Item</div>
+						<div class="col-md-1">Price</div>
+						<div class="col-md-4">Description</div>
+						<div class="col-md-2">Image</div>
+						<div class="col-md-1"><a href="#"><img src="add.png" alt="add" height="20" width="20"></a></div>
+					</div>
+			<ul id="sortable" class="ui-sortable" style="color: black; text-align: left; width: 100%;">
+				<li class="ui-state-default" id="1"><div class="menuItem">
+					<div class="row">
+						<div class="col-md-4">Vietnamese Fried Egg Rolls1</div>
+						<div class="col-md-1">$4.75</div>
+						<div class="col-md-4">Cha Gio</div>
+						<div class="col-md-2">chagio.jpg</div>
+						<div class="col-md-1"><a href="#"><img src="sub.png" alt="minus" height="20" width="20"></a></div>
+					</div>
+				</div></li>
+				<li class="ui-state-default" id="2"><div class="menuItem">
+					<div class="row">
+						<div class="col-md-4">Vietnamese Fried Egg Rolls2</div>
+						<div class="col-md-1">$4.75</div>
+						<div class="col-md-4">Cha Gio</div>
+						<div class="col-md-2">chagio.jpg</div>
+						<div class="col-md-1">-</div>
+					</div>
+				</div></li>
+				<li class="ui-state-default" id="3"><div class="menuItem">
+					<div class="row">
+						<div class="col-md-4">Vietnamese Fried Egg Rolls3</div>
+						<div class="col-md-1">$4.75</div>
+						<div class="col-md-4">Cha Gio</div>
+						<div class="col-md-2">chagio.jpg</div>
+						<div class="col-md-1">-</div>
+					</div>
+				</div></li>
+				<li class="ui-state-default" id="4"><div class="menuItem">
+					<div class="row">
+						<div class="col-md-4">Vietnamese Fried Egg Rolls4</div>
+						<div class="col-md-1">$4.75</div>
+						<div class="col-md-4">Cha Gio</div>
+						<div class="col-md-2">chagio.jpg</div>
+						<div class="col-md-1">-</div>
+					</div>
+				</div></li>
+				<li class="ui-state-default" id="5"><div class="menuItem">
+					<div class="row">
+						<div class="col-md-4">Vietnamese Fried Egg Rolls5</div>
+						<div class="col-md-1">$4.75</div>
+						<div class="col-md-4">Cha Gio</div>
+						<div class="col-md-2">chagio.jpg</div>
+						<div class="col-md-1">-</div>
+					</div>
+				</div></li>
+				<li class="ui-state-default" id="6"><div class="menuItem">
+					<div class="row">
+						<div class="col-md-4">Vietnamese Fried Egg Rolls6</div>
+						<div class="col-md-1">$4.75</div>
+						<div class="col-md-4">Cha Gio</div>
+						<div class="col-md-2">chagio.jpg</div>
+						<div class="col-md-1">-</div>
+					</div>
+				</div></li>
+				<li class="ui-state-default" id="7"><div class="menuItem">
+					<div class="row">
+						<div class="col-md-4">Vietnamese Fried Egg Rolls7</div>
+						<div class="col-md-1">$4.75</div>
+						<div class="col-md-4">Cha Gio</div>
+						<div class="col-md-2">chagio.jpg</div>
+						<div class="col-md-1">-</div>
+					</div>
+				</div></li>
+				<li class="ui-state-default" ><div class="menuItem">
+					<div class="row">
+						<div class="col-md-12" id="test"></div>
+					</div>
+				</div></li>
+			</ul>
+			<div id="savebutton" style="width: 100px; position: absolute; bottom: 40px; right: 40px;"><button style="margin-top: 4px;" class="btn btn-lg btn-primary btn-block" id="save" style="background-color: white; color: black; " type="submit">save</button></div>
+		</div></div>
+    </div>
+    
+    <ul id="sortable">
+        <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
+        <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
+        <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
+        <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
+        <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
+        <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
+        <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
+      </ul>
+ 
+</div>
+	<div class="footer">
+	<div class="container">
+	<p>Copyright &copy;2015 Orderly All rights reserved.</p>
+	</div>
+	</div>
+	</body>
+</html>

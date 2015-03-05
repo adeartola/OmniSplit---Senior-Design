@@ -1,0 +1,216 @@
+body {
+	background-color: #a64ca6;
+	color: white;
+}
+
+body.dash{
+	background-color: white;
+}
+
+.nav1{
+	/*width: 100%;*/
+	background-color: #a64ca6;
+	height: 50px;
+}
+
+.navbar .navbar-inverse .navbar-fixed-top {
+	color: white !important;
+	font-size: 2em !important;
+}
+
+.navbar-inverse .navbar-nav>li>a{
+	color: white;
+	font-size: 2em;
+}
+
+ul.nav.navbar-nav{
+	width: 50%;
+	margin-left: 8%;
+}
+
+@media screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (orientation : landscape) {
+	ul.nav.navbar-nav {
+		width: 75%;
+		position: absolute;
+		right: -20px;
+}
+	.container-fluid>.navbar-collapse, .container-fluid>.navbar-header, .container>.navbar-collapse, .container>.navbar-header{
+	width: 5%;
+}
+	.navbar .navbar-inverse .navbar-fixed-top {
+	color: white !important;
+	font-size: 1.5em !important;
+}
+
+.navbar-inverse .navbar-nav>li>a{
+	color: white;
+	font-size: 1.5em;
+}
+
+}
+
+
+
+.container-fluid>.navbar-collapse, .container-fluid>.navbar-header, .container>.navbar-collapse, .container>.navbar-header{
+	width: 25%;
+}
+
+
+.navbar-inverse .navbar-brand {
+	color: white;
+	font-size: 2em;
+}
+
+.navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus{
+	background-image: url("active.png")!important;
+	background-color: #a64ca6;
+	background-repeat: no-repeat;
+	background-position: center top;
+}
+
+
+
+.navbar-inverse .navbar-nav>.active>a:hover{
+	background-color: #a64ca6;
+	color: #CCCCCC;
+}
+
+.navbar-inverse .navbar-nav>a:hover{
+	background-color: #a64ca6;
+	border-left: 1px solid white;
+	border-right: 1px solid white;
+}
+
+.navbar-fixed-top{
+	border: none !important;
+}*/
+
+.navbar-inverse .navbar-nav>.active>a:hover{
+	background-color: rgba(166, 76, 166, 0.7);
+	
+}
+
+.navbar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand{
+	margin-left: 15px;
+}
+
+ul.ulnav{
+	/*width: 800px;*/
+	margin: auto;
+	list-style-type: none;
+	padding-top: 6px;
+}
+
+.ulnav li{
+	display:inline;
+	font-size: 2em;
+	font-weight: bold;
+	margin-left: 30px;
+}
+
+.logo .restaurant{
+	padding-top: 6px;
+	display: block;
+	font-size: 2em;
+	font-weight: bold;
+	margin-left: 30px;
+	width: 13%;
+}
+
+.nv {
+	display: block;
+	width: 70%;
+}
+
+
+
+.container {
+	margin-top: 50px;
+	text-align: center;
+	
+}
+
+.well{
+	height: 200px;
+	background-color: white;
+	border: 4px solid #a64ca6;
+	border-radius: 12px;
+	box-shadow: 2px 2px 2px #888888;
+}
+
+h1 {
+	font-size: 3em;
+}
+
+#main-input {
+	/*width: 25%;*/
+}
+
+.input-box {
+	text-align: right;
+	width: 300px;
+	margin: auto;
+	color: black;
+	margin-top: 75px;
+	/*padding-left: 45px;*/
+}
+
+.input-box label {
+	color: white;
+	font-size: 1.5em;
+}
+
+.maincont {
+	width: 90%;
+	margin-top: 200px;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+#menuHeader{
+	font-size: 2em;
+	color: #a64ca6;
+	font-weight: bold;
+	text-align: left;
+}
+
+.subcont {
+	border: 2px solid white !important;
+	height: 400px !important;
+	/*margin: 8px;
+	padding:-8px;*/
+}
+
+.col-sm-8 .col-sm-4 {
+	margin: 8px !important;
+
+}
+
+.row {
+	margin: 8px;
+}
+
+#sortable li{
+	margin-top: 30px !important;
+}
+
+.menuItem{
+	border: 4px solid #a64ca6;
+	border-radius: 12px;
+	box-shadow: 2px 2px 2px #888888;
+	padding: 4px;
+	background-color: white;
+}
+
+#date{
+	color: #a64ca6;
+	font-size: 2em;
+	position: absolute;
+	top: 75px;
+	left: 44%;
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang='en'>
+	<head>
+	<title> Welcome to OmniSplit! </title>
+	<link href='../css/bootstrap.min.css' rel='stylesheet'>
+	<link href='../css/main.css' rel='stylesheet'>
+	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+	<script src='../js/bootstrap.min.js'></script>
+	<meta name="viewport" content="width=device-width" />
+	<script>
+	window.onload = function() {
+		var d = new Date();
+		document.getElementById("date").innerHTML = d.toDateString();
+		}
+	</script>
+	<style>
+	body {
+        padding-top: 70px;
+        /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    }
+	</style>
+	</head>
+	<body class="dash">
+	
+	<nav class="navbar navbar-inverse navbar-fixed-top " style="background-color: #a64ca6">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#"> OmniSplit</a>
+			</div>
+			<div style="margin: auto;">
+				<ul class="nav navbar-nav">
+					<li><a href="#">Tables</a></li>
+					<li><a href="#">Orders</a></li>
+					<li class="active"><a href="index.html">Dashboard</a></li>
+					<li><a href="menu.html">Menu</a></li>
+					<li><a href="#">Settings</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+<div class="container" style="width: 95%;">
+	<div id="date"></div>
+    <div class="row">
+        <div class="col-sm-6 col-sm-6"><div class="well"><p>6 cols, 6 small cols</p></div></div>
+        <div class="col-sm-3"><div class="well"><p>3 cols</p></div></div>
+        <div class="col-sm-3"><div class="well"><p>3 cols</p></div></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3"><div class="well"><p>3 cols</p></div></div>
+        <div class="col-sm-3"><div class="well"><p>3 cols</p></div></div>
+        <div class="col-sm-6 col-sm-6"><div class="well"><p>6 cols, 6 small cols</p></div></div>
+    </div>
+    
+ 
+</div>
+	<div class="footer">
+	<div class="container">
+	<p>Copyright &copy;2015 Orderly All rights reserved.</p>
+	</div>
+	</div>
+	</body>
+</html>
