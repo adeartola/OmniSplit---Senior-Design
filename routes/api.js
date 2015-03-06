@@ -21,6 +21,7 @@ router.use('/loggedin', function(req, res) {
     res.send(req.isAuthenticated() ? req.user : '0');
 });
 
+//TODO: Restructure login (see grapvine), use OAUTH for app login
 router.post('/login', passport.authenticate('login'), function(req, res) {
     res.render('index', { title: 'LOGGED IN' });
 });
