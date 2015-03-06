@@ -24,16 +24,6 @@ var databaseUrl, redisOptions;
 if (process.env.NODE_ENV == 'production') {
     //TODO: redis could be on another server
     databaseUrl = 'mongodb://' + process.env.DB_USER + ':' + process.env.DB_PASSWORD + '@ds041157.mongolab.com:41157/orderly_db';
-    /*
-    mongooseRedisCache(mongoose, {
-        host: process.env.REDIS_HOST,
-        port: 'redisPort',
-        pass: process.env.REDIS_PASSWORD,
-        options: 'redisOptions'
-    });
-    redisOptions = ({
-    });
-    */
     mongooseRedisCache(mongoose);
 }
 else { // Local dev
@@ -79,14 +69,14 @@ app.use(session({
 }));
 
 // Passport setup
-app.use(passport.initialize());
-app.use(passport.session());
+//app.use(passport.initialize());
+//app.use(passport.session());
 
 // Configure passport-local to use account model for authentication
 var User = require('./models/user');
-passport.use(new LocalStrategy(User.authenticate()));
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+//passport.use(new LocalStrategy(User.authenticate()));
+//passport.serializeUser(User.serializeUser());
+//passport.deserializeUser(User.deserializeUser());
 
 app.use(flash());
 app.use(busboy());

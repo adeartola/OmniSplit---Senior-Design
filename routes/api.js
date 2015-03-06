@@ -1,10 +1,18 @@
 var debug      = require('debug')('omnisplit:api');
 var express    = require('express');
 var passport   = require('passport');
-var router     = express.Router();
+var jwt        = require('jsonwebtoken');
+var crypto     = require('crypto');
 var Restaurant = require('../models/restaurant');
 var User       = require('../models/user');
 var Menu       = require('../models/menu');
+
+var router     = express.Router();
+
+var SECRET;
+require('crypto').randomBytes(48, function(ex, buf) {
+    SECRET = buf.toString('hex');
+});
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated() && req.user[1] == req.params.user)
@@ -17,13 +25,55 @@ router.get('/', function(req, res) {
     res.render('index', { title: 'Orderly' })
 });
 
-router.use('/loggedin', function(req, res) {
-    res.send(req.isAuthenticated() ? req.user : '0');
+router.post('/validtoken', function(req, res) {
+    if (req.body.token == undefined)
+        return res.send(false);
+
+    jwt.verify(req.body.token, SECRET, function(err, decoded) {
+        if(err) {
+            debug(err);
+            return res.status(400).send(false);
+        }
+        else {
+            var now = new Date().getTime();
+            debug('NOW: ' + now + ', ISSUED: ' + decoded.issued + ', EXPIRES IN: ' + decoded.expiresInMinutes * 60);
+            if(now > decoded.issued + decoded.expiresInMinutes * 60) { //Token expired
+                return res.send(false);
+            }
+            else
+                return res.send(true);
+        }
+    });
 });
 
 //TODO: Restructure login (see grapvine), use OAUTH for app login
-router.post('/login', passport.authenticate('login'), function(req, res) {
-    res.render('index', { title: 'LOGGED IN' });
+router.post('/login', function(req, res) {
+    if (req.body.email == undefined || req.body.password == undefined)
+        return res.status(400).end(JSON.stringify({ status: 400, message: 'Bad request' }) );
+
+    User.findOne({ email: req.body.email }, function(err, user) {
+        if (err)
+            return res.status(400).end(JSON.stringify({ error: err }) );
+        else if (!user)
+            return res.status(401).end(JSON.stringify({ status: 401, message: 'Invalid email or password' }) );
+        else {
+            user.comparePassword(req.body.password, function(err, authenticated) {
+                if (err) {
+                    debug(err.stack);
+                    return res.status(400).end(JSON.stringify({ error: err }) );
+                }
+                else {
+                    var token = jwt.sign({
+                        email: user.email,
+                        restaurants: user.restaurants,
+                        issued: new Date().getTime(),
+                        expiresInMinutes: 25/60 * 1000,
+                    }, SECRET);
+                    return res.end(token);
+                }
+            });
+        }
+    });
 });
 
 router.post('/logout', function(req, res) {
@@ -32,6 +82,9 @@ router.post('/logout', function(req, res) {
 });
 
 router.post('/register', function(req, res) {
+    if (req.body.email == undefined || req.body.password == undefined)
+        return res.status(400).end(JSON.stringify({ status: 400, message: 'Bad request' }) );
+
     //Add user to database
     res.setHeader('Content-Type', 'application/json');
     var email = req.body.email;
@@ -41,15 +94,20 @@ router.post('/register', function(req, res) {
     var valid = regex.test(password);
 
     if (valid) {
-        User.register(new User({ email: email }), password, function(err, newUser) {
+        User.create(new User({ email: email, password: password }), function(err, newUser) {
             if (err) {
                 res.status(400);
                 return res.end(JSON.stringify({ error: err }) );
             }
             else {
                 debug('Added user ' + newUser.email + ' to users');
-                res.status(201);
-                return res.end(JSON.stringify({ status: '201', message: 'Created' }) );
+                var token = jwt.sign({
+                    email: newUser.email,
+                    restaurants: newUser.restaurants,
+                    issued: new Date().getTime(),
+                    expiresInMinutes: 25/60,
+                }, SECRET);
+                return res.end(token);
             }
         });
     }
@@ -131,49 +189,6 @@ router.get('/restaurants', function(req, res) {
         }
         res.end(JSON.stringify(restaurants));
     })
-});
-
-router.get('/populateusers', function(req, res) {
-    res.render('populate', { title: 'Orderly - Reset users', link: 'populateusers' });
-}).post('/populateusers', function(req, res) {
-    res.setHeader('Content-Type', 'application/json');
-
-    var users = [
-        { email: 'jordan.buschman@me.com', password: 'test' },
-        { email: 'jbuschman@scu.edu', password: 'potato' },
-    ];
-    User.remove({}, function(err) {
-        if (err) {
-            res.status(400);
-            return res.end(JSON.stringify({ error: err }) );
-        }
-        else {
-            debug('Removed all users');
-
-            var completedUsers = 0;
-
-            users.forEach(function(user, key) {
-                User.register(new User({ email: user.email }), user.password, function(err, newUser) {
-                    if (err) {
-                        res.status(400);
-                        return res.end(JSON.stringify({ error: err }) );
-                    }
-                    else {
-                        debug('Added ' + newUser.email + ' to users');
-                        users[key]._id = newUser.id;
-                        completedUsers++;
-
-                        if (completedUsers == users.length) {
-                            return res.end(JSON.stringify({
-                                message: 'Database reset successfully.',
-                                users: users
-                            }) );
-                        }
-                    }
-                });
-            });
-        }
-    });
 });
 
 module.exports = router;

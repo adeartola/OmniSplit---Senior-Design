@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "DEBUG=omnisplit* node ./bin/www"
   },
   "dependencies": {
     "express": "~4.9.0",
@@ -24,6 +24,7 @@
     "mongoose-redis-cache": "0.0.3",
     "bcrypt": "~0.8.1",
     "connect-redis": "~2.2.0",
-    "express-session": "~1.10.3"
+    "express-session": "~1.10.3",
+    "jsonwebtoken": "~4.0.0"
   }
 }
