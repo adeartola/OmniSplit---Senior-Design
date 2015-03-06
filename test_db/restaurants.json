@@ -6,19 +6,15 @@
         'name': 'White Elephant',
         'owner': 'jordan.buschman@me.com',
         'description': 'Best Thai food in the area!',
-        'locations': [
-            {
-                'menu': {
-                    '$oid': '54e6794d62fdbd0612cbd5a1'
-                },
-                'address': {
-                    'addressLine1': '930 El Camino Real',
-                    'city': 'Santa Clara',
-                    'state': 'CA',
-                    'zip': 95050
-                }
-            }
-        ],
+        'menu': {
+            '$oid': '54e6794d62fdbd0612cbd5a1'
+        },
+        'address': {
+            'addressLine1': '930 El Camino Real',
+            'city': 'Santa Clara',
+            'state': 'CA',
+            'zip': 95050
+        },
         '__v': 0
     }, {
         '_id': {
@@ -27,19 +23,15 @@
         'name': 'Chipotle',
         'owner': 'jordan.buschman@me.com',
         'description': 'Mexican food',
-        'locations': [
-            {
-                'menu': {
-                    '$oid': '54e6794d62fdbd0612cbd5a1'
-                },
-                'address': {
-                    'addressLine1': '540 Newhall Dr #10',
-                    'city': 'San Jose',
-                    'state': 'CA',
-                    'zip': 95110
-                }
-            }
-        ],
+        'menu': {
+            '$oid': '54e6794d62fdbd0612cbd5a1'
+        },
+        'address': {
+            'addressLine1': '540 Newhall Dr #10',
+            'city': 'San Jose',
+            'state': 'CA',
+            'zip': 95110
+        },
         '__v': 0
     }
 ]

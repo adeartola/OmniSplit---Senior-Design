@@ -119,7 +119,7 @@ router.get('/restaurant/:id', function(req,res) {
 router.get('/restaurants', function(req, res) {
     res.setHeader('Content-Type', 'application/json');
 
-    var stream = Restaurant.find({}, function(err, restaurants) {
+    Restaurant.find({}, function(err, restaurants) {
         if (err) {
             res.status(400);
             return res.end(JSON.stringify({ error: err }) );
@@ -128,10 +128,8 @@ router.get('/restaurants', function(req, res) {
             res.status(404);
             return res.end(JSON.stringify({ status: '404', message: 'Not found' }) );
         }
+        res.end(JSON.stringify(restaurants));
     })
-    .setOptions({ lean: true })
-    .stream({ transform: JSON.stringify })
-    .pipe(res);
 });
 
 router.get('/populateusers', function(req, res) {
