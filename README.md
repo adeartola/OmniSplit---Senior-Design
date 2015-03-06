@@ -77,7 +77,7 @@ OmniSplit uses socket.io to handle events and synchronization between different 
 
 **/api/loggedin** (GET, POST): Returns 1 if a user is logged in, 0 if not
 
-**/api/login** (POST *email, password*): Check and authenticate a user NOT DONE YET
+**/api/login** (POST *email, password*): Check and authenticate a user NOT DONE YET, SEE TODO MESSAGE
 
 **/api/logout** (POST): If logged in, log a user out
 
