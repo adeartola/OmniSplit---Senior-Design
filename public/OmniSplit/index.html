@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang='en'>
+	<head>
+	<title> Welcome to OmniSplit! </title>
+	<link href='css/bootstrap.min.css' rel='stylesheet'>
+	<link href='css/main.css' rel='stylesheet'>
+	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+	<script src='js/bootstrap.min.js'></script>
+	<meta name="viewport" content="width=device-width" />
+	<script>
+	$(document).ready(function(){
+    $("#goHome").click(function(){
+		window.location='dashboard/';
+    });
+});
+	</script>
+	</head>
+	<body>
+	<div class='container' id='main-input'>
+	<h1> OmniSplit </h1>
+	
+	
+	<div class="input-box">
+	<form class="form-signin">
+        <label for="restaurantId" class="sr-only">restaurant id</label>
+        <input  type="id" id="restaurantId" class="form-control" placeholder="restaurant id" required autofocus>
+        <label for="password" class="sr-only">password</label>
+        <input style="margin-top: 4px;" type="password" id="password" class="form-control" placeholder="password" required>
+        <button style="margin-top: 4px;" class="btn btn-lg btn-primary btn-block" style="background-color: white; color: black;" type="submit" id="goHome" >log in</button>
+      </form>
+	</div>
+	
+	
+	<div class='container-fluid'>
+	
+	</div>
+	<div class="footer">
+	<div class="container">
+	<p>Copyright &copy;2015 Orderly All rights reserved.</p>
+	</div>
+	</div>
+	</body>
+</html>
