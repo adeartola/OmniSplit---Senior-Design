@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang="en">
 	<head>
     <% if(blocks.title) { %>
         <title><%= blocks.title %></title>
@@ -7,15 +7,15 @@
         <title>OmniSplit</title>
     <% } %>
 
-	<link href='stylesheets/bootstrap.min.css' rel='stylesheet'>
-	<link href='stylesheets/main.css' rel='stylesheet'>
-	<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-	<script src='javascripts/bootstrap.min.js'></script>
+	<link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+	<link href="stylesheets/main.css" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="javascripts/bootstrap.min.js"></script>
 	<meta name="viewport" content="width=device-width" />
 	<script>
 	    $(document).ready(function(){
             $("#goHome").click(function(){
-	        	window.location='dashboard/';
+	        	window.location="dashboard/";
             });
         });
 	</script>
@@ -23,8 +23,13 @@
     <%-stylesheets%>
 	</head>
 	<body>
-        <section class="main">
-            <%-body -%>
-        </section>
+        <%-body -%>
+        <div class="container-fluid">
+            <div class="footer">
+                <div class="container">
+                    <p>Copyright &copy;2015 Orderly All rights reserved.</p>
+                </div>
+            </div>
+        </div>
 	</body>
 </html>
