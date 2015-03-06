@@ -1,26 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <% if (blocks.title) { %>
-            <title><%= blocks.title %></title>
-        <% } else { %>
-            <title>Orderly</title>
-        <% } %>
+<html lang='en'>
+	<head>
+    <% if(blocks.title) { %>
+        <title><%= blocks.title %></title>
+    <% } else { %>
+        <title>OmniSplit</title>
+    <% } %>
 
-        <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
-        <%-scripts%>
-        <%-stylesheets%>
-    </head>
-    <body>
-        <header>
-            <h2>Header</h2>
-        </header>
+	<link href='stylesheets/bootstrap.min.css' rel='stylesheet'>
+	<link href='stylesheets/main.css' rel='stylesheet'>
+	<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+	<script src='javascripts/bootstrap.min.js'></script>
+	<meta name="viewport" content="width=device-width" />
+	<script>
+	    $(document).ready(function(){
+            $("#goHome").click(function(){
+	        	window.location='dashboard/';
+            });
+        });
+	</script>
+    <%-scripts%>
+    <%-stylesheets%>
+	</head>
+	<body>
         <section class="main">
             <%-body -%>
         </section>
-        <footer>
-            <h2>Footer</h2>
-        </footer>
-    </body>
+	</body>
 </html>
