@@ -5,19 +5,16 @@ var path               = require('path');
 var favicon            = require('serve-favicon');
 var logger             = require('morgan');
 var bodyParser         = require('body-parser');
-var cookieParser       = require('cookie-parser');
-var flash              = require('connect-flash');
 var engine             = require('ejs-locals');
-var busboy             = require('connect-busboy');
 var passport           = require('passport');
 var LocalStrategy      = require('passport-local');
+var crypto             = require('crypto');
 var mongoose           = require('mongoose');
 var mongooseRedisCache = require('mongoose-redis-cache');
 
 var RedisStore = require('connect-redis')(session);
 
 var app = express();
-var router = express.Router();
 
 var databaseUrl, redisOptions;
 
@@ -50,10 +47,14 @@ require('./config/passport')(passport); // passport configuration
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser('super secret'));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+require('crypto').randomBytes(48, function(ex, buf) {
+    app.set('jwtTokenSecret', buf.toString('hex'));
+});
+
 
 // view engine setup
 app.engine('ejs', engine);
@@ -74,14 +75,9 @@ app.use(session({
 
 // Configure passport-local to use account model for authentication
 var User = require('./models/user');
-//passport.use(new LocalStrategy(User.authenticate()));
-//passport.serializeUser(User.serializeUser());
-//passport.deserializeUser(User.deserializeUser());
-
-app.use(flash());
-app.use(busboy());
 
 /***** ROUTES *****/
+var router = express.Router();
 var index     = require('./routes/index');
 var chat      = require('./routes/chat');
 var api       = require('./routes/api');

@@ -1,18 +1,13 @@
 var debug      = require('debug')('omnisplit:api');
 var express    = require('express');
 var passport   = require('passport');
-var jwt        = require('jsonwebtoken');
-var crypto     = require('crypto');
+var jwt        = require('jwt-simple');
+var moment     = require('moment');
 var Restaurant = require('../models/restaurant');
 var User       = require('../models/user');
 var Menu       = require('../models/menu');
 
 var router     = express.Router();
-
-var SECRET;
-require('crypto').randomBytes(48, function(ex, buf) {
-    SECRET = buf.toString('hex');
-});
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated() && req.user[1] == req.params.user)
@@ -29,14 +24,13 @@ router.post('/validtoken', function(req, res) {
     if (req.body.token == undefined)
         return res.send(false);
 
-    jwt.verify(req.body.token, SECRET, function(err, decoded) {
+    jwt.verify(req.body.token, req.app.get('jwtTokenSecret'), function(err, decoded) {
         if(err) {
             debug(err);
             return res.status(400).send(false);
         }
         else {
             var now = new Date().getTime();
-            debug('NOW: ' + now + ', ISSUED: ' + decoded.issued + ', EXPIRES IN: ' + decoded.expiresInMinutes * 60);
             if(now > decoded.issued + decoded.expiresInMinutes * 60) { //Token expired
                 return res.send(false);
             }
@@ -46,7 +40,6 @@ router.post('/validtoken', function(req, res) {
     });
 });
 
-//TODO: Restructure login (see grapvine), use OAUTH for app login
 router.post('/login', function(req, res) {
     if (req.body.email == undefined || req.body.password == undefined)
         return res.status(400).end(JSON.stringify({ status: 400, message: 'Bad request' }) );
@@ -63,13 +56,17 @@ router.post('/login', function(req, res) {
                     return res.status(400).end(JSON.stringify({ error: err }) );
                 }
                 else {
-                    var token = jwt.sign({
-                        email: user.email,
-                        restaurants: user.restaurants,
-                        issued: new Date().getTime(),
-                        expiresInMinutes: 25/60 * 1000,
-                    }, SECRET);
-                    return res.end(token);
+                    var expiration = moment().add(10, 'minutes').valueOf();
+                    var token = jwt.encode({
+                        iss: user.id,
+                        exp: expiration
+                    }, req.app.get('jwtTokenSecret'));
+
+                    return res.json({
+                        token: token,
+                        expires: expiration,
+                        user: user.toJSON()
+                    });
                 }
             });
         }
@@ -101,13 +98,17 @@ router.post('/register', function(req, res) {
             }
             else {
                 debug('Added user ' + newUser.email + ' to users');
-                var token = jwt.sign({
-                    email: newUser.email,
-                    restaurants: newUser.restaurants,
-                    issued: new Date().getTime(),
-                    expiresInMinutes: 25/60,
-                }, SECRET);
-                return res.end(token);
+                var expiration = moment().add(10, 'minutes').valueOf()
+                var token = jwt.encode({
+                    iss: user.id,
+                    exp: expiration
+                }, req.app.get('jwtTokenSecret'));
+
+                return res.json({
+                    token: token,
+                    expires: expiration,
+                    user: user.toJSON()
+                });
             }
         });
     }
