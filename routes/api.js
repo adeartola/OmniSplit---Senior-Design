@@ -61,6 +61,7 @@ router.post('/logout', function(req, res) {
 });
 
 router.post('/register', function(req, res) {
+    //TODO: /api/register POST gives bad gateway response
     if (req.body.email == undefined || req.body.password == undefined)
         return res.status(400).end(JSON.stringify({ status: 400, message: 'Bad request' }) );
 
