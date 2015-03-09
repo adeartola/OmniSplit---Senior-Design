@@ -5,6 +5,7 @@ var path               = require('path');
 var favicon            = require('serve-favicon');
 var logger             = require('morgan');
 var redis              = require('redis');
+var flash              = require('connect-flash');
 var bodyParser         = require('body-parser');
 var cookieParser       = require('cookie-parser');
 var engine             = require('ejs-locals');
@@ -51,19 +52,7 @@ app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-// session setup
-/*
-app.use(session({
-    secret: 'session-secret',
-    saveUninitialized: false,
-    resave: false,
-    store: new RedisStore({
-        host: 'localhost',
-        port: '6379',
-        client: client
-    })
-}) );
-*/
+app.use(flash());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -76,6 +65,18 @@ require('crypto').randomBytes(48, function(ex, buf) {
 app.engine('ejs', engine);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
+
+// session setup
+app.use(session({
+    secret: 'session-secret',
+    saveUninitialized: false,
+    resave: false,
+    store: new RedisStore({
+        host: 'localhost',
+        port: '6379',
+        client: client
+    })
+}) );
 
 // Passport setup
 //app.use(passport.initialize());

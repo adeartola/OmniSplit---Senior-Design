@@ -21,8 +21,10 @@ router.post('/login', function(req, res) {
     User.findOne({ email: req.body.email }, function(err, user) {
         if (err)
             return res.status(400).end(JSON.stringify({ error: err }) );
-        else if (!user)
+        else if (!user) {
+            req.flash('error', 'Invalid email or password.');
             return res.status(401).end(JSON.stringify({ status: 401, message: 'Invalid email or password' }) );
+        }
         else {
             user.comparePassword(req.body.password, function(err, authenticated) {
                 if (err) {
@@ -48,6 +50,7 @@ router.post('/login', function(req, res) {
                     }) );
                 }
                 else {
+                    req.flash('error', 'Invalid email or password.');
                     return res.status(401).end(JSON.stringify({ status: 401, message: 'Invalid email or password' }) );
                 }
             });
