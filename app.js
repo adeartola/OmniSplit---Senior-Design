@@ -52,6 +52,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 // session setup
+/*
 app.use(session({
     secret: 'session-secret',
     saveUninitialized: false,
@@ -62,6 +63,7 @@ app.use(session({
         client: client
     })
 }) );
+*/
 
 app.use(express.static(path.join(__dirname, 'public')));
 
