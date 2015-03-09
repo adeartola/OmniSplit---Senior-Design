@@ -10,6 +10,7 @@ router.all('/', jwtauth, function(req, res) {
 });
 
 router.all('/login', function(req, res) {
+    //TODO: If logged in, redirect to /
     res.render('login', { title: 'Omnisplit - Please Log In' });
 });
 

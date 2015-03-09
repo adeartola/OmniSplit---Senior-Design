@@ -10,8 +10,8 @@ module.exports = function(req, res, next) {
             var decoded = jwt.decode(token, req.app.get('jwtTokenSecret'));
                          
             if (decoded.exp <= Date.now()) {
+                res.clearCookie('token');
                 res.redirect('/login');
-                return next();
             }
             User.findOne({ _id: decoded.iss }, function(err, user) {
                 if (user) {
