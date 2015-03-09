@@ -4,16 +4,18 @@ var session            = require('express-session');
 var path               = require('path');
 var favicon            = require('serve-favicon');
 var logger             = require('morgan');
+var redis              = require('redis');
 var bodyParser         = require('body-parser');
+var cookieParser       = require('cookie-parser');
 var engine             = require('ejs-locals');
 var passport           = require('passport');
 var LocalStrategy      = require('passport-local');
-var crypto             = require('crypto');
 var mongoose           = require('mongoose');
 var mongooseRedisCache = require('mongoose-redis-cache');
 
 var RedisStore = require('connect-redis')(session);
 
+var client = redis.createClient();
 var app = express();
 
 var databaseUrl, redisOptions;
@@ -46,28 +48,32 @@ require('./config/passport')(passport); // passport configuration
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
+// session setup
+app.use(session({
+    secret: 'session-secret',
+    saveUninitialized: false,
+    resave: false,
+    store: new RedisStore({
+        host: 'localhost',
+        port: '6379',
+        client: client
+    })
+}) );
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Generate a secret key for JWTs
 require('crypto').randomBytes(48, function(ex, buf) {
     app.set('jwtTokenSecret', buf.toString('hex'));
 });
-
 
 // view engine setup
 app.engine('ejs', engine);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
-
-// session setup
-app.use(session({
-    secret: 'super secret message',
-    resave: false,
-    saveUninitialized: false,
-    store: new RedisStore(redisOptions)
-}));
 
 // Passport setup
 //app.use(passport.initialize());

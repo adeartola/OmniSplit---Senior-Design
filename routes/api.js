@@ -9,40 +9,15 @@ var Menu       = require('../models/menu');
 
 var router     = express.Router();
 
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated() && req.user[1] == req.params.user)
-        return next();
-
-    return res.status('403').end(JSON.stringify({ status: '403', message: 'Forbidden' }) );
-}
-
 router.get('/', function(req, res) {
     res.render('index', { title: 'Orderly' })
-});
-
-router.post('/validtoken', function(req, res) {
-    if (req.body.token == undefined)
-        return res.send(false);
-
-    jwt.verify(req.body.token, req.app.get('jwtTokenSecret'), function(err, decoded) {
-        if(err) {
-            debug(err);
-            return res.status(400).send(false);
-        }
-        else {
-            var now = new Date().getTime();
-            if(now > decoded.issued + decoded.expiresInMinutes * 60) { //Token expired
-                return res.send(false);
-            }
-            else
-                return res.send(true);
-        }
-    });
 });
 
 router.post('/login', function(req, res) {
     if (req.body.email == undefined || req.body.password == undefined)
         return res.status(400).end(JSON.stringify({ status: 400, message: 'Bad request' }) );
+
+    res.setHeader('Content-Type', 'application/json');
 
     User.findOne({ email: req.body.email }, function(err, user) {
         if (err)
@@ -55,18 +30,24 @@ router.post('/login', function(req, res) {
                     debug(err.stack);
                     return res.status(400).end(JSON.stringify({ error: err }) );
                 }
-                else {
+                else if (authenticated) {
                     var expiration = moment().add(10, 'minutes').valueOf();
                     var token = jwt.encode({
                         iss: user.id,
                         exp: expiration
                     }, req.app.get('jwtTokenSecret'));
 
-                    return res.json({
+                    res.cookie('token', token, {
+                        path: '/',
+                        maxAge: new Date(expiration),
+                        httpOnly: false
+                    }).send(JSON.stringify({
                         token: token,
                         expires: expiration,
-                        user: user.toJSON()
-                    });
+                    }) );
+                }
+                else {
+                    return res.status(401).end(JSON.stringify({ status: 401, message: 'Invalid email or password' }) );
                 }
             });
         }

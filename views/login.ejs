@@ -1,15 +1,17 @@
 <% layout('boilerplate') -%>
-<%block('title', title) %>
+<% block('title', title) %>
+<% script('/javascripts/jquery.form.js') %> 
+<% script('/javascripts/login.js') %>
 
 <div class='container' id='main-input'>
     <h1> OmniSplit </h1>
     
     <div class="input-box">
-        <form class="form-signin">
+        <form class="form-signin" method="POST" action="/dashboard">
             <label for="restaurantId" class="sr-only">restaurant id</label>
-            <input  type="id" id="restaurantId" class="form-control" placeholder="restaurant id" required autofocus>
-            <label for="password" class="sr-only">password</label>
-            <input style="margin-top: 4px;" type="password" id="password" class="form-control" placeholder="password" required>
+            <input  type="email" id="restaurantId" class="form-control" placeholder="restaurant id" name="email" required autofocus>
+            <label for="password" class="sr-only" name="password">password</label>
+            <input style="margin-top: 4px;" type="password" id="password" class="form-control" placeholder="password" name="password" required>
             <button style="margin-top: 4px;" class="btn btn-lg btn-primary btn-block" style="background-color: white; color: black;" type="submit" id="goHome" >log in</button>
         </form>
     </div>

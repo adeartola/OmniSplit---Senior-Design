@@ -1,22 +1,34 @@
-var User = require('../models/user');
+var User  = require('../models/user');
+var debug = require('debug')('omnisplit:jwt');
 var jwt = require('jwt-simple');
  
- module.exports = function(req, res, next) {
-     var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'];
+module.exports = function(req, res, next) {
+    var token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'];
+    var token = req.cookies.token;
     if (token) {
         try {
             var decoded = jwt.decode(token, req.app.get('jwtTokenSecret'));
                          
             if (decoded.exp <= Date.now()) {
                 res.redirect('/login');
+                return next();
             }
             User.findOne({ _id: decoded.iss }, function(err, user) {
-                req.user = user;
+                if (user) {
+                    req.user = user;
+                    return next();
+                }
+                else {
+                    res.clearCookie('token');
+                    res.redirect('/login');
+                }
             });
         } catch (err) {
-            return next();
+            res.clearCookie('token');
+            debug(err.stack);
+            res.redirect('/login');
         }
     } else {
-        res.redirect('/login'); 
+        return res.redirect('/login'); 
     }
  };
