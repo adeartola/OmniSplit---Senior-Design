@@ -2,7 +2,6 @@ var debug      = require('debug')('omnisplit:api');
 var express    = require('express');
 var passport   = require('passport');
 var jwt        = require('jwt-simple');
-var moment     = require('moment');
 var Restaurant = require('../models/restaurant');
 var User       = require('../models/user');
 var Menu       = require('../models/menu');
@@ -31,7 +30,8 @@ router.post('/login', function(req, res) {
                     return res.status(400).end(JSON.stringify({ error: err }) );
                 }
                 else if (authenticated) {
-                    var expiration = moment().add(10, 'minutes').valueOf();
+                    var maxAge = 1000 * 10 * 60; //10 minutes
+                    var expiration = Date.now() + maxAge;
                     var token = jwt.encode({
                         iss: user.id,
                         exp: expiration
@@ -39,8 +39,9 @@ router.post('/login', function(req, res) {
 
                     res.cookie('token', token, {
                         path: '/',
-                        maxAge: new Date(expiration),
-                        httpOnly: false
+                        maxAge: maxAge,
+                        expires: expiration,
+                        httpOnly: true,
                     }).send(JSON.stringify({
                         token: token,
                         expires: expiration,
@@ -79,7 +80,8 @@ router.post('/register', function(req, res) {
             }
             else {
                 debug('Added user ' + newUser.email + ' to users');
-                var expiration = moment().add(10, 'minutes').valueOf()
+                var maxAge = 1000 * 10 * 60; //10 minutes
+                var expiration = Date.now() + maxAge;
                 var token = jwt.encode({
                     iss: user.id,
                     exp: expiration
