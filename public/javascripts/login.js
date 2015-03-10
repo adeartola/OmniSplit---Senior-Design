@@ -36,12 +36,10 @@ function validateForm() {
         data: JSON.stringify(submitform),
         dataType: 'json',
         error: function(err) {
-            spinner.stop; //Stop the spinner
             console.log(err.responseText);
             location.reload();
         },
         success: function() {
-            spinner.stop();
             window.location.href = '/';
         },
     });
