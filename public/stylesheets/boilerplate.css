@@ -3,10 +3,6 @@ body {
 	color: white;
 }
 
-body.dash{
-	background-color: white;
-}
-
 a:link, a:visited, a:active {
     color: #63f2dd;
 }

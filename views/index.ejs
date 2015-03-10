@@ -1,8 +1,35 @@
 <% layout('boilerplate') -%>
-<%block('title', title) %>
+<% block('title', title) %>
+<% script('/javascripts/index.js') %>
+<% stylesheet('/stylesheets/index.css') %>
 
-<div class='container' id='main-input'>
-    <h1> OmniSplit </h1>
-    
-    <p>Welcome!</p>
+<nav class="navbar navbar-inverse navbar-fixed-top " style="background-color: #a64ca6">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<a class="navbar-brand" href="#"> OmniSplit</a>
+		</div>
+		<div style="margin: auto;">
+			<ul class="nav navbar-nav">
+				<li><a href="#">Tables</a></li>
+				<li><a href="#">Orders</a></li>
+				<li class="active"><a href="index.html">Dashboard</a></li>
+				<li><a href="menu.html">Menu</a></li>
+				<li><a href="#">Settings</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div class="container" style="width: 95%;">
+	<div id="date"></div>
+    <div class="row">
+        <div class="col-sm-6 col-sm-6"><div class="well"><p>6 cols, 6 small cols</p></div></div>
+        <div class="col-sm-3"><div class="well"><p>3 cols</p></div></div>
+        <div class="col-sm-3"><div class="well"><p>3 cols</p></div></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-3"><div class="well"><p>3 cols</p></div></div>
+        <div class="col-sm-3"><div class="well"><p>3 cols</p></div></div>
+        <div class="col-sm-6 col-sm-6"><div class="well"><p>6 cols, 6 small cols</p></div></div>
+    </div>
 </div>
