@@ -14,9 +14,7 @@ router.get('/', function(req, res) {
 
 router.post('/login', function(req, res) {
     if (req.body.email == undefined || req.body.password == undefined)
-        return res.status(400).end(JSON.stringify({ status: 400, message: 'Bad request' }) );
-
-    res.setHeader('Content-Type', 'application/json');
+        return res.status(400).json({ status: 400, message: 'Bad request' });
 
     User.findOne({ email: req.body.email }, function(err, user) {
         if (err)
@@ -29,7 +27,7 @@ router.post('/login', function(req, res) {
             user.comparePassword(req.body.password, function(err, authenticated) {
                 if (err) {
                     debug(err.stack);
-                    return res.status(400).end(JSON.stringify({ error: err }) );
+                    return res.status(400).json({ error: err });
                 }
                 else if (authenticated) {
                     var maxAge = 1000 * 10 * 60; //10 minutes
@@ -44,14 +42,14 @@ router.post('/login', function(req, res) {
                         maxAge: maxAge,
                         expires: expiration,
                         httpOnly: true,
-                    }).send(JSON.stringify({
+                    }).json({
                         token: token,
                         expires: expiration,
-                    }) );
+                    });
                 }
                 else {
                     req.flash('error', 'Invalid email or password.');
-                    return res.status(401).end(JSON.stringify({ status: 401, message: 'Invalid email or password' }) );
+                    res.status(401).json({ message: 'Invalid email or password' });
                 }
             });
         }
@@ -111,7 +109,6 @@ router.post('/register', function(req, res) {
 });
 
 router.get('/menu/:id', function(req, res) {
-    res.setHeader('Content-Type', 'application/json');
     var id = req.params.id;
 
     if (!id.match(/^[0-9a-fA-F]{24}$/)) { //Not valid id, so respond with 404

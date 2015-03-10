@@ -7,14 +7,14 @@ body.dash{
 	background-color: white;
 }
 
-a:link {
+a:link, a:visited, a:active {
     color: #63f2dd;
 }
 a:hover {
-    color: #82ffed;
+    color: #b4fff4;
 }
 a:active {
-    color: #33a595;
+    color: #49b2a3;
 }
 
 .nav1{

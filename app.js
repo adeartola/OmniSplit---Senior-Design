@@ -83,10 +83,11 @@ app.use(session({
 //app.use(passport.session());
 
 // Configure passport-local to use account model for authentication
-var User = require('./models/user');
+//var User = require('./models/user');
 
 /***** ROUTES *****/
 var router = express.Router();
+
 var index     = require('./routes/index');
 var chat      = require('./routes/chat');
 var api       = require('./routes/api');

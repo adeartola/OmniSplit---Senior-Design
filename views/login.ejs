@@ -1,10 +1,12 @@
 <% layout('boilerplate') -%>
 <% block('title', title) %>
 <% script('/javascripts/login.js') %>
+<% script('/javascripts/spin.min.js') %>
 
 <div class='container' id='main-input'>
     <h1> OmniSplit </h1>
     
+    <div id="spinner"></div>
     <div class="input-box">
         <form class="form-signin" method="POST" action="/" onSubmit="return validateForm()">
             <label for="email" class="sr-only">Email</label>

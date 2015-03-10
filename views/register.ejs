@@ -1,18 +1,19 @@
 <% layout('boilerplate') -%>
 <% block('title', title) %>
+<% script('/javascripts/register.js') %>
 
 <div class='container' id='main-input'>
     <h1> Register for OmniSplit Today </h1>
     
     <div class="input-box">
-        <form class="form-register" method="POST" action="/">
+        <form class="form-register" method="POST" action="/" onSubmit="return validateForm()">
             <label for="email" class="sr-only">Email</label>
-            <input  type="email" id="email" class="form-control" placeholder="Email" name="email" required autofocus>
+            <input  type="email" id="email" class="form-control" placeholder="Email" name="email" required autofocus />
             <label for="password" class="sr-only" name="password">Password</label>
-            <input style="margin-top: 4px;" type="password" id="password" class="form-control" placeholder="Password" name="password" required>
-            <label for="confirm-password" class="sr-only" name="confirm-password">Confirm password</label>
-            <input style="margin-top: 4px;" type="password" id="confirm-password" class="form-control" placeholder="Confirm password" name="confirm-password" required>
-            <button style="margin-top: 4px;" class="btn btn-lg btn-primary btn-block" style="background-color: white; color: black;" type="submit" id="goHome" >Register</button>
+            <input style="margin-top: 4px;" type="password" id="password" class="form-control" placeholder="Password" name="password" required />
+            <label for="check-password" class="sr-only" name="check-password">Retype Password</label>
+            <input style="margin-top: 4px;" type="password" id="check-password" class="form-control" placeholder="Check Password" name="check-password" required />
+            <input style="margin-top: 4px;" class="btn btn-lg btn-primary btn-block" style="background-color: white; color: black;" type="submit" id="goHome" value="Log In" />
         </form>
     </div>
 </div>
