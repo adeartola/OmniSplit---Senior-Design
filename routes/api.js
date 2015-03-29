@@ -8,11 +8,8 @@ var Menu       = require('../models/menu');
 
 var router     = express.Router();
 
-router.get('/', function(req, res) {
-    res.render('index', { title: 'Orderly' })
-});
-
 router.post('/login', function(req, res) {
+    //TODO: Use built-in sessions instead of JWT
     if (req.body.email == undefined || req.body.password == undefined)
         return res.status(400).json({ status: 400, message: 'Bad request' });
 
