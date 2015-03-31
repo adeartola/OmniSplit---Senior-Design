@@ -30,6 +30,7 @@ else { // Local dev
     databaseUrl = 'mongodb://orderly_test:test@127.0.0.1:27017/orderly_db';
     mongooseRedisCache(mongoose);
 }
+debug('Connected to local redis cache.');
 
 var db = mongoose.connection;
 db.on('error', console.error);
