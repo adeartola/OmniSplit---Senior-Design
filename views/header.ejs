@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        <% if(blocks.title) { %>
+            <title><%= blocks.title %></title>
+        <% } else { %>
+            <title>OmniSplit</title>
+        <% } %>
+
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-touch-fullscreen" content="yes">
+        <meta id="extViewportMeta" name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+
+	    <link rel="stylesheet" href="stylesheets/bootstrap.min.css">
+	    <link rel="stylesheet" href="stylesheets/boilerplate.css">
+        <%-stylesheets%>
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	    <script src="javascripts/bootstrap.min.js"></script>
+        <script src="javascripts/boilerplate.js"></script>
+        <%-scripts%>
+	</head>
+	<body>
