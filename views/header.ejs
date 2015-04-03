@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" <%= typeof ngApp != 'undefined' ? 'ng-app=' + ngApp : '' %> >
 	<head>
         <% if(blocks.title) { %>
             <title><%= blocks.title %></title>
@@ -19,4 +19,4 @@
         <script src="javascripts/boilerplate.js"></script>
         <%- scripts %>
 	</head>
-	<body>
+	<body <%= typeof ngController != 'undefined' ? 'ng-controller=' + ngController : '' %> >
