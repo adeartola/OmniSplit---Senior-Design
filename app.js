@@ -13,6 +13,7 @@ var passport           = require('passport');
 var LocalStrategy      = require('passport-local');
 var mongoose           = require('mongoose');
 var mongooseRedisCache = require('mongoose-redis-cache');
+var jwtauth            = require('./js/jwtauth');
 
 var RedisStore = require('connect-redis')(session);
 
@@ -93,8 +94,10 @@ var index     = require('./routes/index');
 var chat      = require('./routes/chat');
 var api       = require('./routes/api');
 var analysis  = require('./routes/analysis');
+var dashboard = require('./routes/dashboard');
 
 app.use('/', index);
+app.use('/dashboard', jwtauth, dashboard);
 app.use('/chat', chat);
 app.use('/api', api);
 app.use('/analysis', analysis);

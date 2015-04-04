@@ -1,18 +1,5 @@
 <% layout('dashboard-wrapper') -%>
 <% block('title', title) %>
-<% script('javascripts/index.js') %>
 <% stylesheet('stylesheets/index.css') %>
 
-<div class="container" style="width: 95%;">
-	<div id="date"></div>
-    <div class="row">
-        <div class="col-sm-6 col-sm-6"><div class="well"><p>6 cols, 6 small cols</p></div></div>
-        <div class="col-sm-3"><div class="well"><p>3 cols</p></div></div>
-        <div class="col-sm-3"><div class="well"><p>3 cols</p></div></div>
-    </div>
-    <div class="row">
-        <div class="col-sm-3"><div class="well"><p>3 cols</p></div></div>
-        <div class="col-sm-3"><div class="well"><p>3 cols</p></div></div>
-        <div class="col-sm-6 col-sm-6"><div class="well"><p>6 cols, 6 small cols</p></div></div>
-    </div>
-</div>
+<div ng-view></div>
