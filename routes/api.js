@@ -54,7 +54,7 @@ router.post('/login', function(req, res) {
 });
 
 router.post('/logout', function(req, res) {
-    req.logOut();
+    res.clearCookie('token');
     res.status(200).send();
 });
 

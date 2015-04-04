@@ -1,10 +1,12 @@
 <% var ngApp = 'omnisplitApp'; %>
 <% var ngController = 'dashboardController'; %>
 
+<% script('javascripts/spin.min.js') %>
 <% script('javascripts/boilerplate-dashboard.js') %>
 
 <% include header %>
 
+<div id="spinner"></div>
 <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: #a64ca6" ng-controller="tabController as tab">
 	<div class="container-fluid">
 		<div class="navbar-header">
@@ -19,6 +21,9 @@
 				<li ng-class="{active:tab.isSet(5)}"><a href="#settings" ng-click="tab.setTab(5)">Settings</a></li>
 			</ul>
 		</div>
+        <div class="navbar-right">
+            <p class="navbar-text"><a href="#" id="logout">Log out</a></p>
+        </div>
 	</div>
 </nav>
 
