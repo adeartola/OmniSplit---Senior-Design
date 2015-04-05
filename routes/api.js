@@ -2,14 +2,15 @@ var debug      = require('debug')('omnisplit:api');
 var express    = require('express');
 var passport   = require('passport');
 var jwt        = require('jwt-simple');
+var redis      = require('redis'); 
 var Restaurant = require('../models/restaurant');
 var User       = require('../models/user');
 var Menu       = require('../models/menu');
 
 var router     = express.Router();
+var client     = redis.createClient();
 
 router.post('/login', function(req, res) {
-    //TODO: Use built-in sessions instead of JWT
     if (req.body.email == undefined || req.body.password == undefined)
         return res.status(400).json({ status: 400, message: 'Bad request' });
 
@@ -33,6 +34,8 @@ router.post('/login', function(req, res) {
                         iss: user.id,
                         exp: expiration
                     }, req.app.get('jwtTokenSecret'));
+
+                    client.setex(token, 60 * 10, JSON.stringify({ iss: user.id, exp: expiration }) );
 
                     res.cookie('token', token, {
                         path: '/',
@@ -79,12 +82,14 @@ router.post('/register', function(req, res) {
             }
             else {
                 debug('Added user ' + newUser.email + ' to users');
-                var maxAge = 1000 * 10 * 60; //10 minutes
+                var maxAge = 1000 * 60 * 60; //1 hour
                 var expiration = Date.now() + maxAge;
                 var token = jwt.encode({
                     iss: user.id,
                     exp: expiration
                 }, req.app.get('jwtTokenSecret'));
+
+                client.setex(token, 60 * 10, JSON.stringify({ iss: user.id, exp: expiration }) ); //Cache for 10 minutes
 
                 return res.json({
                     token: token,

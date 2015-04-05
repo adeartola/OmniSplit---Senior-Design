@@ -20,7 +20,7 @@ omnisplitApp.config(function($routeProvider) {
         })
         .when('/menu', {
             templateUrl : 'dashboard/menu',
-            controller: 'menuController'
+            controller: 'menuController',
         })
         .when('/settings', {
             templateUrl : 'dashboard/settings',

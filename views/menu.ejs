@@ -1,1 +1,123 @@
-<p style="color: red;">Menu</p>
+<script src="javascripts/menu.js"></script>
+
+<div class="row" >
+    <div class="col-sm-3"><div class="well" style="height: 700px;">
+        <div class="row" id="menuHeader">
+                    <div class="col-md-10">Type</div>
+                    <div class="col-md-1"><a href="#"><img src="images/add.png" alt="add" height="20" width="20"></a></div>
+        </div>
+        <ul id="sort2" class="ui-sortable" style="color: black; text-align: left; width: 100%;">
+            <li class="ui-state-default" id="1"><div class="menuItem">
+                <div class="row">
+        			<div class="col-md-12">Appetizer</div>
+				</div>
+			</div></li>
+			<li class="ui-state-default" id="2"><div class="menuItem">
+				<div class="row">
+					<div class="col-md-12">Rice Noodle Soup</div>
+				</div>
+			</div></li>
+			<li class="ui-state-default" id="3"><div class="menuItem">
+				<div class="row">
+					<div class="col-md-12">Beverages</div>
+				</div>
+			</div></li>
+			<li class="ui-state-default" id="4"><div class="menuItem">
+				<div class="row">
+					<div class="col-md-12">Other Dishes</div>
+				</div>
+			</div></li>
+		</ul>
+		<div id="savebutton" style="width: 100px; position: absolute; bottom: 40px; right: 40px;"><button style="margin-top: 4px;" class="btn btn-lg btn-primary btn-block" id="save2" style="background-color: white; color: black; " type="submit">save</button></div>
+	</div></div>
+    <div class="col-sm-9 col-sm-9" ><div class="well" style="height: 700px;">
+		<div class="row" id="menuHeader">
+					<div class="col-md-4">Item</div>
+					<div class="col-md-1">Price</div>
+					<div class="col-md-4">Description</div>
+					<div class="col-md-2">Image</div>
+					<div class="col-md-1"><a href="#"><img src="images/add.png" alt="add" height="20" width="20"></a></div>
+				</div>
+		<ul id="sortable" class="ui-sortable" style="color: black; text-align: left; width: 100%;">
+			<li class="ui-state-default" id="1"><div class="menuItem">
+				<div class="row">
+					<div class="col-md-4">Vietnamese Fried Egg Rolls1</div>
+					<div class="col-md-1">$4.75</div>
+					<div class="col-md-4">Cha Gio</div>
+					<div class="col-md-2">chagio.jpg</div>
+					<div class="col-md-1"><a href="#"><img src="images/sub.png" alt="minus" height="20" width="20"></a></div>
+				</div>
+			</div></li>
+			<li class="ui-state-default" id="2"><div class="menuItem">
+				<div class="row">
+					<div class="col-md-4">Vietnamese Fried Egg Rolls2</div>
+					<div class="col-md-1">$4.75</div>
+					<div class="col-md-4">Cha Gio</div>
+					<div class="col-md-2">chagio.jpg</div>
+					<div class="col-md-1">-</div>
+				</div>
+			</div></li>
+			<li class="ui-state-default" id="3"><div class="menuItem">
+				<div class="row">
+					<div class="col-md-4">Vietnamese Fried Egg Rolls3</div>
+					<div class="col-md-1">$4.75</div>
+					<div class="col-md-4">Cha Gio</div>
+					<div class="col-md-2">chagio.jpg</div>
+					<div class="col-md-1">-</div>
+				</div>
+			</div></li>
+			<li class="ui-state-default" id="4"><div class="menuItem">
+				<div class="row">
+					<div class="col-md-4">Vietnamese Fried Egg Rolls4</div>
+					<div class="col-md-1">$4.75</div>
+					<div class="col-md-4">Cha Gio</div>
+					<div class="col-md-2">chagio.jpg</div>
+					<div class="col-md-1">-</div>
+				</div>
+			</div></li>
+			<li class="ui-state-default" id="5"><div class="menuItem">
+				<div class="row">
+					<div class="col-md-4">Vietnamese Fried Egg Rolls5</div>
+					<div class="col-md-1">$4.75</div>
+					<div class="col-md-4">Cha Gio</div>
+					<div class="col-md-2">chagio.jpg</div>
+					<div class="col-md-1">-</div>
+				</div>
+			</div></li>
+			<li class="ui-state-default" id="6"><div class="menuItem">
+				<div class="row">
+					<div class="col-md-4">Vietnamese Fried Egg Rolls6</div>
+					<div class="col-md-1">$4.75</div>
+					<div class="col-md-4">Cha Gio</div>
+					<div class="col-md-2">chagio.jpg</div>
+					<div class="col-md-1">-</div>
+				</div>
+			</div></li>
+			<li class="ui-state-default" id="7"><div class="menuItem">
+				<div class="row">
+					<div class="col-md-4">Vietnamese Fried Egg Rolls7</div>
+					<div class="col-md-1">$4.75</div>
+					<div class="col-md-4">Cha Gio</div>
+					<div class="col-md-2">chagio.jpg</div>
+					<div class="col-md-1">-</div>
+				</div>
+			</div></li>
+			<li class="ui-state-default" ><div class="menuItem">
+				<div class="row">
+					<div class="col-md-12" id="test"></div>
+				</div>
+			</div></li>
+		</ul>
+		<div id="savebutton" style="width: 100px; position: absolute; bottom: 40px; right: 40px;"><button style="margin-top: 4px;" class="btn btn-lg btn-primary btn-block" id="save" style="background-color: white; color: black; " type="submit">save</button></div>
+	</div></div>
+</div>
+
+<ul id="sortable">
+    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
+    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
+    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
+    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
+    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
+    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
+    <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
+</ul>
