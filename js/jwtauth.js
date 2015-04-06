@@ -14,11 +14,13 @@ module.exports = function(req, res, next) {
                          
             if (decoded.exp <= Date.now()) {
                 res.clearCookie('token');
+                client.del(token);
                 res.redirect('/login');
             }
             client.get(token, function(err, result) {
                 if (err) {
                     res.clearCookie('token');
+                    client.del(token);
                     debug(err.stack);
                     res.redirect('/login');
                 }
@@ -30,6 +32,7 @@ module.exports = function(req, res, next) {
                     }
                     else { //Invalid cookie
                         res.clearCookie('token');
+                        client.del(token);
                         res.redirect('/login');
                     }
                 }
@@ -41,6 +44,7 @@ module.exports = function(req, res, next) {
                         }
                         else { //Not found in database
                             res.clearCookie('token');
+                            client.del(token);
                             res.redirect('/login');
                         }
                     });
