@@ -8,7 +8,6 @@
 
 <% script('javascripts/spin.min.js') %>
 <% script('javascripts/jquery-ui.min.js') %>
-<% script('https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.2/jquery.ui.touch-punch.min.js') %>
 <% script('javascripts/boilerplate-dashboard.js') %>
 
 <% include header %>
@@ -34,8 +33,9 @@
 	</div>
 </nav>
 
-<div class="container" style="width: 95%;">
+<div class="container-fluid" id="contents">
     <%- body -%>
+
+    <% include footer %>
 </div>
 
-<% include footer %>

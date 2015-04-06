@@ -3,24 +3,26 @@
 <% script('javascripts/login.js') %>
 <% script('javascripts/spin.min.js') %>
 
-<div class='container' id='main-input'>
-    <h1>OmniSplit</h1>
-    
-    <div id="spinner"></div>
-    <div class="input-box">
-        <form class="form-signin" method="POST" action="/" onSubmit="return validateForm()">
-            <label for="email" class="sr-only">Email</label>
-            <input  type="email" id="email" class="form-control" placeholder="Email" name="email" required autofocus />
-            <label for="password" class="sr-only" name="password">Password</label>
-            <input style="margin-top: 4px;" type="password" id="password" class="form-control" placeholder="Password" name="password" required />
-            <input style="margin-top: 4px;" class="btn btn-lg btn-primary btn-block" style="background-color: white; color: black;" type="submit" id="goHome" value="Log In" />
-        </form>
-        <p class="text-center">Don't have an account? <a href="/register">Register now</a></p>
-        <% if(error.length > 0) { %>
-            <div class="alert alert-danger">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <div id="flash-error" class="text-center"><%= error %></div>
-            </div>
-        <% } %>
+<div class="wrapper">
+    <div class="container" id="main-input">
+        <h1>OmniSplit</h1>
+        
+        <div id="spinner"></div>
+        <div class="input-box">
+            <form class="form-signin" method="POST" action="/" onSubmit="return validateForm()">
+                <label for="email" class="sr-only">Email</label>
+                <input  type="email" id="email" class="form-control" placeholder="Email" name="email" required autofocus />
+                <label for="password" class="sr-only" name="password">Password</label>
+                <input style="margin-top: 4px;" type="password" id="password" class="form-control" placeholder="Password" name="password" required />
+                <input style="margin-top: 4px;" class="btn btn-lg btn-primary btn-block" style="background-color: white; color: black;" type="submit" id="goHome" value="Log In" />
+            </form>
+            <p class="text-center">Don't have an account? <a href="/register">Register now</a></p>
+            <% if(error.length > 0) { %>
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <div id="flash-error" class="text-center"><%= error %></div>
+                </div>
+            <% } %>
+        </div>
     </div>
 </div>
