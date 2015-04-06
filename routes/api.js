@@ -57,8 +57,14 @@ router.post('/login', function(req, res) {
 });
 
 router.post('/logout', function(req, res) {
-    res.clearCookie('token');
-    client.del(token);
+    try {
+        var token = req.cookies.token;
+        client.del(token);
+        res.clearCookie('token');
+    }
+    catch (err) {
+        debug(err.stack);
+    }
     res.status(200).send();
 });
 

@@ -52,6 +52,7 @@ module.exports = function(req, res, next) {
             });
         } catch (err) { //Token parsing probably failed
             res.clearCookie('token');
+            client.del(token);
             debug(err.stack);
             res.redirect('/login');
         }
