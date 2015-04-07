@@ -62,7 +62,6 @@ router.post('/logout', function(req, res) {
 });
 
 router.post('/register', function(req, res) {
-    //TODO: /api/register POST gives bad gateway response
     if (req.body.email == undefined || req.body.password == undefined)
         return res.status(400).end(JSON.stringify({ status: 400, message: 'Bad request' }) );
 
@@ -85,16 +84,16 @@ router.post('/register', function(req, res) {
                 var maxAge = 1000 * 60 * 60; //1 hour
                 var expiration = Date.now() + maxAge;
                 var token = jwt.encode({
-                    iss: user.id,
+                    iss: newUser.id,
                     exp: expiration
                 }, req.app.get('jwtTokenSecret'));
 
-                client.setex(token, 60 * 10, JSON.stringify({ iss: user.id, exp: expiration }) ); //Cache for 10 minutes
+                client.setex(token, 60 * 10, JSON.stringify({ iss: newUser.id, exp: expiration }) ); //Cache for 10 minutes
 
                 return res.json({
                     token: token,
                     expires: expiration,
-                    user: user.toJSON()
+                    user: newUser.toJSON()
                 });
             }
         });
