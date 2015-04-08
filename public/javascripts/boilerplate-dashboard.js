@@ -45,27 +45,86 @@ omnisplitApp.controller('ordersController', function($scope) {
 omnisplitApp.controller('dashboardController', function($scope) {
 });
 omnisplitApp.controller('menuController', function($scope, $timeout) {
-    $scope.$on('$viewContentLoaded', function() {
-        $timeout(function() { //Execute on next clock cycle
-            var phoneHeight = parseFloat($('#phone-left').height());
-            var phoneWidth = parseFloat($('#phone-left').width());
-
-            $('#overlay-left').css('width', 0.849 * phoneWidth);
-            $('#overlay-right').css('width', 0.849 * phoneWidth);
-            $('#overlay-left').css('height', 0.725 * phoneHeight);
-            $('#overlay-right').css('height', 0.725 * phoneHeight);
-
-            $('#overlay-left').css('top', $('#phone-left').position().top + parseFloat($('#phone-left').css('padding-top')) + 0.147 * phoneHeight);
-            $('#overlay-right').css('top', $('#phone-right').position().top + parseFloat($('#phone-right').css('padding-top')) + 0.147 * phoneHeight);
-            $('#overlay-left').css('left', $('#phone-left').position().left + 0.0731 * phoneWidth);
-            $('#overlay-right').css('left', $('#phone-right').position().left + 0.0731 * phoneWidth);
-
-            $('#overlay-left').css('margin-left', $('#phone-left').css('margin-left'));
-            $('#overlay-right').css('margin-left', $('#phone-right').css('margin-left'));
-        }, 0);
-    });
 });
 omnisplitApp.controller('settingsController', function($scope) {
+});
+
+omnisplitApp.controller('leftPhone', function($scope, $window) {
+    var w = angular.element($window);
+    w.bind('resize', function() {
+        $scope.phone = {
+            top: $('#phone-left').position().top,
+            left: $('#phone-left').position().left,
+            height: $('#phone-left').height(),
+            width: $('#phone-left').width(),
+            paddingTop: parseFloat($('#phone-left').css('padding-top'))
+        };
+
+        $('#overlay-left').width(parseFloat(0.849 * $scope.phone.width) + 'px');
+        $('#overlay-left').height(parseFloat(0.725 * $scope.phone.height) + 'px');
+        $('#overlay-left').css('top', $scope.phone.top + $scope.phone.paddingTop + parseFloat(0.147 * $scope.phone.height) + 'px');
+        $('#overlay-left').css('left', $scope.phone.left + parseFloat(0.0731 * $scope.phone.width) + 'px');
+    });
+});
+
+omnisplitApp.controller('rightPhone', function($scope, $window) {
+    var w = angular.element($window);
+    w.bind('resize', function() {
+        $scope.phone = {
+            top: $('#phone-left').position().top,
+            left: $('#phone-left').position().left,
+            height: $('#phone-left').height(),
+            width: $('#phone-left').width(),
+            paddingTop: parseFloat($('#phone-left').css('padding-top'))
+        };
+
+        $('#overlay-right').width(parseFloat(0.849 * $scope.phone.width) + 'px');
+        $('#overlay-right').height(parseFloat(0.725 * $scope.phone.height) + 'px');
+        $('#overlay-right').css('top', $scope.phone.top + $scope.phone.paddingTop + parseFloat(0.147 * $scope.phone.height) + 'px');
+        $('#overlay-right').css('left', $scope.phone.left + parseFloat(0.0731 * $scope.phone.width) + 'px');
+    });
+});
+
+omnisplitApp.directive('leftPhoneLoaded', function() {
+    return {
+        link: function(scope, element, attrs) {
+            element.bind('load', function() {
+                var phone = {
+                    top: $('#phone-left').position().top,
+                    left: $('#phone-left').position().left,
+                    height: $('#phone-left').height(),
+                    width: $('#phone-left').width(),
+                    paddingTop: parseFloat($('#phone-left').css('padding-top'))
+                };
+
+                $('#overlay-left').width(parseFloat(0.849 * phone.width) + 'px');
+                $('#overlay-left').height(parseFloat(0.725 * phone.height) + 'px');
+                $('#overlay-left').css('top', phone.top + phone.paddingTop + parseFloat(0.147 * phone.height));
+                $('#overlay-left').css('left', phone.left + parseFloat(0.0731 * phone.width));
+            });
+        }
+    };
+});
+
+omnisplitApp.directive('rightPhoneLoaded', function() {
+    return {
+        link: function(scope, element, attrs) {
+            element.bind('load', function() {
+                var phone = {
+                    top: $('#phone-left').position().top,
+                    left: $('#phone-left').position().left,
+                    height: $('#phone-left').height(),
+                    width: $('#phone-left').width(),
+                    paddingTop: parseFloat($('#phone-left').css('padding-top'))
+                };
+
+                $('#overlay-right').width(parseFloat(0.849 * phone.width) + 'px');
+                $('#overlay-right').height(parseFloat(0.725 * phone.height) + 'px');
+                $('#overlay-right').css('top', phone.top + phone.paddingTop + parseFloat(0.147 * phone.height));
+                $('#overlay-right').css('left', phone.left + parseFloat(0.0731 * phone.width));
+            });
+        }
+    };
 });
 
 var opts = {

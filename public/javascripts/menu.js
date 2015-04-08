@@ -1,5 +1,6 @@
 $(document).ready(function() {
     $(window).on('resize', function(e) {
+        /*
         var phoneHeight = parseFloat($('#phone-left').height());
         var phoneWidth = parseFloat($('#phone-left').width());
 
@@ -15,6 +16,7 @@ $(document).ready(function() {
 
         $('#overlay-left').css('margin-left', $('#phone-left').css('margin-left'));
         $('#overlay-right').css('margin-left', $('#phone-right').css('margin-left'));
+        */
     });
 });
 

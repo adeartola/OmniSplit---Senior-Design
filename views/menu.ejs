@@ -7,8 +7,8 @@
             <p>Add, remove, and rearrange food categories here.</p>
         </div>
     </div>
-    <div class="col-md-3" id="left-column">
-        <img class="phone" id="phone-left" src="images/iphone.jpg" alt="Left phone">
+    <div class="col-md-3" id="left-column" ng-controller="leftPhone">
+        <img class="phone" id="phone-left" ng-src="images/iphone.jpg" alt="Left phone" left-phone-loaded>
         <div class="overlay" id="overlay-left">
             <ul class="ui-sortable">
                 <li><p>Appetizers</p></li>
@@ -24,8 +24,8 @@
             <p>Add food items to a given category.</p>
         </div>
     </div>
-    <div class="col-md-3" id="right-column">
-        <img class="phone" id="phone-right" src="images/iphone.jpg" alt="Right phone">
+    <div class="col-md-3" id="right-column" ng-controller="rightPhone">
+        <img class="phone" id="phone-right" ng-src="images/iphone.jpg" alt="Right phone" right-phone-loaded>
         <div class="overlay" id="overlay-right">
             <h2>Food items</h2>
             <p>This is the right phone. Shit will also go here.</p>
