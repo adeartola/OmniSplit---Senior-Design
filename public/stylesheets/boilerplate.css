@@ -82,7 +82,7 @@ and (orientation : landscape) {
 }
 
 .navbar-inverse .navbar-nav>.active>a, .navbar-inverse .navbar-nav>.active>a:focus{
-	background-image: url("active.png")!important;
+	background-image: url("../images/active.png")!important;
 	background-color: #a64ca6;
 	background-repeat: no-repeat;
 	background-position: center top;
@@ -219,10 +219,6 @@ h1 {
 
 .row {
 	margin: 8px;
-}
-
-#sortable li{
-	margin-top: 30px !important;
 }
 
 .menuItem{

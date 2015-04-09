@@ -1,3 +1,12 @@
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .phone {
     z-index: 400;
     height: 95%;
@@ -26,6 +35,25 @@
 	box-shadow: 2px 2px 2px #888888;
 }
 
+.phone-header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    height: 24px;
+    border-bottom: 1px solid #555555;
+    background: linear-gradient(#DDDDDD, #AAAAAA);
+    cursor: default;
+}
+
+.phone-header>h3 {
+    text-align: center;
+    font-size: 16px;
+    margin: 0;
+    padding: 4px 0;
+}
+
+
 #contents>.ng-scope, #contents>.ng-scope>.row-fluid, #left-column, #right-column, .phone-description {
     position: relative;
     height: 100%;
@@ -40,6 +68,32 @@
     background-color: rgb(220,220,220);
     color: black;    
     position: absolute;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.ui-sortable {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 24px 0 0 0;
+    list-style-type: none;
+    margin: 0;
+}
+
+.ui-state-default {
+    margin: 0;
+    padding: 0;
+    cursor: default;
+}
+.ui-state-highlight {
+    padding-top: 1em;
+    padding-bottom: 2px;
+}
+
+.ui-state-default>p {
     margin: 0;
     padding: 0;
 }
