@@ -49,79 +49,42 @@ omnisplitApp.controller('menuController', function($scope, $timeout) {
 omnisplitApp.controller('settingsController', function($scope) {
 });
 
-omnisplitApp.controller('leftPhone', function($scope, $window) {
+omnisplitApp.controller('phone', function($scope, $window) {
     var w = angular.element($window);
     w.bind('resize', function() {
-        $scope.phone = {
-            top: $('#phone-left').position().top,
-            left: $('#phone-left').position().left,
-            height: $('#phone-left').height(),
-            width: $('#phone-left').width(),
-            paddingTop: parseFloat($('#phone-left').css('padding-top'))
+        var phone = {
+            top: $('#phone').position().top,
+            left: $('#phone').position().left,
+            height: $('#phone').height(),
+            width: $('#phone').width(),
+            paddingTop: parseFloat($('#phone').css('padding-top')),
+            paddingLeft: parseFloat($('#phone-column').css('padding-left'))
         };
 
-        $('#overlay-left').width(parseFloat(0.849 * $scope.phone.width) + 'px');
-        $('#overlay-left').height(parseFloat(0.725 * $scope.phone.height) + 'px');
-        $('#overlay-left').css('top', $scope.phone.top + $scope.phone.paddingTop + parseFloat(0.147 * $scope.phone.height) + 'px');
-        $('#overlay-left').css('left', $scope.phone.left + parseFloat(0.0731 * $scope.phone.width) + 'px');
+        $('#overlay').width(parseFloat(0.849 * phone.width) + 'px');
+        $('#overlay').height(parseFloat(0.725 * phone.height) + 'px');
+        $('#overlay').css('top', phone.top + phone.paddingTop + parseFloat(0.147 * phone.height));
+        $('#overlay').css('left', $('#phone-column').width() / 2 - phone.width / 2 + parseFloat(0.0731 * phone.width) + phone.paddingLeft + 'px');
     });
 });
 
-omnisplitApp.controller('rightPhone', function($scope, $window) {
-    var w = angular.element($window);
-    w.bind('resize', function() {
-        $scope.phone = {
-            top: $('#phone-left').position().top,
-            left: $('#phone-left').position().left,
-            height: $('#phone-left').height(),
-            width: $('#phone-left').width(),
-            paddingTop: parseFloat($('#phone-left').css('padding-top'))
-        };
-
-        $('#overlay-right').width(parseFloat(0.849 * $scope.phone.width) + 'px');
-        $('#overlay-right').height(parseFloat(0.725 * $scope.phone.height) + 'px');
-        $('#overlay-right').css('top', $scope.phone.top + $scope.phone.paddingTop + parseFloat(0.147 * $scope.phone.height) + 'px');
-        $('#overlay-right').css('left', $scope.phone.left + parseFloat(0.0731 * $scope.phone.width) + 'px');
-    });
-});
-
-omnisplitApp.directive('leftPhoneLoaded', function() {
+omnisplitApp.directive('phoneLoaded', function() {
     return {
         link: function(scope, element, attrs) {
             element.bind('load', function() {
                 var phone = {
-                    top: $('#phone-left').position().top,
-                    left: $('#phone-left').position().left,
-                    height: $('#phone-left').height(),
-                    width: $('#phone-left').width(),
-                    paddingTop: parseFloat($('#phone-left').css('padding-top'))
+                    top: $('#phone').position().top,
+                    left: $('#phone').position().left,
+                    height: $('#phone').height(),
+                    width: $('#phone').width(),
+                    paddingTop: parseFloat($('#phone').css('padding-top')),
+                    paddingLeft: parseFloat($('#phone-column').css('padding-left'))
                 };
 
-                $('#overlay-left').width(parseFloat(0.849 * phone.width) + 'px');
-                $('#overlay-left').height(parseFloat(0.725 * phone.height) + 'px');
-                $('#overlay-left').css('top', phone.top + phone.paddingTop + parseFloat(0.147 * phone.height));
-                $('#overlay-left').css('left', phone.left + parseFloat(0.0731 * phone.width));
-            });
-        }
-    };
-});
-
-omnisplitApp.directive('rightPhoneLoaded', function() {
-    return {
-        link: function(scope, element, attrs) {
-            element.bind('load', function() {
-                var phone = {
-                    top: $('#phone-left').position().top,
-                    left: $('#phone-left').position().left,
-                    height: $('#phone-left').height(),
-                    width: $('#phone-left').width(),
-                    paddingTop: parseFloat($('#phone-left').css('padding-top'))
-                };
-
-                $('#overlay-right').width(parseFloat(0.849 * phone.width) + 'px');
-                $('#overlay-right').height(parseFloat(0.725 * phone.height) + 'px');
-                $('#overlay-right').css('top', phone.top + phone.paddingTop + parseFloat(0.147 * phone.height));
-                $('#overlay-right').css('left', phone.left + parseFloat(0.0731 * phone.width));
+                $('#overlay').width(parseFloat(0.849 * phone.width) + 'px');
+                $('#overlay').height(parseFloat(0.725 * phone.height) + 'px');
+                $('#overlay').css('top', phone.top + phone.paddingTop + parseFloat(0.147 * phone.height));
+                $('#overlay').css('left', $('#phone-column').width() / 2 - phone.width / 2 + parseFloat(0.0731 * phone.width) + phone.paddingLeft + 'px');
             });
         }
     };

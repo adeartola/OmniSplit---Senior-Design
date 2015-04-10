@@ -1,15 +1,15 @@
 <script src="javascripts/menu.js"></script>
 
 <div class="row-fluid">
-    <div class="col-md-3 phone-description">
+    <div class="col-md-4 phone-description">
         <div class="description-box well">
-            <h2>Categories</h2>
-            <p>Add, remove, and rearrange food categories here.</p>
+            <h2>Menu Editor</h2>
+            <p>Instructions: Add categories to your menu with the </p>
         </div>
     </div>
-    <div class="col-md-3" id="left-column" ng-controller="leftPhone">
-        <img class="phone" id="phone-left" ng-src="images/iphone.jpg" alt="Left phone" left-phone-loaded>
-        <div class="overlay noselect" id="overlay-left">
+    <div class="col-md-4" id="phone-column" ng-controller="phone">
+        <img class="phone" id="phone" ng-src="images/iphone.jpg" alt="iPhone" phone-loaded>
+        <div class="overlay noselect" id="overlay">
             <div class="phone-header">
                 <h3>Categories</h3>
             </div>
@@ -21,24 +21,10 @@
             </ul>
         </div>
     </div>
-    <div class="col-md-3 phone-description">
+    <div class="col-md-4 phone-description">
         <div class="description-box well">
             <h2>Food items</h2>
             <p>Add food items to a given category.</p>
-        </div>
-    </div>
-    <div class="col-md-3" id="right-column" ng-controller="rightPhone">
-        <img class="phone" id="phone-right" ng-src="images/iphone.jpg" alt="Right phone" right-phone-loaded>
-        <div class="overlay noselect" id="overlay-right">
-            <div class="phone-header">
-                <h3>Food items</h3>
-            </div>
-            <ul class="ui-sortable" id="right-sortable">
-                <li class="ui-state-default"><p>Curry</p></li>
-                <li class="ui-state-default"><p>Cuuuuuuurry</p></li>
-                <li class="ui-state-default"><p>Fucking Curry</p></li>
-                <li class="ui-state-default"><p>So much curry</p></li>
-            </ul>
         </div>
     </div>
 </div>
