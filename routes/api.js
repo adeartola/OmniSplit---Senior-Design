@@ -82,26 +82,63 @@ router.post('/register', function(req, res) {
 
     if (valid) {
         User.create(new User({ email: email, password: password }), function(err, newUser) {
+            var menuAdded = false, restaurantAdded = false;
             if (err) {
                 res.status(400);
                 return res.end(JSON.stringify({ error: err }) );
             }
             else {
                 debug('Added user ' + newUser.email + ' to users');
-                var maxAge = 1000 * 60 * 60; //1 hour
-                var expiration = Date.now() + maxAge;
-                var token = jwt.encode({
-                    iss: newUser.id,
-                    exp: expiration
-                }, req.app.get('jwtTokenSecret'));
+                Restaurant.create(new Restaurant({ _id: newUser.id, name: 'My Restaurant', address: {}}), function(err, newRestaurant) {
+                    if (err) {
+                        res.status(400);
+                        return res.end(JSON.stringify({ error: err }) );
+                    }
+                    restaurantAdded = true;
+                    debug(JSON.stringify(newRestaurant));
+                    debug('Added restaurant to restaurants.');
+                    if (restaurantAdded && menuAdded) {
+                        var maxAge = 1000 * 60 * 60; //1 hour
+                        var expiration = Date.now() + maxAge;
+                        var token = jwt.encode({
+                            iss: newUser.id,
+                            exp: expiration
+                        }, req.app.get('jwtTokenSecret'));
 
-                client.setex(token, 60 * 10, JSON.stringify({ iss: newUser.id, exp: expiration }) ); //Cache for 10 minutes
+                        client.setex(token, 60 * 10, JSON.stringify({ iss: newUser.id, exp: expiration }) ); //Cache for 10 minutes
 
-                return res.json({
-                    token: token,
-                    expires: expiration,
-                    user: newUser.toJSON()
-                });
+                        return res.json({
+                            token: token,
+                            expires: expiration,
+                            user: newUser.toJSON()
+                        });
+                    }
+                }); 
+                Menu.create(new Menu({ id: newUser.id, group: [] }), function(err, newMenu) {
+                    if (err) {
+                        res.status(400);
+                        return res.end(JSON.stringify({ error: err }) );
+                    }
+                    debug(JSON.stringify(newMenu));
+                    debug('Added new menu to menus.');
+                    menuAdded = true;
+                    if (restaurantAdded && menuAdded) {
+                        var maxAge = 1000 * 60 * 60; //1 hour
+                        var expiration = Date.now() + maxAge;
+                        var token = jwt.encode({
+                            iss: newUser.id,
+                            exp: expiration
+                        }, req.app.get('jwtTokenSecret'));
+
+                        client.setex(token, 60 * 10, JSON.stringify({ iss: newUser.id, exp: expiration }) ); //Cache for 10 minutes
+
+                        return res.json({
+                            token: token,
+                            expires: expiration,
+                            user: newUser.toJSON()
+                        });
+                    }
+                }); 
             }
         });
     }
