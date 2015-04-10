@@ -3,12 +3,12 @@ var Schema                = mongoose.Schema;
 
 var Menu = new Schema({
     group: [{
-        name: String,
-        description: String,
+        name: { type: String, required: true },
+        description: { type: String, default: "" },
         _id: false,
         item: [{
             name: { type: String, required: true },
-            description: String,
+            description: { type: String, default: "" },
             image: String,
             price: { type: Number, required: true }, 
             _id: false,

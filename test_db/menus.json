@@ -6,6 +6,7 @@
         'group': [
             {
                 'name': 'Appetizers',
+                'description': '',
                 'item': [
                     {
                         'name': 'Gyoza',
@@ -23,9 +24,12 @@
                 ] 
             }, {
                 'name': 'Soups',
+                'description': '',
                 'item': [
                     {
                         'name': 'Mixed Seafood Soup',
+                        'description': '',
+                        'price': 100.00,
                         'step': [
                             {
                                 'text': 'Size',
