@@ -77,19 +77,31 @@
     margin: 0;
 }
 
+.ui-sortable #left-sortable {
+
+
+}
+
 .ui-state-default {
     margin: 0;
     padding: 0;
     cursor: default;
+	height: 40px;
+	background-color: #000000;
 }
 .ui-state-highlight {
     padding-top: 1em;
     padding-bottom: 2px;
+	height: 40px;
+	background-color: #000000;
 }
 
 .ui-state-default>p {
     margin: 0;
-    padding: 0;
+    padding-left: 6px;
+	padding-top: 8px;
+	font-size: 18px;
+	
 }
 
 /*
