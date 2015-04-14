@@ -1,12 +1,14 @@
 var express    = require('express');
 var jwtauth    = require('../js/jwtauth');
+var jwt        = require('jwt-simple');
 
 var router = express.Router();
 
 /* GET home page. */
 
 router.all('/', jwtauth, function(req, res) {
-    res.render('index', { title: 'Welcome to OmniSplit!' });
+    var token = jwt.decode(req.cookies.token, req.app.get('jwtTokenSecret'));
+    res.render('index', { title: 'Welcome to OmniSplit!', id: token.iss });
 });
 
 router.all('/login', function(req, res) {

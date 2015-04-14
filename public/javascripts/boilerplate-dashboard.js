@@ -38,15 +38,23 @@ omnisplitApp.controller('tabController', function($scope) {
     };
 });
 
-omnisplitApp.controller('tablesController', function($scope) {
+omnisplitApp.controller('tablesController', function($scope, $window) {
+    var w = angular.element($window);
+    w.unbind('resize');
 });
-omnisplitApp.controller('ordersController', function($scope) {
+omnisplitApp.controller('ordersController', function($scope, $window) {
+    var w = angular.element($window);
+    w.unbind('resize');
 });
-omnisplitApp.controller('dashboardController', function($scope) {
+omnisplitApp.controller('dashboardController', function($scope, $window) {
+    var w = angular.element($window);
+    w.unbind('resize');
 });
 omnisplitApp.controller('menuController', function($scope, $timeout) {
 });
-omnisplitApp.controller('settingsController', function($scope) {
+omnisplitApp.controller('settingsController', function($scope, $window) {
+    var w = angular.element($window);
+    w.unbind('resize');
 });
 
 omnisplitApp.controller('phone', function($scope, $window) {
