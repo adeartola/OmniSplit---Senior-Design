@@ -15,14 +15,20 @@ module.exports = function(req, res, next) {
             if (decoded.exp <= Date.now()) {
                 res.clearCookie('token');
                 client.del(token);
-                res.redirect('/login');
+                if (req.method == 'GET')
+                    res.redirect('/login');
+                else
+                    res.status(403).json({ message: 'Forbidden' });
             }
             client.get(token, function(err, result) {
                 if (err) {
                     res.clearCookie('token');
                     client.del(token);
                     debug(err.stack);
-                    res.redirect('/login');
+                    if (req.method == 'GET')
+                        res.redirect('/login');
+                    else
+                        res.status(403).json({ message: 'Forbidden' });
                 }
                 else if (result) { //Cookie is cached
                     var obj = JSON.parse(result);
@@ -33,7 +39,10 @@ module.exports = function(req, res, next) {
                     else { //Invalid cookie
                         res.clearCookie('token');
                         client.del(token);
-                        res.redirect('/login');
+                        if (req.method == 'GET')
+                            res.redirect('/login');
+                        else
+                            res.status(403).json({ message: 'Forbidden' });
                     }
                 }
                 else { //Not cached, look for user in database
@@ -45,7 +54,10 @@ module.exports = function(req, res, next) {
                         else { //Not found in database
                             res.clearCookie('token');
                             client.del(token);
-                            res.redirect('/login');
+                            if (req.method == 'GET')
+                                res.redirect('/login');
+                            else
+                                res.status(403).json({ message: 'Forbidden' });
                         }
                     });
                 }
@@ -54,9 +66,15 @@ module.exports = function(req, res, next) {
             res.clearCookie('token');
             client.del(token);
             debug(err.stack);
-            res.redirect('/login');
+            if (req.method == 'GET')
+                res.redirect('/login');
+            else
+                res.status(403).json({ message: 'Forbidden' });
         }
     } else {
-        return res.redirect('/login'); 
+        if (req.method == 'GET')
+            return res.redirect('/login'); 
+        else
+            res.status(403).json({ message: 'Forbidden' });
     }
  };

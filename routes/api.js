@@ -225,16 +225,9 @@ router.get('/restaurants', function(req, res) {
 router.post('/userinfo', jwtauth, function(req, res) {
     res.setHeader('Content-Type', 'application/json');
 
-    if (req.body.id == undefined)
-        return res.status(400).json({ message: 'Bad request' });
-
     var decoded = jwt.decode(req.cookies.token, req.app.get('jwtTokenSecret'));
-    var id = req.body.id;
 
-    if (id != decoded.iss) //Wrong ID, user does not have access to this information
-        return res.status(403).json({ message: 'Forbidden' });
-
-    Restaurant.findOne({ _id: id }, 'name address', function (err, restaurant) {
+    Restaurant.findOne({ _id: decoded.iss }, 'name address', function (err, restaurant) {
         if (err)
             return res.status(400).end(JSON.stringify({ error: err.stack }) );
 
@@ -245,7 +238,7 @@ router.post('/userinfo', jwtauth, function(req, res) {
                     return res.status(400).end(JSON.stringify({ error: err.stack }) );
 
                 return res.json({ address: newRestaurant.address, name: newRestaurant.name });
-            })
+            });
         }
         else {
             return res.json({ address: restaurant.address, name: restaurant.name });
@@ -253,8 +246,27 @@ router.post('/userinfo', jwtauth, function(req, res) {
     });
 });
 
-router.post('/setaddress', function(req, res) {
+router.post('/changename', jwtauth, function(req, res) {
     res.setHeader('Content-Type', 'application/json');
+
+    if (req.body.name == undefined)
+        return res.status(400).json({ message: 'Bad request' });
+
+    var decoded = jwt.decode(req.cookies.token, req.app.get('jwtTokenSecret'));
+
+    Restaurant.update({ _id: decoded.iss }, { name: req.body.name }, null, function(err, restaurant) {
+        if (err)
+            return res.status(400).json({ error: err.stack }); 
+
+        return res.json({ message: 'OK'});
+    });
+});
+
+router.post('/changeaddress', jwtauth, function(req, res) {
+    res.setHeader('Content-Type', 'application/json');
+
+    var decoded = jwt.decode(req.cookies.token, req.app.get('jwtTokenSecret'));
+
     return res.json({ message: 'OK'});
 });
 

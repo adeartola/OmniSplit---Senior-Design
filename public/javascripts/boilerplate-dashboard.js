@@ -89,19 +89,19 @@ omnisplitApp.controller('settingsController', function($scope, $window) {
         $.ajax({
             type: 'POST',
             url: '/api/userinfo',
-            data: { id: id },
             beforeSend: function(xhrObj){
                 var target = document.getElementById('spinner');
                 spinner = new Spinner(opts).spin(target); //Start spinner before ajax request
             },
+            complete: function() {
+                spinner.stop();
+            },
             success: function(data) {
-                console.log(data);
                 $scope.name = angular.copy(data.name);
                 $scope.address = angular.copy(data.address);
                 $scope.oldName = angular.copy(data.name);
                 $scope.oldAddress = angular.copy(data.address);
                 $scope.$apply();
-                spinner.stop();
             }
         })
     });
