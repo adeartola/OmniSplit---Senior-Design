@@ -55,6 +55,31 @@ omnisplitApp.controller('menuController', function($scope, $timeout) {
 omnisplitApp.controller('settingsController', function($scope, $window) {
     var w = angular.element($window);
     w.unbind('resize');
+
+    $scope.address = {
+        addressLine1: '',
+        addressLine2: '',
+        city: '',
+        state: '',
+        zip: ''
+    };
+
+    $scope.$on('$viewContentLoaded', function() {
+        $.ajax({
+            type: 'POST',
+            url: '/api/getaddress',
+            data: { id: id },
+            success: function(data) {
+                $scope.address = angular.copy(data);
+                $scope.user = angular.copy(data);
+                $scope.$apply();
+            }
+        })
+    });
+
+    $scope.reset = function() {
+        $scope.user = angular.copy($scope.address);
+    };
 });
 
 omnisplitApp.controller('phone', function($scope, $window) {

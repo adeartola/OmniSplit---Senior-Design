@@ -2,6 +2,7 @@ var debug      = require('debug')('omnisplit:api');
 var express    = require('express');
 var passport   = require('passport');
 var jwt        = require('jwt-simple');
+var jwtauth    = require('../js/jwtauth');
 var redis      = require('redis'); 
 var Restaurant = require('../models/restaurant');
 var User       = require('../models/user');
@@ -219,6 +220,42 @@ router.get('/restaurants', function(req, res) {
         }
         res.end(JSON.stringify(restaurants));
     })
+});
+
+router.post('/getaddress', jwtauth, function(req, res) {
+    res.setHeader('Content-Type', 'application/json');
+
+    if (req.body.id == undefined)
+        return res.status(400).json({ message: 'Bad request' });
+
+    var decoded = jwt.decode(req.cookies.token, req.app.get('jwtTokenSecret'));
+    var id = req.body.id;
+
+    if (id != decoded.iss) //Wrong ID, user does not have access to this information
+        return res.status(403).json({ message: 'Forbidden' });
+
+    Restaurant.findOne({ _id: id }, 'address', function (err, restaurant) {
+        if (err)
+            return res.status(400).end(JSON.stringify({ error: err.stack }) );
+
+        else if (!restaurant) { //User does not have restauraunt, create it
+            debug('Restaurant missing. Creating restaurant for ' + id);
+            Restaurant.create(new Restaurant({ _id: id, name: 'My Restaurant', address: {}}), function(err, newRestaurant) {
+                if (err)
+                    return res.status(400).end(JSON.stringify({ error: err.stack }) );
+
+                return res.json(newRestaurant.address);
+            })
+        }
+        else {
+            return res.json(restaurant.address);
+        }
+    });
+});
+
+router.post('/setaddress', function(req, res) {
+    res.setHeader('Content-Type', 'application/json');
+    return res.json({ message: 'OK'});
 });
 
 module.exports = router;

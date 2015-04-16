@@ -1,13 +1,18 @@
 <p>Change your settings for your restauraunt here.</p>
 <form id="change-address" method="POST" action="/api/changeaddress">
     <span>Address Line 1: </span>
-    <input name="address-line-1" id="address-line-1" required />
-    </br>
+    <input name="address-line-1" ng-model="user.addressLine1" required />
+    <br />
 
     <span>Address Line 2: </span>
-    <input name="address-line-2" id="address-line-2" required />
-    </br>
+    <input name="address-line-2" ng-model="user.addressLine2" />
+    <br />
 
-    <input type="reset" name="reset" value="Reset" />
+    <input name="city" ng-model="user.city" required />
+    <input name="state" ng-model="user.state" required />
+    <input name="zip" ng-model="user.zip" required />
+    <br />
+
+    <input type="button" ng-click="reset()" name="reset" value="Reset" />
     <input type="submit" name="submit" id="submit" value="Submit" />
 </form>
