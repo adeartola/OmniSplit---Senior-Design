@@ -52,12 +52,6 @@
     padding: 4px 0;
 }
 
-
-#contents>.ng-scope, #contents>.ng-scope>.row-fluid, #phone-column, .phone-description {
-    position: relative;
-    height: 100%;
-}
-
 .overlay {
     background-color: rgb(220,220,220);
     color: black;    

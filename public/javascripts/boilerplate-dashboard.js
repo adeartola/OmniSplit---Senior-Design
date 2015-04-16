@@ -56,29 +56,37 @@ omnisplitApp.controller('settingsController', function($scope, $window) {
     var w = angular.element($window);
     w.unbind('resize');
 
-    $scope.address = {
+    $scope.oldAddress = {
         addressLine1: '',
         addressLine2: '',
         city: '',
         state: '',
         zip: ''
     };
+    $scope.oldName = '';
 
     $scope.$on('$viewContentLoaded', function() {
         $.ajax({
             type: 'POST',
-            url: '/api/getaddress',
+            url: '/api/userinfo',
             data: { id: id },
             success: function(data) {
-                $scope.address = angular.copy(data);
-                $scope.user = angular.copy(data);
+                console.log(data);
+                $scope.name = angular.copy(data.name);
+                $scope.address = angular.copy(data.address);
+                $scope.oldName = angular.copy(data.name);
+                $scope.oldAddress = angular.copy(data.address);
                 $scope.$apply();
             }
         })
     });
 
-    $scope.reset = function() {
-        $scope.user = angular.copy($scope.address);
+    $scope.resetAddress = function() {
+        $scope.address = angular.copy($scope.oldAddress);
+    };
+
+    $scope.resetName = function() {
+        $scope.name = angular.copy($scope.oldName);
     };
 });
 

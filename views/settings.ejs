@@ -1,18 +1,32 @@
-<p>Change your settings for your restauraunt here.</p>
+<h2>Settings</h2>
+<h3>Change your settings for your restauraunt here.</h3>
+
+<form id="change-name" method="POST" action="/api/changename">
+    <span>Restaurant Name: </span>
+    <input name="name" ng-model="name" required />
+
+    <input type="button" ng-click="resetName()" name="reset" value="Reset" />
+    <input type="submit" name="submit" id="submit" value="Submit" />
+</form>
+
 <form id="change-address" method="POST" action="/api/changeaddress">
+    <h4>Restauraunt Address</h4>
     <span>Address Line 1: </span>
-    <input name="address-line-1" ng-model="user.addressLine1" required />
+    <input name="address-line-1" ng-model="address.addressLine1" required />
     <br />
 
     <span>Address Line 2: </span>
-    <input name="address-line-2" ng-model="user.addressLine2" />
+    <input name="address-line-2" ng-model="address.addressLine2" />
     <br />
 
-    <input name="city" ng-model="user.city" required />
-    <input name="state" ng-model="user.state" required />
-    <input name="zip" ng-model="user.zip" required />
+    <span>City: </span>
+    <input name="city" ng-model="address.city" required />
+    <span>State: </span>
+    <input name="state" ng-model="address.state" required />
+    <span>Zip: </span>
+    <input name="zip" ng-model="address.zip" required />
     <br />
 
-    <input type="button" ng-click="reset()" name="reset" value="Reset" />
+    <input type="button" ng-click="resetAddress()" name="reset" value="Reset" />
     <input type="submit" name="submit" id="submit" value="Submit" />
 </form>

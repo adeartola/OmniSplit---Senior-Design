@@ -222,7 +222,7 @@ router.get('/restaurants', function(req, res) {
     })
 });
 
-router.post('/getaddress', jwtauth, function(req, res) {
+router.post('/userinfo', jwtauth, function(req, res) {
     res.setHeader('Content-Type', 'application/json');
 
     if (req.body.id == undefined)
@@ -234,7 +234,7 @@ router.post('/getaddress', jwtauth, function(req, res) {
     if (id != decoded.iss) //Wrong ID, user does not have access to this information
         return res.status(403).json({ message: 'Forbidden' });
 
-    Restaurant.findOne({ _id: id }, 'address', function (err, restaurant) {
+    Restaurant.findOne({ _id: id }, 'name address', function (err, restaurant) {
         if (err)
             return res.status(400).end(JSON.stringify({ error: err.stack }) );
 
@@ -244,11 +244,11 @@ router.post('/getaddress', jwtauth, function(req, res) {
                 if (err)
                     return res.status(400).end(JSON.stringify({ error: err.stack }) );
 
-                return res.json(newRestaurant.address);
+                return res.json({ address: newRestaurant.address, name: newRestaurant.name });
             })
         }
         else {
-            return res.json(restaurant.address);
+            return res.json({ address: restaurant.address, name: restaurant.name });
         }
     });
 });

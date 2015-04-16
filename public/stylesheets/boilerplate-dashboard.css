@@ -1,5 +1,9 @@
+body, html {
+    height: 100%;
+}
+
 #contents {
-    position: absolute;
+    position: fixed;
     top: 50px;
     bottom: 0;
     left: 0;
@@ -7,6 +11,19 @@
     padding: 1em 4em;
 }
 
+#contents p, #contents span, #contents h2, #contents h3, #contents h5 {
+    color: black;
+}
+
+form span, form input {
+    color: black;
+}
+
 .footer p {
     color: #a64ca6;
+}
+
+#contents>.ng-scope, #contents>.ng-scope>.row-fluid, #phone-column, .phone-description {
+    position: relative;
+    height: 100%;
 }
