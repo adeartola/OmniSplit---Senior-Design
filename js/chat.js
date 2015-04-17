@@ -10,7 +10,7 @@ var Chat = function(io) {
 
         debug('Client ' + socket.id + ' connected.');
 
-        socket.on('create or join', function(roomName, callback) {
+        socket.on('create_or_join', function(roomName, callback) {
             //Either (1) create a new room and join it, or (2) join an existing room and update others in the room
             var personID = socket.id;
             if (rooms.roomExists(roomName)) { //Just join existing room
@@ -22,7 +22,7 @@ var Chat = function(io) {
                     else {
                         socket.join(roomName);
                         socket.room = roomName;
-                        socket.broadcast.to(socket.room).emit('update people', rooms.room(roomName));
+                        socket.broadcast.to(socket.room).emit('update_people', rooms.room(roomName));
                         debug('Person ' + personID + ' joined room ' + roomName + '.');
                         return callback(null, rooms.room(roomName));
                     }
@@ -53,7 +53,7 @@ var Chat = function(io) {
             }
         });
 
-        socket.on('add item', function(item, callback) {
+        socket.on('add_item', function(item, callback) {
             //Add item to cart
             rooms.addItem(socket.room, item, function(err) {
                 if (err) {
@@ -61,14 +61,14 @@ var Chat = function(io) {
                     return callback(err);
                 }
                 else {
-                    socket.broadcast.to(socket.room).emit('update order', rooms.getOrder(socket.room));
+                    socket.broadcast.to(socket.room).emit('update_order', rooms.getOrder(socket.room));
                     debug('Added new item to order');
                     return callback(null, rooms.getOrder(socket.room));
                 }
             });
         });
 
-        socket.on('remove item', function(item, callback) {
+        socket.on('remove_item', function(item, callback) {
             var oldRoom = JSON.parse(JSON.stringify(rooms.room(socket.room)));
             rooms.removeItem(socket.room, item, function(err) {
                 if (err) {
@@ -76,7 +76,7 @@ var Chat = function(io) {
                     return callback(err);
                 }
                 else if (oldRoom.order.length != rooms.getOrder(socket.room).length) {
-                    socket.broadcast.to(socket.room).emit('update order', rooms.getOrder(socket.room));
+                    socket.broadcast.to(socket.room).emit('update_order', rooms.getOrder(socket.room));
                     debug('Removed item from order');
                     return callback(null, rooms.getOrder(socket.room));
                 }
@@ -85,11 +85,11 @@ var Chat = function(io) {
             });
         });
 
-        socket.on('leave room', function(callback) {
+        socket.on('leave_room', function(callback) {
             //Leave room and update others in room
             var personID = socket.id;
             rooms.removePerson(personID);
-            socket.broadcast.to(socket.room).emit('update people', rooms.getPeople(socket.room));
+            socket.broadcast.to(socket.room).emit('update_people', rooms.getPeople(socket.room));
             socket.leave(socket.room);
             socket.room = '';
             debug('Person ' + personID + ' left.');
@@ -100,7 +100,7 @@ var Chat = function(io) {
             //Leave room and update others in room
             var personID = socket.id;
             rooms.removePerson(personID);
-            socket.broadcast.to(socket.room).emit('update people', rooms.getPeople(socket.room))
+            socket.broadcast.to(socket.room).emit('update_people', rooms.getPeople(socket.room))
             socket.leave(socket.room);
             socket.room = '';
             debug('Client ' + personID + ' disconnected.');
