@@ -27,12 +27,12 @@ function isEquivalent(a, b) {
 $(document).ready(function() {
     var room = {};
 
-    socket.on('update people', function(newPeople) {
+    socket.on('update_people', function(newPeople) {
         console.log('UPDATE PEOPLE: ' + JSON.stringify(newPeople));
         room.people = newPeople;
     });
 
-    socket.on('update order', function(newOrder) {
+    socket.on('update_order', function(newOrder) {
         console.log('UPDATE ORDER: ' + JSON.stringify(newOrder));
         room.order = newOrder;
         $('#group-order').text(JSON.stringify(newOrder));
@@ -40,7 +40,7 @@ $(document).ready(function() {
 
     $('#meow').click(function() {
         if (isEquivalent(room, {})) {
-            socket.emit('create or join', 'meow', function(err, newRoom) {
+            socket.emit('create_or_join', 'meow', function(err, newRoom) {
                 if (err)
                     console.error('Could not create or join room "meow"');
                 else {
@@ -55,7 +55,7 @@ $(document).ready(function() {
     
     $('#potato').click(function() {
         if (isEquivalent(room, {})) {
-            socket.emit('create or join', 'potato', function(err, newRoom) {
+            socket.emit('create_or_join', 'potato', function(err, newRoom) {
                 if (err)
                     console.error('Could not create or join room "potato"');
                 else {
@@ -71,7 +71,7 @@ $(document).ready(function() {
         var itemToAdd = $('#add-item-val').val();
         if (itemToAdd) {
             $('#add-item-val').val('');
-            socket.emit('add item', eval('(' + itemToAdd + ')'), function(err, order) {
+            socket.emit('add_item', eval('(' + itemToAdd + ')'), function(err, order) {
                 room.order = order;
                 $('#group-order').text(JSON.stringify(room.order));
             });
@@ -82,7 +82,7 @@ $(document).ready(function() {
         var itemToRemove = $('#remove-item-val').val();
         if (itemToRemove) {
             $('#remove-item-val').val('');
-            socket.emit('remove item', eval('(' + itemToRemove + ')'), function(err, order) {
+            socket.emit('remove_item', eval('(' + itemToRemove + ')'), function(err, order) {
                 room.order = order;
                 $('#group-order').text(JSON.stringify(room.order));
             });
@@ -91,7 +91,7 @@ $(document).ready(function() {
     
     $('#leave').click(function() {
         if (!isEquivalent(room, {})) {
-            socket.emit('leave room', function(err) {
+            socket.emit('leave_room', function(err) {
                 if (err)
                     console.error('Failed to leave room');
                 else {
