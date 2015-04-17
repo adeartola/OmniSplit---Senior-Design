@@ -113,6 +113,47 @@ omnisplitApp.controller('settingsController', function($scope, $window) {
     $scope.resetName = function() {
         $scope.name = angular.copy($scope.oldName);
     };
+
+    $scope.submitName = function() {
+        var spinner;
+        $.ajax({
+            type: 'POST',
+            url: '/api/changename',
+            data: { name: $scope.name },
+            beforeSend: function(xhrObj) {
+                var target = document.getElementById('spinner');
+                spinner = new Spinner(opts).spin(target); //Start spinner before ajax request
+            },
+            complete: function() {
+                spinner.stop();
+            },
+            success: function(data) {
+                $scope.oldName = $scope.name;
+            }
+        });
+    };
+
+    $scope.submitAddress = function() {
+        var spinner;
+        $.ajax({
+            type: 'POST',
+            url: '/api/changeaddress',
+            data: { address: JSON.stringify($scope.address) },
+            beforeSend: function(xhrObj) {
+                var target = document.getElementById('spinner');
+                spinner = new Spinner(opts).spin(target); //Start spinner before ajax request
+            },
+            error: function(xhr, status, error) {
+                console.log(error);
+            },
+            complete: function() {
+                spinner.stop();
+            },
+            success: function(data) {
+                $scope.oldAddress = $scope.address;
+            }
+        });
+    };
 });
 
 omnisplitApp.controller('phone', function($scope, $window) {
@@ -166,8 +207,8 @@ $(function() {
             },
             type: 'POST',
             url: '/api/logout/',
-            error: function(err) {
-                console.log(err.responseText);
+            error: function(xhr, status, error) {
+                console.log(error);
             },
             success: function() {
                 window.location.href = '/login';

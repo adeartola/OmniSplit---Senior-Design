@@ -247,7 +247,7 @@ router.post('/userinfo', jwtauth, function(req, res) {
 });
 
 router.post('/changename', jwtauth, function(req, res) {
-    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Type', 'text/html');
 
     if (req.body.name == undefined)
         return res.status(400).json({ message: 'Bad request' });
@@ -263,11 +263,21 @@ router.post('/changename', jwtauth, function(req, res) {
 });
 
 router.post('/changeaddress', jwtauth, function(req, res) {
-    res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Content-Type', 'text/html');
+
+    if (req.body.address == undefined)
+        return res.status(400).json({ message: 'Bad request' });
+
+    req.body.address = JSON.parse(req.body.address);
 
     var decoded = jwt.decode(req.cookies.token, req.app.get('jwtTokenSecret'));
 
-    return res.json({ message: 'OK'});
+    Restaurant.update({ _id: decoded.iss }, { address: req.body.address }, null, function(err, restaurant) {
+        if (err)
+            return res.status(400).json({ error: err.stack }); 
+
+        return res.json({ message: 'OK'});
+    });
 });
 
 module.exports = router;

@@ -1,17 +1,15 @@
-<script src="javascripts/settings.js"></script>
-
 <h2>Settings</h2>
 <h3>Change your settings for your restauraunt here.</h3>
 
-<form id="change-name" method="POST" action="/api/changename">
+<form id="change-name">
     <span>Restaurant Name: </span>
     <input name="name" ng-model="name" required />
 
     <input type="button" ng-click="resetName()" name="reset" value="Reset" />
-    <input type="submit" name="submit" id="submit" value="Submit" />
+    <input type="button" ng-click="submitName()" name="submit" value="Submit" />
 </form>
 
-<form id="change-address" method="POST" action="/api/changeaddress">
+<form id="change-address">
     <h4>Restauraunt Address</h4>
     <span>Address Line 1: </span>
     <input name="address-line-1" ng-model="address.addressLine1" required />
@@ -30,5 +28,5 @@
     <br />
 
     <input type="button" ng-click="resetAddress()" name="reset" value="Reset" />
-    <input type="submit" name="submit" id="submit" value="Submit" />
+    <input type="button" ng-click="submitAddress()" name="submit" value="Submit" />
 </form>
