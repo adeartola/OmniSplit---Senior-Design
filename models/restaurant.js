@@ -5,7 +5,7 @@ var Restaurant = new Schema({
     name: { type: String, required: true },
     backgroundImage: String,
     theme: String,
-    description: String,
+    description: { type: String, default: '' },
     address: {
         addressLine1: { type: String, default: '500 El Camino Real' },
         addressLine2: { type: String, default: '' },
