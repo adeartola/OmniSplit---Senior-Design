@@ -227,7 +227,7 @@ router.post('/userinfo', jwtauth, function(req, res) {
 
     var decoded = jwt.decode(req.cookies.token, req.app.get('jwtTokenSecret'));
 
-    Restaurant.findOne({ _id: decoded.iss }, 'name address', function (err, restaurant) {
+    Restaurant.findOne({ _id: decoded.iss }, 'name address description', function (err, restaurant) {
         if (err)
             return res.status(400).end(JSON.stringify({ error: err.stack }) );
 
@@ -237,24 +237,24 @@ router.post('/userinfo', jwtauth, function(req, res) {
                 if (err)
                     return res.status(400).end(JSON.stringify({ error: err.stack }) );
 
-                return res.json({ address: newRestaurant.address, name: newRestaurant.name });
+                return res.json({ address: newRestaurant.address, name: newRestaurant.name, description: newRestaurant.description });
             });
         }
         else {
-            return res.json({ address: restaurant.address, name: restaurant.name });
+            return res.json({ address: restaurant.address, name: restaurant.name, description: restaurant.description });
         }
     });
 });
 
-router.post('/changename', jwtauth, function(req, res) {
+router.post('/changeinfo', jwtauth, function(req, res) {
     res.setHeader('Content-Type', 'text/html');
 
-    if (req.body.name == undefined)
+    if (req.body.name == undefined || req.body.description == undefined)
         return res.status(400).json({ message: 'Bad request' });
 
     var decoded = jwt.decode(req.cookies.token, req.app.get('jwtTokenSecret'));
 
-    Restaurant.update({ _id: decoded.iss }, { name: req.body.name }, null, function(err, restaurant) {
+    Restaurant.update({ _id: decoded.iss }, { name: req.body.name, description: req.body.description }, null, function(err, restaurant) {
         if (err)
             return res.status(400).json({ error: err.stack }); 
 

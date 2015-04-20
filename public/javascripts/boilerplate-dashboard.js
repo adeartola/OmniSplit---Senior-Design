@@ -84,6 +84,8 @@ omnisplitApp.controller('settingsController', function($scope, $window) {
     };
     $scope.oldName = '';
 
+    $scope.oldDescription = '';
+
     $scope.$on('$viewContentLoaded', function() {
         var spinner;
         $.ajax({
@@ -99,8 +101,10 @@ omnisplitApp.controller('settingsController', function($scope, $window) {
             success: function(data) {
                 $scope.name = angular.copy(data.name);
                 $scope.address = angular.copy(data.address);
+                $scope.description = angular.copy(data.description);
                 $scope.oldName = angular.copy(data.name);
                 $scope.oldAddress = angular.copy(data.address);
+                $scope.oldDescription = angular.copy(data.description);
                 $scope.$apply();
             }
         })
@@ -112,14 +116,15 @@ omnisplitApp.controller('settingsController', function($scope, $window) {
 
     $scope.resetName = function() {
         $scope.name = angular.copy($scope.oldName);
+        $scope.description = angular.copy($scope.oldDescription);
     };
 
     $scope.submitName = function() {
         var spinner;
         $.ajax({
             type: 'POST',
-            url: '/api/changename',
-            data: { name: $scope.name },
+            url: '/api/changeinfo',
+            data: { name: $scope.name, description: $scope.description },
             beforeSend: function(xhrObj) {
                 var target = document.getElementById('spinner');
                 spinner = new Spinner(opts).spin(target); //Start spinner before ajax request
@@ -129,6 +134,7 @@ omnisplitApp.controller('settingsController', function($scope, $window) {
             },
             success: function(data) {
                 $scope.oldName = $scope.name;
+                $scope.oldDescription = $scope.description;
             }
         });
     };

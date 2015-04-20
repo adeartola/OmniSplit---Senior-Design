@@ -1,38 +1,55 @@
-<h2 class="head1">Settings</h2>
 <h4 class="subhead">Change your settings for your restaurant here.</h3>
-<div id="settings-wrapper">
-<div class="namewrap">
-<form id="change-name">
-    <span class="head1">Restaurant Name: </span>
-    <input class="labelinput" id="inputname1" name="name" ng-model="name" required />
-	<br />
-    <input class="button1" type="button" ng-click="resetName()" name="reset" value="Reset" />
-    <input class="button1" type="button" ng-click="submitName()" name="submit" value="Submit" />
-</form>
-</div>
-<br />
-<br />
-<form id="change-address">
-    <span class="head1">Restaurant Address</span>
-	<br />
-	<div class="labelwrap">
-    <span class="label">Address Line 1: </span>
-    <input class="labelinput" name="address-line-1" ng-model="address.addressLine1" required /></div>
-	<div class="labelwrap">
-    <span class="label">Address Line 2: </span>
-    <input class="labelinput" name="address-line-2" ng-model="address.addressLine2" /></div>
-	<div class="labelwrap">
-    <span class="label">City: </span>
-    <input class="labelinput" name="city" ng-model="address.city" required /></div>
-    <div class="labelwrap">
-	<span class="label">State: </span>
-    <input class="labelinput" name="state" ng-model="address.state" required /></div>
-    <div class="labelwrap">
-	<span class="label">Zip: </span>
-    <input class="labelinput" name="zip" ng-model="address.zip" required /></div>
-    <br />
 
-    <input class="button1" type="button" ng-click="resetAddress()" name="reset" value="Reset" />
-    <input class="button1" type="button" ng-click="submitAddress()" name="submit" value="Submit" />
-</form>
+<div id="settings-wrapper">
+    <div class="namewrap">
+        <form id="change-name">
+            <span class="head1">Basic Info: </span>
+            <br />
+        
+            <div class="labelwrap">
+                <span class="label">Restaurant Name: </span>
+                <input class="labelinput" id="inputname1" name="name" ng-model="name" required />
+            </div>
+            <div class="labelwrap">
+                <span class="label">Restaurant Description: </span>
+                <input class="labelinput" id="inputname2" name="description" ng-model="description" />
+            </div>
+            <br />
+
+            <input class="button1" type="button" ng-click="resetName()" name="reset" value="Reset" />
+            <input class="button1" type="button" ng-click="submitName()" name="submit" value="Submit" />
+        </form>
+    </div>
+    <br />
+    <br />
+    
+    <form id="change-address">
+        <span class="head1">Restaurant Address:</span>
+        <br />
+
+        <div class="labelwrap">
+            <span class="label">Address Line 1: </span>
+            <input class="labelinput" name="address-line-1" ng-model="address.addressLine1" required />
+        </div>
+        <div class="labelwrap">
+            <span class="label">Address Line 2: </span>
+            <input class="labelinput" name="address-line-2" ng-model="address.addressLine2" />
+        </div>
+        <div class="labelwrap">
+            <span class="label">City: </span>
+            <input class="labelinput" name="city" ng-model="address.city" required />
+        </div>
+        <div class="labelwrap">
+            <span class="label">State: </span>
+            <input class="labelinput" name="state" ng-model="address.state" required />
+        </div>
+        <div class="labelwrap">
+            <span class="label">Zip: </span>
+            <input class="labelinput" name="zip" ng-model="address.zip" required />
+        </div>
+        <br />
+    
+        <input class="button1" type="button" ng-click="resetAddress()" name="reset" value="Reset" />
+        <input class="button1" type="button" ng-click="submitAddress()" name="submit" value="Submit" />
+    </form>
 </div>
