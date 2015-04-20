@@ -29,4 +29,39 @@ $(document).ready(function(){
             $(this).css("cursor", "default");
         });
     });
+	
+	$("#addCat").each(function() {
+		$(this).on("click", function() {
+			 $("#addInfo").slideDown();
+		});
+		
+	});
+	
+	$("#addNow").each(function() {
+		$(this).on("click", function() {
+			var add = $("#catAdd").val();
+			var count = $("#left-sortable").children().length;
+			count++;
+			var content = "<li id='" + count + "' class='ui-state-default'><p>" + add + "</p></li>";
+			 $("#left-sortable").append(content);
+			 localStorage.listData = $("#left-sortable").html();
+		});
+		
+	});
+	
+	$("#left-sortable").each(function () {
+		$(this).html(localStorage.listData);
+	});
+	
+	$("ul#left-sortable li").each(function() {
+		$(this).on("click", function() {
+			$("ul#left-sortable li p").children().css("color","black");
+			$(this).children().css("color", "yellow");
+		});
+	});
+	
+	
+	
 });
+
+

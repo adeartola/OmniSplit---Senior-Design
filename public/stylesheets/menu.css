@@ -98,6 +98,41 @@
 	
 }
 
+#addInfo {
+	display: none;
+	margin-top: 20px;
+}
+
+.label {
+	display: block;
+	float: left;
+	margin-left: 30px;
+	font-size: 12px;
+}
+
+
+.labelinput{
+	display: block;
+	float: right;
+	margin-right: 50px;
+
+}
+
+#addNow {
+	display: block;
+	float: right;
+	margin-right: 50px;
+}
+
+#buttonAdd{
+	margin-top: 40px;
+	
+}
+
+#newAdd{
+	min-height: 50px;
+}
+
 /*
 #sortable, #sort2 {
     list-style-type: none;

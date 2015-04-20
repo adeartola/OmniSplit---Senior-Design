@@ -6,6 +6,15 @@
             <h2>Menu Editor</h2>
             <p>Instructions: Add categories to your menu with the </p>
 			<button type="button" class="btn btn-info btn-block" id="addCat">Add New Category</button>
+			<div id="addInfo"> 
+					<div id="newAdd">
+					<span class="label">Category: </span>
+					<input id="catAdd" class="labelinput" name="cat-line-1" ng-model="cat.catLine1" required />
+					</div>
+					<div id="buttonAdd">
+					<button style="width: 75px;" type="button" class="btn btn-info btn-block" id="addNow">Add</button>
+					</div>
+			</div>
         </div>
     </div>
     <div class="col-md-4" id="phone-column" ng-controller="phone">
@@ -15,11 +24,11 @@
                 <h3>Categories</h3>
             </div>
             <ul class="ui-sortable" id="left-sortable">
-                <li class="ui-state-default"><p>Appetizers</p></li>
-                <li class="ui-state-default"><p>Noodles</p></li>
-                <li class="ui-state-default"><p>Curries</p></li>
-                <li class="ui-state-default"><p>Drinks</p></li>
+                <li id="1" class="ui-state-default"><p>Appetizers</p></li>
             </ul>
+			<div class="order">
+				test
+			</div>
         </div>
     </div>
     <div class="col-md-4 phone-description">
