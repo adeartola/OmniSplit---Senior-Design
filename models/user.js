@@ -5,7 +5,7 @@ var Schema   = mongoose.Schema;
 var User = new Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    restaurants: [{ type: Schema.Types.ObjectId, ref: 'Restaurant' }]
+    restaurant: { type: Schema.Types.ObjectId, ref: 'Restaurant' }
 });
 
 User.set('redisCache', true);

@@ -4,6 +4,7 @@ var passport   = require('passport');
 var jwt        = require('jwt-simple');
 var jwtauth    = require('../js/jwtauth');
 var redis      = require('redis'); 
+var Mongoose   = require('mongoose');
 var Restaurant = require('../models/restaurant');
 var User       = require('../models/user');
 var Menu       = require('../models/menu');
@@ -82,15 +83,19 @@ router.post('/register', function(req, res) {
     var valid = regex.test(password);
 
     if (valid) {
-        User.create(new User({ email: email, password: password }), function(err, newUser) {
+        var id = Mongoose.Types.ObjectId();
+        console.log(id);
+        console.log(id);
+        User.create(new User({ _id: id, email: email, password: password, restaurant: id}), function(err, newUser) {
             var menuAdded = false, restaurantAdded = false;
             if (err) {
+                debug(err.stack);
                 res.status(400);
                 return res.end(JSON.stringify({ error: err }) );
             }
             else {
                 debug('Added user ' + newUser.email + ' to users');
-                Restaurant.create(new Restaurant({ _id: newUser.id, name: 'My Restaurant', address: {}}), function(err, newRestaurant) {
+                Restaurant.create(new Restaurant({ _id: id, name: 'My Restaurant', menu: id, address: {}}), function(err, newRestaurant) {
                     if (err) {
                         res.status(400);
                         return res.end(JSON.stringify({ error: err }) );
@@ -102,11 +107,11 @@ router.post('/register', function(req, res) {
                         var maxAge = 1000 * 60 * 60; //1 hour
                         var expiration = Date.now() + maxAge;
                         var token = jwt.encode({
-                            iss: newUser.id,
+                            iss: id,
                             exp: expiration
                         }, req.app.get('jwtTokenSecret'));
 
-                        client.setex(token, 60 * 10, JSON.stringify({ iss: newUser.id, exp: expiration }) ); //Cache for 10 minutes
+                        client.setex(token, 60 * 10, JSON.stringify({ iss: id, exp: expiration }) ); //Cache for 10 minutes
 
                         return res.json({
                             token: token,
@@ -115,7 +120,7 @@ router.post('/register', function(req, res) {
                         });
                     }
                 }); 
-                Menu.create(new Menu({ id: newUser.id, group: [] }), function(err, newMenu) {
+                Menu.create(new Menu({ _id: id, group: [] }), function(err, newMenu) {
                     if (err) {
                         res.status(400);
                         return res.end(JSON.stringify({ error: err }) );

@@ -6,12 +6,13 @@ var Restaurant = new Schema({
     backgroundImage: String,
     theme: String,
     description: { type: String, default: '' },
+    menu: { type: Schema.Types.ObjectId, ref: 'Menu' },
     address: {
         addressLine1: { type: String, default: '500 El Camino Real' },
         addressLine2: { type: String, default: '' },
         city: { type: String, default: 'Santa Clara' },
         state: { type: String, default: 'CA' },
-        zip: { type: Number, default: 95125 },
+        zip: { type: Number, default: 95050 },
         _id: false
     },
 });
