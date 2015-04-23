@@ -10,7 +10,7 @@ body{
     border-radius: 10px;
     padding: 24px;
     min-width: 375px;
-    min-height: 425px;
+    min-height: 450px;
 }
 
 .head1 {
@@ -31,7 +31,13 @@ body{
 .button1{
     display: block;
     float: right;
-    margin-right: 5px;
+    margin-right: 50px;
+}
+
+.button2{
+    display: block;
+    float: right;
+    margin-right: 25px;
 }
 
 .labelwrap {
