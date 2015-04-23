@@ -44,7 +44,7 @@ server {
     ssl_certificate_key /path/to/omnisplit.key;
 
     location / {
-        proxy_pass http://<SERVER_URL>:3000;
+        proxy_pass http://localhost:3000;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -56,9 +56,10 @@ server {
         root /path/to/bin/www;
     }
 
-    location /socket.io/ {
-        proxy_pass http://<SERVER_URL>:4000;
+    location /socket.io {
+        proxy_pass http://127.0.0.1:4000/socket.io;
         proxy_http_version 1.1;
+        proxy_redirect off;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
     }
@@ -83,10 +84,14 @@ OmniSplit uses socket.io to handle events and synchronization between different 
 
 **/api/menu/:id** (GET): Get a specific restaurant location 
 
-**/api/loggedin** (GET, POST): Returns 1 if a user is logged in, 0 if not
-
-**/api/login** (POST *email, password*): Check and authenticate a user NOT DONE YET, SEE TODO MESSAGE
+**/api/login** (POST *email, password*): Check and authenticate a user. Return a JWT token.
 
 **/api/logout** (POST): If logged in, log a user out
 
-**/api/register** (POST *email, password*): Add person to users
+**/api/register** (POST *email, password*): Add person to users. Also creates a restauraunt and menu for that user.
+
+**/api/userinfo** (POST): Gets a a restauraunt's name, address, and description for a logged in user. *Must be logged in.*
+
+**/api/changeinfo** (POST *name, description*): Change a restaurant's name and description for a logged in user. *Must be logged in.*
+
+**/api/changeaddress** (POST *address*): Change a restaurant's address for a logged in user. *Must be logged in.*
