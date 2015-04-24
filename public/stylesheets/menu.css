@@ -101,6 +101,7 @@
 #addInfo {
 	display: none;
 	margin-top: 20px;
+	height: 200px;
 }
 
 .label {
@@ -131,6 +132,15 @@
 
 #newAdd{
 	min-height: 50px;
+}
+
+#buttonRemove{
+	display: block;
+	margin-top: 10px;
+}
+
+#buttonRemove button{
+	background-color: red;
 }
 
 /*

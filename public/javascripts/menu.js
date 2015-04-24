@@ -40,11 +40,16 @@ $(document).ready(function(){
 	$("#addNow").each(function() {
 		$(this).on("click", function() {
 			var add = $("#catAdd").val();
+			$('#catAdd').val('');
 			var count = $("#left-sortable").children().length;
+			if (checkDuplicate(add, count)){
 			count++;
 			var content = "<li id='" + count + "' class='ui-state-default'><p>" + add + "</p></li>";
 			 $("#left-sortable").append(content);
 			 localStorage.listData = $("#left-sortable").html();
+				}
+			else 
+				alert("Sorry, you cannot add duplicates!");
 		});
 		
 	});
@@ -60,7 +65,27 @@ $(document).ready(function(){
 		});
 	});
 	
+	function checkDuplicate(name, count){
+		var i=0;
+		var content= "#left-sortable li#" + count;
+		var nameCont;
+		for (i=0; i<count; i++){
+			nameCont = "<p>" + name + "</p>";
+			content= "#left-sortable li#" + (i+1);
+			if ($(content).html() == nameCont){
+				return false;
+			}
+		}
+		return true;
+	}
 	
+	$("#removeAll").each(function() {
+		$(this).on("click", function() {
+			localStorage.clear();
+			location.reload();
+		});
+	});
+
 	
 });
 
