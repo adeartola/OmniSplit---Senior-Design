@@ -32,8 +32,9 @@ $(document).ready(function(){
 	
 	$("#addCat").each(function() {
 		$(this).on("click", function() {
-			 $("#addInfo").slideDown();
+			 $("#addInfo").slideToggle();
 		});
+
 		
 	});
 	
@@ -50,7 +51,9 @@ $(document).ready(function(){
 				}
 			else 
 				alert("Sorry, you cannot add duplicates!");
+			location.reload();
 		});
+		
 		
 	});
 	
@@ -59,20 +62,22 @@ $(document).ready(function(){
 	});
 	
 	$("ul#left-sortable li").each(function() {
-		$(this).on("click", function() {
-			$("ul#left-sortable li p").children().css("color","black");
+		$(this).children().parent().on("click", function() {
+			$("ul#left-sortable li p").parent().children().css("color","black");
 			$(this).children().css("color", "yellow");
+			$(this).parent().children().removeClass("activeCat1");
+			$(this).toggleClass("activeCat1");
+			$("#activeCat").html($(".activeCat1").html());
+			$("#activeCat p").css("color","black");
 		});
 	});
 	
 	function checkDuplicate(name, count){
 		var i=0;
 		var content= "#left-sortable li#" + count;
-		var nameCont;
 		for (i=0; i<count; i++){
-			nameCont = "<p>" + name + "</p>";
 			content= "#left-sortable li#" + (i+1);
-			if ($(content).html() == nameCont){
+			if ($(content).text() == name){
 				return false;
 			}
 		}
@@ -85,6 +90,8 @@ $(document).ready(function(){
 			location.reload();
 		});
 	});
+	
+	
 
 	
 });

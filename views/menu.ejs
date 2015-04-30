@@ -37,8 +37,22 @@
     <div class="col-md-4 phone-description">
         <div class="description-box well">
             <h2>Food items</h2>
-            <p>Add food items to a given category.</p>
+            <p>Add food items to a given category:</p>
+			<span id="activeCat" style="font-size: 24px; color: black;"></span>
 			<button type="button" class="btn btn-info btn-block" id="addFood">Add New Food Item</button>
+			<div id="addInfo2"> 
+					<div id="newAdd">
+					<span class="label">Food Name: </span>
+					<input id="foodName" class="labelinput" name="cat-line-1" ng-model="cat.catLine1" required />
+					<span class="label">Food Description: </span>
+					<input id="foodDesc class="labelinput" name="cat-line-1" ng-model="cat.catLine1" required />
+					<span class="label">Price: </span>
+					<input id="foodPrice" class="labelinput" name="cat-line-1" ng-model="cat.catLine1" required />
+					</div>
+					<div id="buttonAdd">
+					<button style="width: 75px;" type="button" class="btn btn-info btn-block" id="addNow">Add</button>
+					</div>
+			</div>
 			
         </div>
     </div>
