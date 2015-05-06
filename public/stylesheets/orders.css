@@ -1,0 +1,29 @@
+body {
+	position: relative;
+	color: purple;
+}
+#container{
+	width: 90%;
+	margin: 0 auto;
+	
+}
+#left{
+	width: 47.5%;
+	min-height: 500px;
+	float: left;
+	box-shadow: 4px 4px 4px #888888;
+	border: 1px solid black;
+	border-radius: 4px;
+	padding: 20px 40px;
+}
+
+#right{
+	width: 47.5%;
+	min-height: 500px;
+	float: left;
+	margin-left: 5%;
+	box-shadow: 4px 4px 4px #888888;
+	border: 1px solid black;
+	border-radius: 4px;
+	padding: 20px 40px;
+}

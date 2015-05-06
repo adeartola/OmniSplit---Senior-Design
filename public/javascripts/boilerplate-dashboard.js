@@ -70,6 +70,37 @@ omnisplitApp.controller('dashboardController', function($scope, $window) {
     w.unbind('resize');
 });
 omnisplitApp.controller('menuController', function($scope, $timeout) {
+	var w = angular.element($timeout);
+    w.unbind('resize');
+	
+	$scope.oldName = '';
+	$scope.oldItem = {
+		name: '',
+		description: '',
+		price: ''
+	};
+	$scope.$on('$viewContentLoaded', function() {
+		var spinner;
+		$.ajax({
+			type: 'POST',
+			url: 'api/menuinfo',
+			beforeSend: function(xhrObj){
+                var target = document.getElementById('spinner');
+                spinner = new Spinner(opts).spin(target); //Start spinner before ajax request
+            },
+			complete: function() {
+				spinner.stop();
+			},
+			success: function(data) {
+				alert("meow");
+				var content1 = " ";
+				for (x in data.name){
+					content1 = content1 + "<li id='" + x + "' class='ui-state-default'><p>" + data.name + "</p></li>";
+				}
+				$("#left-sortable").html(content1);
+			}
+		});
+	});
 });
 omnisplitApp.controller('settingsController', function($scope, $window) {
     var w = angular.element($window);
@@ -107,7 +138,7 @@ omnisplitApp.controller('settingsController', function($scope, $window) {
                 $scope.oldDescription = angular.copy(data.description);
                 $scope.$apply();
             }
-        })
+        });
     });
 
     $scope.resetAddress = function() {

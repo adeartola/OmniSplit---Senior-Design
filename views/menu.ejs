@@ -1,5 +1,5 @@
 <script src="javascripts/menu.js"></script>
-
+<link rel="stylesheet" href="stylesheets/menu.css">
 <div class="row-fluid">
     <div class="col-md-4 phone-description">
         <div class="description-box well">
@@ -8,8 +8,8 @@
 			<button type="button" class="btn btn-info btn-block" id="addCat">Add New Category</button>
 			<div id="addInfo"> 
 					<div id="newAdd">
-					<span class="label">Category: </span>
-					<input id="catAdd" class="labelinput" name="cat-line-1" ng-model="cat.catLine1" required />
+					<span class="label">Category: 
+					<input id="catAdd" class="labelinput" name="category" ng-model="name" required /></span>
 					</div>
 					<div id="buttonAdd">
 					<button style="width: 75px;" type="button" class="btn btn-info btn-block" id="addNow">Add</button>
@@ -42,15 +42,15 @@
 			<button type="button" class="btn btn-info btn-block" id="addFood">Add New Food Item</button>
 			<div id="addInfo2"> 
 					<div id="newAdd">
-					<span class="label">Food Name: </span>
-					<input id="foodName" class="labelinput" name="cat-line-1" ng-model="cat.catLine1" required />
-					<span class="label">Food Description: </span>
-					<input id="foodDesc class="labelinput" name="cat-line-1" ng-model="cat.catLine1" required />
-					<span class="label">Price: </span>
-					<input id="foodPrice" class="labelinput" name="cat-line-1" ng-model="cat.catLine1" required />
+					<span class="label">Food Name: 
+					<input id="foodName" class="labelinput" name="cat-line-1" ng-model="cat.catLine1" required /></span>
+					<span class="label">Food Description: 
+					<input id="foodDesc" class="labelinput" name="cat-line-1" ng-model="cat.catLine1" required /></span>
+					<span class="label">Price: 
+					<input id="foodPrice" class="labelinput" name="cat-line-1" ng-model="cat.catLine1" required /></span>
 					</div>
 					<div id="buttonAdd">
-					<button style="width: 75px;" type="button" class="btn btn-info btn-block" id="addNow">Add</button>
+					<button style="width: 75px;" type="button" class="btn btn-info btn-block" id="addNow2">Add</button>
 					</div>
 			</div>
 			

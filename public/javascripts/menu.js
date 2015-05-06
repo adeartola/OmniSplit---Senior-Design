@@ -38,6 +38,14 @@ $(document).ready(function(){
 		
 	});
 	
+	$("#addFood").each(function() {
+		$(this).on("click", function() {
+			 $("#addInfo2").slideToggle();
+		});
+
+		
+	});
+	
 	$("#addNow").each(function() {
 		$(this).on("click", function() {
 			var add = $("#catAdd").val();
@@ -56,6 +64,46 @@ $(document).ready(function(){
 		
 		
 	});
+	
+	$("#addNow2").each(function() {
+		$(this).on("click", function() {
+			var add = $("#catAdd").val();
+			$('#catAdd').val('');
+			var count = $("#left-sortable").children().length;
+			if (checkDuplicate(add, count)){
+			count++;
+			var content = "<li id='" + count + "' class='ui-state-default'><p>" + add + "</p></li>";
+			 $("#left-sortable").append(content);
+			 localStorage.listData = $("#left-sortable").html();
+				}
+			else 
+				alert("Sorry, you cannot add duplicates!");
+			location.reload();
+		});
+		
+		
+	});
+	
+	
+	$("#left-sortable").each(function() {
+		$(this).on("click", function() {
+			var add = $("#catAdd").val();
+			$('#catAdd').val('');
+			var count = $("#left-sortable").children().length;
+			if (checkDuplicate(add, count)){
+			count++;
+			var content = "<li id='" + count + "' class='ui-state-default'><p>" + add + "</p></li>";
+			 $("#left-sortable").append(content);
+			 localStorage.listData = $("#left-sortable").html();
+				}
+			else 
+				alert("Sorry, you cannot add duplicates!");
+			location.reload();
+		});
+		
+		
+	});
+	
 	
 	$("#left-sortable").each(function () {
 		$(this).html(localStorage.listData);
@@ -90,6 +138,7 @@ $(document).ready(function(){
 			location.reload();
 		});
 	});
+	
 	
 	
 

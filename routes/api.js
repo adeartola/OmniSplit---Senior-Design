@@ -251,6 +251,33 @@ router.post('/userinfo', jwtauth, function(req, res) {
     });
 });
 
+router.post('/menuinfo', jwtauth, function(req, res) {
+	alert("potato");
+    res.setHeader('Content-Type', 'application/json');
+
+    var decoded = jwt.decode(req.cookies.token, req.app.get('jwtTokenSecret'));
+
+    Menu.findOne({ _id: decoded.iss }, 'name item', function (err, restaurant) {
+        if (err)
+            return res.status(400).end(JSON.stringify({ error: err.stack }) );
+
+        else if (!menu) { //User does not have menu, create it
+            debug('Menu missing. Creating menu for ' + id);
+            Menu.create(new Menu({ _id: id, name: 'My Menu' }), function(err, newRestaurant) {
+                if (err)
+                    return res.status(400).end(JSON.stringify({ error: err.stack }) );
+
+                return res.json({ name: newMenu.name, item: newMenu.item });
+            });
+        }
+        else {
+            return res.json({ name: menu.name, item: menu.item });
+        }
+	});
+});
+
+
+
 router.post('/changeinfo', jwtauth, function(req, res) {
     res.setHeader('Content-Type', 'text/html');
 
@@ -284,5 +311,6 @@ router.post('/changeaddress', jwtauth, function(req, res) {
         return res.json({ message: 'OK'});
     });
 });
+
 
 module.exports = router;

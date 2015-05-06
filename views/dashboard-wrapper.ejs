@@ -7,6 +7,7 @@
 <% stylesheet('stylesheets/menu.css') %>
 <% stylesheet('stylesheets/settings.css') %>
 
+
 <% script('javascripts/spin.min.js') %>
 <% script('javascripts/jquery-ui.min.js') %>
 <% script('javascripts/boilerplate-dashboard.js') %>
@@ -21,7 +22,6 @@
 		</div>
 		<div style="margin: auto;">
 			<ul class="nav navbar-nav">
-				<li ng-class="{active:tab.isSet(1)}"><a href="#tables" ng-click="tab.setTab(1)">Tables</a></li>
 				<li ng-class="{active:tab.isSet(2)}"><a href="#orders" ng-click="tab.setTab(2)">Orders</a></li>
 				<li ng-class="{active:tab.isSet(3)}"><a href="#dashboard" ng-click="tab.setTab(3)">Dashboard</a></li>
 				<li ng-class="{active:tab.isSet(4)}"><a href="#menu" ng-click="tab.setTab(4)">Menu</a></li>
