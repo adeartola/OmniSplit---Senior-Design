@@ -92,6 +92,8 @@ OmniSplit uses socket.io to handle events and synchronization between different 
 
 **/api/userinfo** (POST): Gets a a restauraunt's name, address, and description for a logged in user. *Must be logged in.*
 
+**/api/menuinfo** (POST): Gets a a restauraunt's menu information for a logged in user. *Must be logged in.*
+
 **/api/changeinfo** (POST *name, description*): Change a restaurant's name and description for a logged in user. *Must be logged in.*
 
 **/api/changeaddress** (POST *address*): Change a restaurant's address for a logged in user. *Must be logged in.*
