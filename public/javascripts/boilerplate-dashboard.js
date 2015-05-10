@@ -72,13 +72,7 @@ omnisplitApp.controller('dashboardController', function($scope, $window) {
 omnisplitApp.controller('menuController', function($scope, $timeout) {
 	var w = angular.element($timeout);
     w.unbind('resize');
-	
-	$scope.oldName = '';
-	$scope.oldItem = {
-		name: '',
-		description: '',
-		price: ''
-	};
+
 	$scope.$on('$viewContentLoaded', function() {
 		var spinner;
 		$.ajax({
@@ -92,10 +86,9 @@ omnisplitApp.controller('menuController', function($scope, $timeout) {
 				spinner.stop();
 			},
 			success: function(data) {
-				alert("meow");
 				var content1 = " ";
-				for (x in data.name){
-					content1 = content1 + "<li id='" + x + "' class='ui-state-default'><p>" + data.name + "</p></li>";
+				for (x in data.group){
+					content1 = content1 + "<li id='" + x + "' class='ui-state-default'><p>" + data.group[x].name + "</p></li>";
 				}
 				$("#left-sortable").html(content1);
 			}
@@ -130,6 +123,7 @@ omnisplitApp.controller('settingsController', function($scope, $window) {
                 spinner.stop();
             },
             success: function(data) {
+				alert(data.menu);
                 $scope.name = angular.copy(data.name);
                 $scope.address = angular.copy(data.address);
                 $scope.description = angular.copy(data.description);
