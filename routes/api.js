@@ -279,7 +279,7 @@ router.post('/addItem', jwtauth, function(req, res) {
 
     var decoded = jwt.decode(req.cookies.token, req.app.get('jwtTokenSecret'));
 	console.log(req.body.name);
-	Menu.findOneAndUpdate({_id: decoded.iss, 'group.name': 'heller'},{$push: {'group.$.item': {name: req.body.name, price: req.body.price, step: []}}}, null, function(err, restaurant) {
+	Menu.findOneAndUpdate({_id: decoded.iss, 'group.name': 'heller'},{$push: {'group.$.item': {name: req.body.name, price: req.body.price, description: req.body.description, step: []}}}, null, function(err, restaurant) {
 
 
         return res.json({ message: 'OK'});

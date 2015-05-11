@@ -1,10 +1,13 @@
 $(document).ready(function(){
-    $(".ui-sortable").each(function() {
+    
+	
+	$(".ui-sortable").each(function() {
         $(this).sortable({
             placeholder: "ui-state-highlight"
         });
         $(this).disableSelection();
     });
+	
 
     $(".ui-state-default").each(function() {
         $(this).on("click", function() {
@@ -34,16 +37,12 @@ $(document).ready(function(){
 		$(this).on("click", function() {
 			 $("#addInfo").slideToggle();
 		});
-
-		
 	});
 	
 	$("#addFood").each(function() {
 		$(this).on("click", function() {
 			 $("#addInfo2").slideToggle();
 		});
-
-		
 	});
 	
 	$("#addNow").each(function() {
@@ -112,18 +111,10 @@ $(document).ready(function(){
 	
 	
 	
-	$("#left-sortable").each(function () {
-		$(this).html(localStorage.listData);
-	});
 	
-	$("ul#left-sortable li").each(function() {
+	$("ul#left-sortable li").each( function() {
 		$(this).children().parent().on("click", function() {
-			$("ul#left-sortable li p").parent().children().css("color","black");
-			$(this).children().css("color", "yellow");
-			$(this).parent().children().removeClass("activeCat1");
-			$(this).toggleClass("activeCat1");
-			$("#activeCat").html($(".activeCat1").html());
-			$("#activeCat p").css("color","black");
+			alert("clicked");
 		});
 	});
 	

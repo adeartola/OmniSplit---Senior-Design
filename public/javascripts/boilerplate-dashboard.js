@@ -69,9 +69,24 @@ omnisplitApp.controller('dashboardController', function($scope, $window) {
     var w = angular.element($window);
     w.unbind('resize');
 });
-omnisplitApp.controller('menuController', function($scope, $timeout) {
-	var w = angular.element($timeout);
+omnisplitApp.controller('menuController', function($scope, $window) {
+	var w = angular.element($window);
     w.unbind('resize');
+
+    $scope.items = [];
+
+    $scope.clickItem = function(id) {
+        var thisItem = angular.element("#item-" + id);
+	    for (x in $scope.items) {
+            $("#item-" + x + " p").css("color","black");
+            $("#item-" + x).removeClass("activeCat1");
+        }
+
+	    $("#item-" + id + " p").css("color", "yellow");
+	    thisItem.addClass("activeCat1");
+	    $("#activeCat").html($(".activeCat1").html());
+	    $("#activeCat p").css("color","black");
+    };
 
 	$scope.$on('$viewContentLoaded', function() {
 		var spinner;
@@ -86,15 +101,20 @@ omnisplitApp.controller('menuController', function($scope, $timeout) {
 				spinner.stop();
 			},
 			success: function(data) {
-				var content1 = " ";
 				for (x in data.group){
-					content1 = content1 + "<li id='" + x + "' class='ui-state-default'><p>" + data.group[x].name + "</p></li>";
+                    $scope.items.push({
+                        "id": x,
+                        "name": data.group[x].name,
+                        "description": data.group[x].description,
+                        "items": data.group[x].items
+                    });
 				}
-				$("#left-sortable").html(content1);
+                $scope.$apply();
 			}
 		});
 	});
 });
+
 omnisplitApp.controller('settingsController', function($scope, $window) {
     var w = angular.element($window);
     w.unbind('resize');
