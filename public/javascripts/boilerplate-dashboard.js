@@ -128,19 +128,6 @@ omnisplitApp.controller('menuController', function($scope, $window) {
                 $scope.$digest();
             }
         });
-
-        /*
-        var active = $("#activeCat").text();
-        $('#foodPrice').val('');
-        $('#foodName').val('');
-        $('#foodDesc').val('');
-        
-        $('#catAdd').val('');
-        var count = $("#left-sortable").children().length;
-        if (1){
-            count++;
-            alert("Sorry, you cannot add duplicates!");
-            */
     };
 
 	$scope.$on('$viewContentLoaded', function() {
@@ -156,7 +143,6 @@ omnisplitApp.controller('menuController', function($scope, $window) {
 				spinner.stop();
 			},
 			success: function(data) {
-                alert(JSON.stringify(data.group))
 				for (x in data.group) {
                     $scope.items.push({
                         "id": x,
@@ -200,7 +186,6 @@ omnisplitApp.controller('settingsController', function($scope, $window) {
                 spinner.stop();
             },
             success: function(data) {
-				alert(data.menu);
                 $scope.name = angular.copy(data.name);
                 $scope.address = angular.copy(data.address);
                 $scope.description = angular.copy(data.description);

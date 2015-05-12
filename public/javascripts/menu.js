@@ -48,67 +48,25 @@ $(document).ready(function(){
 			$('#catAdd').val('');
 			var count = $("#left-sortable").children().length;
 			if (checkDuplicate(add, count)){
-			count++;
-			var content = "<li id='" + count + "' class='ui-state-default'><p>" + add + "</p></li>";
-			$.ajax({
-			type: 'POST',
-			url: 'api/addCat',
-			data: {name : add},
-			beforeSend: function(xhrObj){
-                var target = document.getElementById('spinner');
-                spinner = new Spinner(opts).spin(target); //Start spinner before ajax request
-            },
-			complete: function() {
-				spinner.stop();
-			}
-			});
-				
+			    count++;
+			    var content = "<li id='" + count + "' class='ui-state-default'><p>" + add + "</p></li>";
+			    $.ajax({
+			        type: 'POST',
+			        url: 'api/addCat',
+			        data: { name : add },
+			        beforeSend: function(xhrObj){
+                        var target = document.getElementById('spinner');
+                        spinner = new Spinner(opts).spin(target); //Start spinner before ajax request
+                    },
+			        complete: function() {
+			        	spinner.stop();
+			        }
+			    });
 			}
 			else 
 				alert("Sorry, you cannot add duplicates!");
 		});
-		
-		
 	});
-	
-	$("#addNow2").each(function() {
-		$(this).on("click", function() {
-			var price = $("#foodPrice").val();
-			var name = $("#foodName").val();
-			var description = $("#foodDesc").val();
-			var active = $("#activeCat").text();
-			$('#foodPrice').val('');
-			$('#foodName').val('');
-			$('#foodDesc').val('');
-			
-			$('#catAdd').val('');
-			var count = $("#left-sortable").children().length;
-			if (1){
-			count++;
-			$.ajax({
-			type: 'POST',
-			url: 'api/addItem',
-			data: {name : name, price: price, description: description, active: active},
-			beforeSend: function(xhrObj){
-                var target = document.getElementById('spinner');
-                spinner = new Spinner(opts).spin(target); //Start spinner before ajax request
-            },
-            complete: function() {
-                spinner.stop();
-            }
-            });
-                
-            }
-            else 
-                alert("Sorry, you cannot add duplicates!");
-        });
-    });
-    
-    $("ul#left-sortable li").each( function() {
-        $(this).children().parent().on("click", function() {
-            alert("clicked");
-        });
-    });
     
     function checkDuplicate(name, count){
         var i=0;
