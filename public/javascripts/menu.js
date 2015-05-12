@@ -79,9 +79,10 @@ $(document).ready(function(){
 			var price = $("#foodPrice").val();
 			var name = $("#foodName").val();
 			var description = $("#foodDesc").val();
-			var active = $("activeCat").text();
-			
-			
+			var active = $("#activeCat").text();
+			$('#foodPrice').val('');
+			$('#foodName').val('');
+			$('#foodDesc').val('');
 			
 			$('#catAdd').val('');
 			var count = $("#left-sortable").children().length;
