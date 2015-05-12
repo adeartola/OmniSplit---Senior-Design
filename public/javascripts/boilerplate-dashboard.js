@@ -76,6 +76,18 @@ omnisplitApp.controller('menuController', function($scope, $window) {
     $scope.items = [];
     $scope.foodItems = [];
 
+    $scope.checkDuplicates = function(name, count) {
+        var i=0;
+        var content= "#left-sortable li#" + count;
+        for (i=0; i<count; i++){
+            content= "#left-sortable li#" + (i);
+            if ($(content).text() == name){
+                return false;
+            }
+        }
+        return true;
+    };
+
     $scope.clickItem = function(id) {
         var thisItem = angular.element("#item-" + id);
         $scope.foodItems = angular.copy($scope.items[id].item);
@@ -88,6 +100,37 @@ omnisplitApp.controller('menuController', function($scope, $window) {
 	    thisItem.addClass("activeCat1");
 	    $("#activeCat").html($(".activeCat1").html());
 	    $("#activeCat p").css("color","black");
+    };
+
+    $scope.addFoodCategory = function() {
+        var name = angular.copy($scope.category.name);
+        var description = angular.copy($scope.category.description);
+
+		//var content = "<li id='" + count + "' class='ui-state-default'><p>" + add + "</p></li>";
+		$.ajax({
+		    type: 'POST',
+		    url: 'api/addCat',
+		    data: {
+                name : name,
+                description: description
+            },
+		    beforeSend: function(xhrObj){
+                var target = document.getElementById('spinner');
+                spinner = new Spinner(opts).spin(target); //Start spinner before ajax request
+            },
+		    complete: function() {
+		    	spinner.stop();
+                $scope.category.name = '';
+                $scope.category.description = '';
+                $scope.items.push({
+                    name: name,
+                    description: description,
+                    id: $scope.items.length,
+                    item: []
+                });
+                $scope.$apply();
+		    }
+		});
     };
 
     $scope.addFoodItem = function() {
@@ -125,7 +168,7 @@ omnisplitApp.controller('menuController', function($scope, $window) {
                 $scope.newItem.itemLine1 = '';
                 $scope.newItem.itemLine2 = '';
                 $scope.newItem.itemLine3 = '';
-                $scope.$digest();
+                $scope.$apply();
             }
         });
     };

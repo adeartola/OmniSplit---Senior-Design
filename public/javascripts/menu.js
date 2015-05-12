@@ -42,44 +42,6 @@ $(document).ready(function(){
 		});
 	});
 	
-	$("#addNow").each(function() {
-		$(this).on("click", function() {
-			var add = $("#catAdd").val();
-			$('#catAdd').val('');
-			var count = $("#left-sortable").children().length;
-			if (checkDuplicate(add, count)){
-			    count++;
-			    var content = "<li id='" + count + "' class='ui-state-default'><p>" + add + "</p></li>";
-			    $.ajax({
-			        type: 'POST',
-			        url: 'api/addCat',
-			        data: { name : add },
-			        beforeSend: function(xhrObj){
-                        var target = document.getElementById('spinner');
-                        spinner = new Spinner(opts).spin(target); //Start spinner before ajax request
-                    },
-			        complete: function() {
-			        	spinner.stop();
-			        }
-			    });
-			}
-			else 
-				alert("Sorry, you cannot add duplicates!");
-		});
-	});
-    
-    function checkDuplicate(name, count){
-        var i=0;
-        var content= "#left-sortable li#" + count;
-        for (i=0; i<count; i++){
-            content= "#left-sortable li#" + (i);
-            if ($(content).text() == name){
-                return false;
-            }
-        }
-        return true;
-    }
-    
     $("#removeAll").each(function() {
         $(this).on("click", function() {
             localStorage.clear();

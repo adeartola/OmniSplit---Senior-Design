@@ -9,10 +9,12 @@
 			<div id="addInfo"> 
 					<div id="newAdd">
 					<span class="label">Category: 
-					<input id="catAdd" class="labelinput" name="category" ng-model="name" required /></span>
+					<input id="catAdd" class="labelinput" name="category" ng-model="category.name" required /></span>
+					<span class="label">Description: 
+					<input class="labelinput" name="categoryDescription" ng-model="category.description" /></span>
 					</div>
 					<div id="buttonAdd">
-					<button style="width: 75px;" type="button" class="btn btn-info btn-block" id="addNow">Add</button>
+					<button style="width: 75px;" type="button" class="btn btn-info btn-block" id="addNow" ng-click="addFoodCategory()">Add</button>
 					</div>
 			</div>
 			<div id="buttonRemove">
