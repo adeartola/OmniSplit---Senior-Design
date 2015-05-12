@@ -38,10 +38,10 @@
             <h2>Food items</h2>
             <p>Add food items to a given category:</p>
 			<span id="activeCat" style="font-size: 24px; color: black;"></span>
-			<button type="button" class="btn btn-info btn-block" id="addFood">Add New Food Item</button>
-            <ul class="foodItems">
+			<ul class="foodItems">
                 <li ng-repeat="foodItem in foodItems"><p>{{foodItem.name}} ({{foodItem.price | currency:"$"}}) - {{foodItem.description}}</p></li>
             </ul>
+			<button type="button" class="btn btn-info btn-block" id="addFood">Add New Food Item to this Category</button>
 			<div id="addInfo2"> 
 					<div id="newAdd">
 					<span class="label">Food Name: 

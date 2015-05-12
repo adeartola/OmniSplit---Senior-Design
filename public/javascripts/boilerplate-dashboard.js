@@ -22,8 +22,8 @@ var opts = {
 omnisplitApp.config(function($routeProvider) {
     $routeProvider
         .when('/', {
-            templateUrl : 'dashboard/dashboard',
-            controller: 'dashboardController'
+            templateUrl : 'dashboard/menu',
+            controller: 'menuController'
         })
         .when('/tables', {
             templateUrl : 'dashboard/tables',
@@ -48,7 +48,7 @@ omnisplitApp.config(function($routeProvider) {
 });
 
 omnisplitApp.controller('tabController', function($scope) {
-    this.tab = 3;
+    this.tab = 4;
     this.setTab = function(tabId) {
         this.tab = tabId;
     };
