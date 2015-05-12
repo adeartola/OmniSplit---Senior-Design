@@ -74,9 +74,11 @@ omnisplitApp.controller('menuController', function($scope, $window) {
     w.unbind('resize');
 
     $scope.items = [];
+    $scope.foodItems = [];
 
     $scope.clickItem = function(id) {
         var thisItem = angular.element("#item-" + id);
+        $scope.foodItems = angular.copy($scope.items[id].item);
 	    for (x in $scope.items) {
             $("#item-" + x + " p").css("color","black");
             $("#item-" + x).removeClass("activeCat1");
@@ -86,6 +88,59 @@ omnisplitApp.controller('menuController', function($scope, $window) {
 	    thisItem.addClass("activeCat1");
 	    $("#activeCat").html($(".activeCat1").html());
 	    $("#activeCat p").css("color","black");
+    };
+
+    $scope.addFoodItem = function() {
+        var name = angular.copy($scope.newItem.itemLine1);
+        var description = angular.copy($scope.newItem.itemLine2);
+        var price = angular.copy($scope.newItem.itemLine3);
+        var active = $("#activeCat").text();
+        var id = $("li.activeCat1").attr("id").split("-")[1];
+
+        $.ajax({
+            type: 'POST',
+            url: 'api/addItem',
+            data: {
+                name: name,
+                price: price,
+                description: description,
+                active: active
+            },
+            beforeSend: function(xhrObj){
+                var target = document.getElementById('spinner');
+                spinner = new Spinner(opts).spin(target); //Start spinner before ajax request
+            },
+            complete: function() {
+                spinner.stop();
+                $scope.foodItems.push({
+                    "name": name,
+                    "description": description,
+                    "price": price
+                });
+                $scope.items[id].item.push({
+                    "name": name,
+                    "description": description,
+                    "price": price
+                });
+                $scope.newItem.itemLine1 = '';
+                $scope.newItem.itemLine2 = '';
+                $scope.newItem.itemLine3 = '';
+                $scope.$digest();
+            }
+        });
+
+        /*
+        var active = $("#activeCat").text();
+        $('#foodPrice').val('');
+        $('#foodName').val('');
+        $('#foodDesc').val('');
+        
+        $('#catAdd').val('');
+        var count = $("#left-sortable").children().length;
+        if (1){
+            count++;
+            alert("Sorry, you cannot add duplicates!");
+            */
     };
 
 	$scope.$on('$viewContentLoaded', function() {
@@ -101,12 +156,14 @@ omnisplitApp.controller('menuController', function($scope, $window) {
 				spinner.stop();
 			},
 			success: function(data) {
-				for (x in data.group){
+                alert(JSON.stringify(data.group))
+				for (x in data.group) {
                     $scope.items.push({
                         "id": x,
                         "name": data.group[x].name,
                         "description": data.group[x].description,
-                        "items": data.group[x].items
+                        "item": data.group[x].item,
+                        "step": data.group[x].step
                     });
 				}
                 $scope.$apply();

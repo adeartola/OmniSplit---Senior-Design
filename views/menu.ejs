@@ -37,17 +37,20 @@
             <p>Add food items to a given category:</p>
 			<span id="activeCat" style="font-size: 24px; color: black;"></span>
 			<button type="button" class="btn btn-info btn-block" id="addFood">Add New Food Item</button>
+            <ul class="foodItems">
+                <li ng-repeat="foodItem in foodItems"><p>{{foodItem.name}} ({{foodItem.price | currency:"$"}}) - {{foodItem.description}}</p></li>
+            </ul>
 			<div id="addInfo2"> 
 					<div id="newAdd">
 					<span class="label">Food Name: 
-					<input id="foodName" class="labelinput" name="item-line-1" ng-model="item.itemLine1" required /></span>
+					<input id="foodName" class="labelinput" name="item-line-1" ng-model="newItem.itemLine1" required /></span>
 					<span class="label">Food Description: 
-					<input id="foodDesc" class="labelinput" name="item-line-2" ng-model="item.itemLine2" required /></span>
+					<input id="foodDesc" class="labelinput" name="item-line-2" ng-model="newItem.itemLine2" required /></span>
 					<span class="label">Price: 
-					<input id="foodPrice" class="labelinput" name="item-line-3" ng-model="item.itemLine3" required /></span>
+					<input id="foodPrice" class="labelinput" name="item-line-3" ng-model="newItem.itemLine3" required /></span>
 					</div>
 					<div id="buttonAdd">
-					<button style="width: 75px;" type="button" class="btn btn-info btn-block" id="addNow2">Add</button>
+					    <button style="width: 75px;" type="button" class="btn btn-info btn-block" id="addNow2" ng-click="addFoodItem()">Add</button>
 					</div>
 			</div>
 			
